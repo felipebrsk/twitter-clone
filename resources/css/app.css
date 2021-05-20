@@ -1,0 +1,240 @@
+/* ./resources/css/app.css */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer components {
+    @import url("https://fonts.googleapis.com/css2?family=Lato:wght@900&display=swap");
+
+    /* Styles */
+    .error-content {
+        @apply p-4 rounded flex items-start text-red-600 my-4 shadow-lg mx-auto max-w-xl justify-center border border-gray-700 bg-red-50;
+    }
+
+    .active {
+        @apply bg-gray-900 text-blue-300;
+    }
+
+    .auth-main-content {
+        @apply flex md:flex-row flex-col;
+    }
+
+    .auth-first-box {
+        @apply md:w-1/2 w-full bg-no-repeat bg-center items-center justify-center text-white;
+        background-image: url("https://abs.twimg.com/sticky/illustrations/lohp_1302x955.png");
+        height: 925px;
+    }
+
+    .auth-second-box {
+        @apply md:w-1/2 w-full flex justify-between flex-col md:py-64 py-12 lg:space-y-10 md:space-y-0 space-y-16 md:px-10 sm:px-20 px-8;
+        font-family: "Lato", sans-serif;
+    }
+
+    .happening-now {
+        @apply text-gray-300 lg:text-7xl md:text-5xl sm:text-7xl text-5xl;
+    }
+
+    .auth-buttons {
+        @apply flex md:flex-col md:space-y-4 flex-col sm:space-y-0 space-y-4 md:space-x-0 sm:space-x-6 sm:flex-row;
+    }
+
+    .auth-register-button {
+        @apply p-3 md:w-2/5 w-full bg-blue-500 rounded-full hover:bg-blue-600 transition text-center;
+    }
+
+    .auth-enter-button {
+        @apply p-3 md:w-2/5 w-full rounded-full border border-blue-400 text-blue-500 bg-opacity-0 bg-blue-500 hover:bg-opacity-10 transition text-center;
+    }
+
+    .auth-footer {
+        @apply py-3.5 text-gray-500 flex justify-center items-center text-xs text-center px-6 flex-wrap;
+    }
+
+    .auth-footer > a:hover {
+        text-decoration: underline;
+    }
+
+    .auth-footer > a,
+    span {
+        margin-left: 20px;
+    }
+
+    .register-input {
+        @apply w-full px-4 py-4 rounded-lg border border-gray-800 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500 pl-3 block;
+    }
+
+    /* Make the label grow up when focused */
+    .float-label {
+        @apply absolute duration-150 top-3 pl-2 mt-1 text-gray-500;
+    }
+
+    input:focus ~ label,
+    input:not(:placeholder-shown) ~ label,
+    textarea:focus ~ label,
+    textarea:not(:placeholder-shown) ~ label,
+    select:focus ~ label,
+    select:not([value=""]):valid ~ label {
+        /* @apply transform; scale-75; -translate-y-6; */
+        --tw-translate-x: 0;
+        --tw-translate-y: 0;
+        --tw-rotate: 0;
+        --tw-skew-x: 0;
+        --tw-skew-y: 0;
+        transform: translateX(var(--tw-translate-x))
+            translateY(var(--tw-translate-y)) rotate(var(--tw-rotate))
+            skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+            scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+        --tw-scale-x: 0.75;
+        --tw-scale-y: 0.75;
+        --tw-translate-y: -1rem;
+    }
+
+    input:focus ~ label,
+    select:focus ~ label {
+        @apply text-blue-500;
+        left: 0;
+    }
+    /* End of grow up label */
+
+    .register-main-content {
+        @apply bg-black text-white max-w-xl mx-auto sm:rounded-xl rounded-none sm:my-28 my-0 pb-32;
+    }
+
+    .register-header-box {
+        @apply flex flex-col md:flex-row items-center md:justify-between sm:space-y-0 space-y-4;
+    }
+
+    .steps-counter {
+        @apply uppercase tracking-wide text-xs font-bold mb-1 leading-tight;
+    }
+
+    .close-button {
+        @apply focus:outline-none font-medium rounded-full hover:bg-opacity-20 bg-opacity-0 bg-blue-500 w-8 h-8 text-xl text-blue-500;
+    }
+
+    .next-button {
+        @apply w-24 focus:outline-none border border-transparent p-1 rounded-full shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-bold;
+    }
+
+    .register-group {
+        @apply relative z-0 w-full mb-5;
+    }
+
+    .change-button {
+        @apply focus:outline-none text-blue-500 hover:underline;
+    }
+
+    .birthdate {
+        @apply mt-5;
+    }
+
+    .register-input > option {
+        @apply bg-black;
+    }
+
+    .register-select-group {
+        @apply flex md:flex-row flex-col md:space-x-4 space-x-0 mt-6;
+    }
+
+    .register-eye {
+        @apply absolute right-0 bottom-0 top-0 px-3 py-3 cursor-pointer mt-1;
+    }
+
+    .back-button {
+        @apply w-40 block mx-auto focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center font-medium border border-gray-700;
+    }
+
+    .analyse-icon {
+        @apply mb-4 h-20 w-20 text-green-500 mx-auto;
+    }
+
+    .analyse-box {
+        @apply rounded-lg p-10 flex items-center shadow border border-gray-700;
+    }
+
+    /* Progress bar register countup */
+    progress {
+        margin: 2em auto;
+        padding: 3px;
+    }
+    progress::-moz-progress-bar {
+        border-radius: 12px;
+        background: rgb(16, 185, 129);
+    }
+    /* webkit */
+    @media screen and (-webkit-min-device-pixel-ratio: 0) {
+        progress {
+            height: 25px;
+        }
+    }
+    progress::-webkit-progress-bar {
+        background: transparent;
+    }
+    progress::-webkit-progress-value {
+        border-radius: 12px;
+        background: rgb(16, 185, 129);
+    }
+
+    .progress-bar {
+        @apply rounded-full border border-gray-700 w-full;
+    }
+    /* End of progress bar */
+
+    .forgot-register {
+        @apply text-blue-600;
+    }
+
+    .status-svg {
+        @apply flex items-center text-blue-400 px-2 py-2 text-base leading-6 font-medium rounded-full hover:bg-gray-800 hover:text-blue-300;
+    }
+    /* /Styles */
+
+    /* Responsive */
+    @media screen and (max-width: 1680px) {
+        .auth-footer > a,
+        span {
+            margin-top: 4px;
+            margin-bottom: 4px;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        .auth-first-box {
+            height: 300px;
+        }
+    }
+
+    @media screen and (max-width: 340px) {
+        .auth-second-box {
+            word-break: break-all;
+        }
+        .register-footer {
+            max-width: 100px;
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        .hide-mobile {
+            display: none;
+        }
+
+        .show-mobile {
+            display: block;
+        }
+    }
+
+    @media screen and (min-width: 480px) {
+        .show-mobile {
+            display: none;
+        }
+    }
+    /* /Responsive */
+
+    /* Animations */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+    }
+    /* /Animations */
+}
