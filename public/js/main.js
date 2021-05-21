@@ -73,6 +73,7 @@ $(document).ready(function () {
     //     });
 });
 
+// Start the countdown when finish the form of register
 function countdownTimer() {
     let timeleft = 5;
     let downloadTimer = setInterval(function () {

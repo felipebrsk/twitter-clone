@@ -7,7 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title') / Twitter</title>
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
     @stack('styles')
     <style>
         html,
@@ -19,36 +18,7 @@
 </head>
 
 <body>
-    <div class="mx-auto h-screen">
-        <div class="flex flex-row justify-center">
-            <!-- Left -->
-            @auth
-                @include('layouts.left')
-            @endauth
-            <!-- /Left -->
-
-            <!-- Timeline -->
-
-            <!-- Middle -->
-            <div class="w-full sm:w-600">
-
-                @yield('content')
-
-                <!-- /Timeline -->
-            </div>
-            <!-- /Middle -->
-
-            <!-- Right -->
-            @include('layouts.right')
-            <!-- /Right -->
-
-            <!-- Mobile Menu -->
-            @auth
-                @include('layouts.mobile-menu')
-            @endauth
-            <!-- /Mobile Menu -->
-        </div>
-    </div>
+    @yield('content')
     <script type="module" src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js">
     </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -64,9 +34,6 @@
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
         integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
-        integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script src="{{ asset('js/main.js') }}"></script>

@@ -1275,6 +1275,18 @@ progress::-webkit-progress-value {
   color: rgba(147, 197, 253, var(--tw-text-opacity));
 }
 
+.like-button {
+  display: flex;
+  align-items: center;
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
 /* /Styles */
 
 /* Responsive */
@@ -1316,6 +1328,13 @@ progress::-webkit-progress-value {
 @media screen and (min-width: 480px) {
   .show-mobile {
     display: none;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .notification-max-w {
+    max-width: 280px;
+    padding-left: 6px;
   }
 }
 

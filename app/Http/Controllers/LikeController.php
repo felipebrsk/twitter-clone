@@ -30,14 +30,18 @@ class LikeController extends Controller
         $tweetAuthor = User::where('id', $request->author_id)->first();
 
         $details = [
-            'title' => Auth::user()->username . ' curtiu a sua publicação!',
+            'title' => '@' . Auth::user()->username . ' curtiu o seu tweet!',
             'actionURL' => route('home'), // Alterar home para url da publicação, quando existir
             'fas' => 'fa-heart',
         ];
 
         if ($status) {
-            \Notification::send($tweetAuthor, new StatusNotification($details));
-            return redirect()->route('home');
+            if ($request->author_id == Auth::id()) {
+                return redirect()->route('home');
+            } else {
+                \Notification::send($tweetAuthor, new StatusNotification($details));
+                return redirect()->route('home');
+            }
         } else {
             return back()->withErrors('Ocorreu um erro ao curtir o tweet... Tente novamente ou envie-nos um ticket para verificar a situação!');
         }

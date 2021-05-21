@@ -189,7 +189,7 @@
     }
 
     .like-button {
-        @apply flex items-center transition duration-350 ease-in-out;
+        @apply flex items-center transition duration-300 ease-in-out;
     }
     /* /Styles */
 
@@ -230,6 +230,13 @@
     @media screen and (min-width: 480px) {
         .show-mobile {
             display: none;
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        .notification-max-w {
+            max-width: 280px;
+            padding-left: 6px;
         }
     }
     /* /Responsive */

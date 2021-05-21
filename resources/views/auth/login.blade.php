@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('auth.layouts.auth')
 @section('title', 'Entrar no Twitter')
 
 @section('content')
