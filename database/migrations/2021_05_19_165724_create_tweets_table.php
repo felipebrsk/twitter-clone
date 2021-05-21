@@ -20,7 +20,7 @@ class CreateTweetsTable extends Migration
             $table->text('body');
             $table->string('photo')->nullable();
 
-            $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('category_id')->nullable()->constrained('categories')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('user_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
 
             $table->timestamps();

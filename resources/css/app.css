@@ -187,6 +187,10 @@
     .status-svg {
         @apply flex items-center text-blue-400 px-2 py-2 text-base leading-6 font-medium rounded-full hover:bg-gray-800 hover:text-blue-300;
     }
+
+    .like-button {
+        @apply flex items-center transition duration-350 ease-in-out;
+    }
     /* /Styles */
 
     /* Responsive */
