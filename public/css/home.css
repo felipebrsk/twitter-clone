@@ -1258,3 +1258,17 @@ video {
 .dropdown-menu.show {
     display: block;
 }
+
+.count {
+    position: absolute;
+    margin-top: -12px;
+    margin-left: 14px;
+    font-size: 8px;
+    background: rgb(37, 124, 230);
+    border-radius: 50%;
+    height: 14px;
+    width: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

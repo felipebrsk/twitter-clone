@@ -46,6 +46,8 @@
                                     d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9">
                                 </path>
                             </svg>
+                                <span class="count"
+                                    data-count="{{ count(Auth::user()->unreadNotifications) }}">{{ count(Auth::user()->unreadNotifications) }}</span>
                             <span class="hidden xl:block ml-4 font-bold text-md">Notificações</span>
                         </a>
                         <a href="#"
@@ -433,10 +435,11 @@
                                         @endphp
                                         @foreach (Auth::user()->likes as $like)
                                             @if ($like->tweet_id == $tweet->id)
-                                                <div
-                                                    class="like-button text-red-600">
+                                                <div class="like-button text-red-600">
                                                     <a href="#" class="unlike flex items-center"
-                                                        data-tweetId="{{ $tweet->id }}" data-authorId="{{ $tweet->user->id }}" data-tweetLikes="{{ $tweet->likes->count() }}">
+                                                        data-tweetId="{{ $tweet->id }}"
+                                                        data-authorId="{{ $tweet->user->id }}"
+                                                        data-tweetLikes="{{ $tweet->likes->count() }}">
                                                         <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
                                                             <g>
                                                                 <path
@@ -451,10 +454,11 @@
                                                 </div>
                                             @break
                                         @elseif ($i == $c)
-                                            <div
-                                                class="like-button text-white text-xs hover:text-red-600 ">
+                                            <div class="like-button text-white text-xs hover:text-red-600 ">
                                                 <a href="#" class="like flex items-center"
-                                                    data-tweetId="{{ $tweet->id }}" data-authorId="{{ $tweet->user->id }}" data-tweetLikes="{{ $tweet->likes->count() }}">
+                                                    data-tweetId="{{ $tweet->id }}"
+                                                    data-authorId="{{ $tweet->user->id }}"
+                                                    data-tweetLikes="{{ $tweet->likes->count() }}">
                                                     <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
                                                         <g>
                                                             <path
@@ -470,9 +474,9 @@
                                         @endif
                 @endforeach
                 @if ($i == 0)
-                    <div
-                        class="like-button text-white text-xs hover:text-red-600 ">
-                        <a href="#" class="like flex items-center" data-tweetId="{{ $tweet->id }}" data-authorId="{{ $tweet->user->id }}" data-tweetLikes="{{ $tweet->likes->count() }}">
+                    <div class="like-button text-white text-xs hover:text-red-600 ">
+                        <a href="#" class="like flex items-center" data-tweetId="{{ $tweet->id }}"
+                            data-authorId="{{ $tweet->user->id }}" data-tweetLikes="{{ $tweet->likes->count() }}">
                             <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
                                 <g>
                                     <path
@@ -835,19 +839,20 @@
                     e.currentTarget.lastElementChild.innerHTML = ++tweetLikes;
                 });
             });
-            
+
             $('.unlike').on('click', function(e) {
                 e.preventDefault();
-                
+
                 const tweetId = e.target.parentNode.dataset['tweetid'];
                 let tweetLikes = e.target.parentNode.dataset['tweetlikes'];
-                
+
                 const data = {
                     _method: 'DELETE',
                 };
-                
+
                 axios.post('like/' + tweetId, data).then(response => {
-                    e.currentTarget.parentNode.className = 'like-button text-white hover:text-red-600';
+                    e.currentTarget.parentNode.className =
+                        'like-button text-white hover:text-red-600';
                     e.currentTarget.lastElementChild.innerHTML = --tweetLikes;
                 });
             });
