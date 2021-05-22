@@ -27,11 +27,11 @@ class LikeReplyController extends Controller
             $status = LikeReply::create($request->all());
         }
 
-        $tweetAuthor = User::where('id', $request->author_id)->first();
+        $commentAuthor = User::where('id', $request->author_id)->first();
 
         $details = [
             'title' => '@' . Auth::user()->username . ' curtiu o seu comentário!',
-            'actionURL' => route('home'), // Alterar home para url da publicação, quando existir
+            'actionURL' => route('tweet.show', $request->tweet_id), // Alterar home para url da publicação, quando existir
             'fas' => 'fa-heart',
         ];
 
@@ -39,7 +39,7 @@ class LikeReplyController extends Controller
             if ($request->author_id == Auth::id()) {
                 return redirect()->route('home');
             } else {
-                \Notification::send($tweetAuthor, new StatusNotification($details));
+                \Notification::send($commentAuthor, new StatusNotification($details));
                 return redirect()->route('home');
             }
         } else {

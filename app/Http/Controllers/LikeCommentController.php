@@ -31,7 +31,7 @@ class LikeCommentController extends Controller
 
         $details = [
             'title' => '@' . Auth::user()->username . ' curtiu o seu comentário!',
-            'actionURL' => route('home'), // Alterar home para url da publicação, quando existir
+            'actionURL' => route('tweet.show', $request->tweet_id), // Alterar home para url da publicação, quando existir
             'fas' => 'fa-heart',
         ];
 

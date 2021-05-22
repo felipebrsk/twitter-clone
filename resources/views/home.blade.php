@@ -202,7 +202,8 @@
                         <img class="rounded-2xl object-center object-cover"
                             onclick="document.getElementById('myModal-{{ $tweet->id }}').showModal()"
                             src="{{ asset('img/tweets/medium/' . $tweet->photo) }}" alt="{{ $tweet->photo }}" />
-                        <dialog id="myModal-{{ $tweet->id }}" class="max-h-auto w-11/12 md:w-4/5 p-5 bg-black rounded-md text-white">
+                        <dialog id="myModal-{{ $tweet->id }}"
+                            class="max-h-auto w-11/12 md:w-4/5 p-5 bg-black rounded-md text-white">
                             <div class="flex flex-col w-full h-auto ">
                                 <!-- Header -->
                                 <div class="flex w-full h-auto justify-start items-center">
@@ -220,12 +221,13 @@
                                 <!-- Modal Content-->
                                 <div
                                     class="flex w-full h-auto py-10 px-2 justify-center items-center rounded text-center text-gray-500">
-                                    <img src="{{ asset('img/tweets/large/' . $tweet->photo) }}" alt="{{ $tweet->photo }}" class="w-full max-w-7xl">
+                                    <img src="{{ asset('img/tweets/large/' . $tweet->photo) }}"
+                                        alt="{{ $tweet->photo }}" class="w-full max-w-7xl">
                                 </div>
                                 <!-- End of Modal Content-->
                             </div>
                             <div class="flex justify-center items-center">
-                                
+
                             </div>
                         </dialog>
                     </div>

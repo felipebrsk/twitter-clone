@@ -32,7 +32,7 @@
     </div>
 
     @foreach (Auth::user()->notifications as $notification)
-        <a href="#">
+        <a href="{{ $notification->data['actionURL'] }}">
             <div class="border-b border-l border-r border-dim-200 text-white">
                 <div class="flex md:items-center p-6">
                     <div>

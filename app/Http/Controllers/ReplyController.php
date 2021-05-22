@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Comment;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Reply;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Notifications\StatusNotification;
+use Illuminate\Support\Facades\Auth;
 
-class CommentController extends Controller
+class ReplyController extends Controller
 {
     /**
      * Store a newly created resource in storage.
@@ -18,15 +18,22 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        $status = Comment::create([
+        $status = Reply::create([
             'user_id' => Auth::id(),
-            'tweet_id' => $request->tweet_id,
-            'comment' => $request->comment,
+            'comment_id' => $request->comment_id,
+            'reply' => $request->reply,
         ]);
 
-        $tweetAuthor = User::where('id', $request->author_id)->first();
+        $commentAuthor = User::where('id', $request->author_id)->first();
+        $tweetAuthor = User::where('id', $request->tweet_author)->first();
 
-        $details = [
+        $detailsToCommentAuthor = [
+            'title' => '@' . Auth::user()->username . ' respondeu ao seu comentário!',
+            'actionURL' => route('tweet.show', $request->tweet_id),
+            'fas' => 'fa-comment',
+        ];
+
+        $detailsToTweetAuthor = [
             'title' => '@' . Auth::user()->username . ' comentou no seu tweet!',
             'actionURL' => route('tweet.show', $request->tweet_id),
             'fas' => 'fa-comment',
@@ -34,7 +41,8 @@ class CommentController extends Controller
 
         if ($status) {
             if ($request->author_id != Auth::id()) {
-                \Notification::send($tweetAuthor, new StatusNotification($details));
+                \Notification::send($commentAuthor, new StatusNotification($detailsToCommentAuthor));
+                \Notification::send($tweetAuthor, new StatusNotification($detailsToTweetAuthor));
                 return redirect()->route('tweet.show', $request->tweet_id)->with('success_message', 'Sua resposta foi publicada com sucesso!');
             } else {
                 return redirect()->route('tweet.show', $request->tweet_id);

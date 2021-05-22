@@ -183,6 +183,7 @@
                                 <!-- Modal Comment Content-->
                                 <form action="{{ route('comment.store') }}" method="POST" enctype="multipart/form-data">
                                     <input type="hidden" name="tweet_id" value="{{ $tweet->id }}">
+                                    <input type="hidden" name="author_id" value="{{ $tweet->user->id }}">
                                     @csrf
                                     <div class="w-full py-10 px-2 rounded text-gray-500">
                                         <div class="flex items-center">
@@ -382,7 +383,7 @@
                 <div class="flex mt-8 pr-8" style="padding-left: 53px;">
                     <div class="w-full">
                         <div class="flex items-center justify-between text-gray-400">
-                            <a href="#">
+                            <a href="#" onclick="event.preventDefault(); document.getElementById('myModal-{{ $comment->id }}').showModal();">
                                 <div
                                     class="flex items-center text-xs hover:text-blue-400 transition duration-350 ease-in-out">
                                     <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
@@ -392,9 +393,106 @@
                                             </path>
                                         </g>
                                     </svg>
-                                    14
+                                    {{ $comment->replies->count() }}
                                 </div>
                             </a>
+
+                            <!-- Comment modal -->
+                            <dialog id="myModal-{{ $comment->id }}"
+                                class="max-h-auto w-11/12 md:w-1/3 p-5 bg-black rounded-md text-white">
+                                <div class="flex flex-col w-full h-auto">
+                                    <!-- Header -->
+                                    <div class="flex w-full h-auto justify-start items-center border-b border-dim-200">
+                                        <div onclick="document.getElementById('myModal-{{ $comment->id }}').close();"
+                                            class="flex w-1/12 h-auto cursor-pointer">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                                fill="currentColor" stroke="rgba(96, 165, 250)" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                                            </svg>
+                                        </div>
+                                        <!--Header End-->
+                                    </div>
+                                    <!-- Modal Comment Content-->
+                                    <form action="{{ route('reply.store') }}" method="POST" enctype="multipart/form-data">
+                                        <input type="hidden" name="tweet_id" value="{{ $tweet->id }}">
+                                        <input type="hidden" name="comment_id" value="{{ $comment->id }}">
+                                        @csrf
+                                        <div class="w-full py-10 px-2 rounded text-gray-500">
+                                            <div class="flex items-center">
+                                                <div>
+                                                    @if ($comment->user->picture != null)
+                                                        <img src="{{ asset('img/profiles/' . $comment->user->picture) }}"
+                                                            alt="{{ $comment->user->username }}">
+                                                    @else
+                                                        <img class="inline-block h-10 w-10 rounded-full"
+                                                            src="{{ asset('img/profiles/default-user.png') }}"
+                                                            alt="{{ $comment->user->username }}" />
+                                                    @endif
+                                                </div>
+                                                <div class="ml-3 flex flex-col">
+                                                    <p class="flex items-center text-base leading-6 font-medium">
+                                                        <a href="#">
+                                                            <b class="hover:underline">{{ $comment->user->name }}</b>
+                                                        </a>
+                                                        @if ($comment->user->verified === 1)
+                                                            <svg viewBox="0 0 24 24" aria-label="Verified account"
+                                                                fill="currentColor" class="w-4 h-4 ml-1">
+                                                                <g>
+                                                                    <path
+                                                                        d="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.154-.435.238-.905.238-1.4 0-2.21-1.71-3.998-3.818-3.998-.47 0-.92.084-1.336.25C14.818 2.415 13.51 1.5 12 1.5s-2.816.917-3.437 2.25c-.415-.165-.866-.25-1.336-.25-2.11 0-3.818 1.79-3.818 4 0 .494.083.964.237 1.4-1.272.65-2.147 2.018-2.147 3.6 0 1.495.782 2.798 1.942 3.486-.02.17-.032.34-.032.514 0 2.21 1.708 4 3.818 4 .47 0 .92-.086 1.335-.25.62 1.334 1.926 2.25 3.437 2.25 1.512 0 2.818-.916 3.437-2.25.415.163.865.248 1.336.248 2.11 0 3.818-1.79 3.818-4 0-.174-.012-.344-.033-.513 1.158-.687 1.943-1.99 1.943-3.484zm-6.616-3.334l-4.334 6.5c-.145.217-.382.334-.625.334-.143 0-.288-.04-.416-.126l-.115-.094-2.415-2.415c-.293-.293-.293-.768 0-1.06s.768-.294 1.06 0l1.77 1.767 3.825-5.74c.23-.345.696-.436 1.04-.207.346.23.44.696.21 1.04z">
+                                                                    </path>
+                                                                </g>
+                                                            </svg>
+                                                        @endif
+                                                        <span
+                                                            class="ml-1 text-sm leading-5 font-medium text-gray-400 group-hover:text-gray-300 transition ease-in-out duration-150">
+                                                            {{ '@' . $comment->user->username }} &bull;
+                                                            <b class="hover:underline"
+                                                                title="{{ $comment->created_at->format('d/m/Y, H:i:s') }}">{{ $comment->created_at->diffForHumans() }}</b>
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="border-l border-dim-200 h-full absolute ml-5" style="z-index: -1"></div>
+                                            <div class="text-white" style="padding-left: 53px;">
+                                                <p>
+                                                    {{ Str::limit($comment->comment, 255, '...') }}
+                                                </p>
+                                            </div>
+                                            <div class="text-gray-400 pl-12 mt-2">
+                                                Respondendo a
+                                                <a href="#"
+                                                    class="font-normal text-blue-400 hover:underline">{{ '@' . $comment->user->username }}</a>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <div class="mt-4">
+                                                    @if ($comment->user->picture != null)
+                                                        <img src="{{ asset('img/profiles/' . $comment->user->picture) }}"
+                                                            alt="{{ $comment->user->username }}">
+                                                    @else
+                                                        <img class="inline-block h-10 w-10 rounded-full"
+                                                            src="{{ asset('img/profiles/default-user.png') }}"
+                                                            alt="{{ $comment->user->username }}" />
+                                                    @endif
+                                                </div>
+                                                <textarea name="reply"
+                                                    class="w-full mt-5 focus:outline-none border border-dim-200 rounded-lg bg-transparent pl-2 pt-2"
+                                                    placeholder="Tweete sua resposta...">{{ old('reply') }}</textarea>
+                                            </div>
+                                        </div>
+                                        <button type="submit"
+                                            class="flex items-center p-2 float-right bg-blue-500 rounded-full font-bold">Responder</button>
+                                    </form>
+                                    <!-- End of Modal Comment Content-->
+                                </div>
+                                <div class="flex justify-center items-center">
+
+                                </div>
+                            </dialog>
+                            <!-- End of omment modal -->
+                        
                             <a href="#">
                                 <div
                                     class="flex items-center text-xs hover:text-green-400 transition duration-350 ease-in-out">
@@ -418,7 +516,7 @@
                                 <div class="like-button text-red-600">
                                     <a href="#" class="unlike-comment flex items-center" data-commentId="{{ $comment->id }}"
                                         data-authorId="{{ $comment->user->id }}"
-                                        data-commentLikes="{{ $comment->likes->count() }}">
+                                        data-commentLikes="{{ $comment->likes->count() }}" data-tweetId="{{ $comment->tweet->id }}">
                                         <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
                                             <g>
                                                 <path
@@ -436,7 +534,7 @@
                             <div class="like-button text-xs hover:text-red-600 ">
                                 <a href="#" class="like-comment flex items-center" data-commentId="{{ $comment->id }}"
                                     data-authorId="{{ $comment->user->id }}"
-                                    data-commentLikes="{{ $comment->likes->count() }}">
+                                    data-commentLikes="{{ $comment->likes->count() }}" data-tweetId="{{ $comment->tweet->id }}">
                                     <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
                                         <g>
                                             <path
@@ -458,7 +556,7 @@
                             <div class="like-button text-xs hover:text-red-600 ">
                                 <a href="#" class="like-comment flex items-center" data-commentId="{{ $comment->id }}"
                                     data-authorId="{{ $comment->user->id }}"
-                                    data-commentLikes="{{ $comment->likes->count() }}">
+                                    data-commentLikes="{{ $comment->likes->count() }}" data-tweetId="{{ $comment->tweet->id }}">
                                     <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
                                         <g>
                                             <path
@@ -539,7 +637,7 @@
                     <div class="flex mt-8 pr-8" style="padding-left: 53px;">
                         <div class="w-full">
                             <div class="flex items-center justify-between text-gray-400">
-                                <a href="#">
+                                <a href="#" onclick="event.preventDefault(); document.getElementById('myModal-{{ $reply->id }}').showModal();">
                                     <div
                                         class="flex items-center text-xs hover:text-blue-400 transition duration-350 ease-in-out">
                                         <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
@@ -549,9 +647,104 @@
                                                 </path>
                                             </g>
                                         </svg>
-                                        14
                                     </div>
                                 </a>
+    
+                                <!-- Comment modal -->
+                                <dialog id="myModal-{{ $reply->id }}"
+                                    class="max-h-auto w-11/12 md:w-1/3 p-5 bg-black rounded-md text-white">
+                                    <div class="flex flex-col w-full h-auto">
+                                        <!-- Header -->
+                                        <div class="flex w-full h-auto justify-start items-center border-b border-dim-200">
+                                            <div onclick="document.getElementById('myModal-{{ $reply->id }}').close();"
+                                                class="flex w-1/12 h-auto cursor-pointer">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                                    fill="currentColor" stroke="rgba(96, 165, 250)" stroke-width="2"
+                                                    stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                                </svg>
+                                            </div>
+                                            <!--Header End-->
+                                        </div>
+                                        <!-- Modal Comment Content-->
+                                        <form action="{{ route('reply.store') }}" method="POST" enctype="multipart/form-data">
+                                            <input type="hidden" name="tweet_id" value="{{ $tweet->id }}">
+                                            <input type="hidden" name="comment_id" value="{{ $reply->id }}">
+                                            @csrf
+                                            <div class="w-full py-10 px-2 rounded text-gray-500">
+                                                <div class="flex items-center">
+                                                    <div>
+                                                        @if ($reply->user->picture != null)
+                                                            <img src="{{ asset('img/profiles/' . $reply->user->picture) }}"
+                                                                alt="{{ $reply->user->username }}">
+                                                        @else
+                                                            <img class="inline-block h-10 w-10 rounded-full"
+                                                                src="{{ asset('img/profiles/default-user.png') }}"
+                                                                alt="{{ $reply->user->username }}" />
+                                                        @endif
+                                                    </div>
+                                                    <div class="ml-3 flex flex-col">
+                                                        <p class="flex items-center text-base leading-6 font-medium">
+                                                            <a href="#">
+                                                                <b class="hover:underline">{{ $reply->user->name }}</b>
+                                                            </a>
+                                                            @if ($reply->user->verified === 1)
+                                                                <svg viewBox="0 0 24 24" aria-label="Verified account"
+                                                                    fill="currentColor" class="w-4 h-4 ml-1">
+                                                                    <g>
+                                                                        <path
+                                                                            d="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.154-.435.238-.905.238-1.4 0-2.21-1.71-3.998-3.818-3.998-.47 0-.92.084-1.336.25C14.818 2.415 13.51 1.5 12 1.5s-2.816.917-3.437 2.25c-.415-.165-.866-.25-1.336-.25-2.11 0-3.818 1.79-3.818 4 0 .494.083.964.237 1.4-1.272.65-2.147 2.018-2.147 3.6 0 1.495.782 2.798 1.942 3.486-.02.17-.032.34-.032.514 0 2.21 1.708 4 3.818 4 .47 0 .92-.086 1.335-.25.62 1.334 1.926 2.25 3.437 2.25 1.512 0 2.818-.916 3.437-2.25.415.163.865.248 1.336.248 2.11 0 3.818-1.79 3.818-4 0-.174-.012-.344-.033-.513 1.158-.687 1.943-1.99 1.943-3.484zm-6.616-3.334l-4.334 6.5c-.145.217-.382.334-.625.334-.143 0-.288-.04-.416-.126l-.115-.094-2.415-2.415c-.293-.293-.293-.768 0-1.06s.768-.294 1.06 0l1.77 1.767 3.825-5.74c.23-.345.696-.436 1.04-.207.346.23.44.696.21 1.04z">
+                                                                        </path>
+                                                                    </g>
+                                                                </svg>
+                                                            @endif
+                                                            <span
+                                                                class="ml-1 text-sm leading-5 font-medium text-gray-400 group-hover:text-gray-300 transition ease-in-out duration-150">
+                                                                {{ '@' . $reply->user->username }} &bull;
+                                                                <b class="hover:underline"
+                                                                    title="{{ $reply->created_at->format('d/m/Y, H:i:s') }}">{{ $reply->created_at->diffForHumans() }}</b>
+                                                            </span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="border-l border-dim-200 h-full absolute ml-5" style="z-index: -1"></div>
+                                                <div class="text-white" style="padding-left: 53px;">
+                                                    <p>
+                                                        {{ Str::limit($reply->reply, 255, '...') }}
+                                                    </p>
+                                                </div>
+                                                <div class="text-gray-400 pl-12 mt-2">
+                                                    Respondendo a
+                                                    <a href="#"
+                                                        class="font-normal text-blue-400 hover:underline">{{ '@' . $reply->user->username }}</a>
+                                                </div>
+                                                <div class="flex items-center">
+                                                    <div class="mt-4">
+                                                        @if ($reply->user->picture != null)
+                                                            <img src="{{ asset('img/profiles/' . $reply->user->picture) }}"
+                                                                alt="{{ $reply->user->username }}">
+                                                        @else
+                                                            <img class="inline-block h-10 w-10 rounded-full"
+                                                                src="{{ asset('img/profiles/default-user.png') }}"
+                                                                alt="{{ $reply->user->username }}" />
+                                                        @endif
+                                                    </div>
+                                                    <textarea name="reply"
+                                                        class="w-full mt-5 focus:outline-none border border-dim-200 rounded-lg bg-transparent pl-2 pt-2"
+                                                        placeholder="Tweete sua resposta...">{{ old('reply') }}</textarea>
+                                                </div>
+                                            </div>
+                                            <button type="submit"
+                                                class="flex items-center p-2 float-right bg-blue-500 rounded-full font-bold">Responder</button>
+                                        </form>
+                                        <!-- End of Modal Comment Content-->
+                                    </div>
+                                    <div class="flex justify-center items-center">
+    
+                                    </div>
+                                </dialog>
+                                <!-- End of omment modal -->
                                 <a href="#">
                                     <div
                                         class="flex items-center text-xs hover:text-green-400 transition duration-350 ease-in-out">
@@ -575,7 +768,7 @@
                                     <div class="like-button text-red-600">
                                         <a href="#" class="unlike-reply flex items-center" data-replyId="{{ $reply->id }}"
                                             data-authorId="{{ $reply->user->id }}"
-                                            data-replyLikes="{{ $reply->likes->count() }}">
+                                            data-replyLikes="{{ $reply->likes->count() }}" data-tweetId="{{ $tweet->id }}" data-tweetAuthor="{{ $tweet->user->id }}">
                                             <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
                                                 <g>
                                                     <path
@@ -593,7 +786,7 @@
                                 <div class="like-button text-xs hover:text-red-600 ">
                                     <a href="#" class="like-reply flex items-center" data-replyId="{{ $reply->id }}"
                                         data-authorId="{{ $reply->user->id }}"
-                                        data-replyLikes="{{ $reply->likes->count() }}">
+                                        data-replyLikes="{{ $reply->likes->count() }}" data-tweetId="{{ $tweet->id }}" data-tweetAuthor="{{ $tweet->user->id }}">
                                         <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
                                             <g>
                                                 <path
@@ -615,7 +808,7 @@
                                 <div class="like-button text-xs hover:text-red-600 ">
                                     <a href="#" class="like-reply flex items-center" data-replyId="{{ $reply->id }}"
                                         data-authorId="{{ $reply->user->id }}"
-                                        data-replyLikes="{{ $reply->likes->count() }}">
+                                        data-replyLikes="{{ $reply->likes->count() }}" data-tweetId="{{ $tweet->id }}" data-tweetAuthor="{{ $tweet->user->id }}">
                                         <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
                                             <g>
                                                 <path
@@ -696,6 +889,7 @@
             $('.like-comment').on('click', function(e) {
                 e.preventDefault(); 
 
+                const tweetId = e.target.parentNode.dataset['tweetid'];
                 const commentId = e.target.parentNode.dataset['commentid'];
                 const authorId = e.target.parentNode.dataset['authorid'];
                 let commentLikes = e.target.parentNode.dataset['commentlikes'];
@@ -704,6 +898,7 @@
                     user_id: {{ Auth::id() }},
                     comment_id: commentId,
                     author_id: authorId,
+                    tweet_id: tweetId,
                 };
 
                 axios.post('{{ route('like-comment.store') }}', data).then(response => {
@@ -733,6 +928,8 @@
                 e.preventDefault(); 
 
                 const replyId = e.target.parentNode.dataset['replyid'];
+                const tweetAuthor = e.target.parentNode.dataset['tweetauthor'];
+                const tweetId = e.target.parentNode.dataset['tweetid'];
                 const authorId = e.target.parentNode.dataset['authorid'];
                 let replyLikes = e.target.parentNode.dataset['replylikes'];
 
@@ -740,6 +937,8 @@
                     user_id: {{ Auth::id() }},
                     reply_id: replyId,
                     author_id: authorId,
+                    tweet_id: tweetId,
+                    tweet_author: tweetAuthor,
                 };
 
                 axios.post('{{ route('like-reply.store') }}', data).then(response => {
