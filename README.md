@@ -77,9 +77,11 @@ $ php artisan serve
 You can access in http://localhost:8000
 <br>
 
-<a name="pictures">
-    <img src="https://user-images.githubusercontent.com/75860661/119241839-dec15000-bb2f-11eb-9e2d-c730ac4de3a9.jpeg">
-</a>
+<a name="pictures">**Pictures**</a>
+<img src="https://user-images.githubusercontent.com/75860661/119241839-dec15000-bb2f-11eb-9e2d-c730ac4de3a9.jpeg">
+<img src="https://user-images.githubusercontent.com/75860661/119241858-01ebff80-bb30-11eb-85b4-10f9bdd2cdd0.jpeg">
+<img src="https://user-images.githubusercontent.com/75860661/119241861-0adcd100-bb30-11eb-979f-29c65bbda4c5.jpeg">
+<img src="https://user-images.githubusercontent.com/75860661/119241865-10d2b200-bb30-11eb-802b-672806679132.jpeg">
 
 <a name="status">**Status**</a>
 <h4 align="left"> 
