@@ -11,7 +11,7 @@ Content Table
    * [Status](#status)
 <!--te-->
 
-<a name="technologies">**Technologies used**</a>
+<a name="technologies">Technologies used</a>
 - Laravel 
 - MySQL
 - JavaScript
