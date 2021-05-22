@@ -82,7 +82,7 @@
                 </div>
                 <div class="flex-1 px-2 pt-2 mt-2">
                     <textarea class="bg-transparent text-gray-400 font-medium text-lg w-full focus:outline-none" rows="2"
-                        cols="50" name="body" placeholder="O que está acontecendo?"></textarea>
+                        cols="50" name="body" placeholder="O que está acontecendo?">{{ old('body') }}</textarea>
                     <img id="blah" src="#" alt="Imagem" class="hidden w-full rounded" />
                 </div>
             </div>
@@ -191,9 +191,11 @@
                 </a>
             </div>
             <div class="pl-16">
-                <p class="text-base width-auto font-medium text-white flex-shrink px-1">
-                    {{ $tweet->body }}
-                </p>
+                <a href="{{ route('tweet.show', $tweet->id) }}">
+                    <p class="text-base width-auto font-medium text-white flex-shrink px-1">
+                        {{ $tweet->body }}
+                    </p>
+                </a>
 
                 @if ($tweet->photo != null)
                     <div class="flex mr-2 rounded-2xl border border-gray-600">
@@ -341,15 +343,6 @@
     @endforeach
     <!-- /Tweet -->
 @endsection
-
-@push('styles')
-    <style>
-        ::-webkit-scrollbar {
-            display: flow-root;
-        }
-
-    </style>
-@endpush
 
 @push('scripts')
     <script>

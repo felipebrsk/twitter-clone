@@ -70,7 +70,7 @@ $(document).ready(function () {
     //     .on("change blur focus input", function () {
     //         let val = $(this).val();
     //         if (val.indexOf("@") !== 0) $(this).val("@" + val);
-    //     });
+    //     });+
 });
 
 // Start the countdown when finish the form of register

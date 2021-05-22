@@ -588,6 +588,10 @@ video {
   }
 }
 
+::-webkit-scrollbar {
+  display: flow-root;
+}
+
 /* Styles */
 
 .error-content {

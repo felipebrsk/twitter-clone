@@ -63,9 +63,11 @@ class TweetController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Tweet $tweet)
     {
-        //
+        $title = $tweet->user->username . ' no Twiter: ' . Str::limit($tweet->body, 40, '...');
+        
+        return view('tweet.show', compact('tweet', 'title'));
     }
 
     /**
