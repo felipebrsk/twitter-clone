@@ -21,8 +21,7 @@ Content Table
 - JWT
 
 <a name="Sobre">**About**</a>
-## The HanGO! is a social media and personal project developed in <a href="https://laravel.com/docs/8.x/">laravel</a>, <a href="https://tailwindcss.com">tailwind</a>, <a href="https://jquery.com/">jQuery/Ajax</a>, 
-<a href="https://github.com/axios/axios">Axios</a> and <a href="https://jwt.io/">JWT</a>.
+## The HanGO! is a social media and personal project developed in <a href="https://laravel.com/docs/8.x/">laravel</a>, <a href="https://tailwindcss.com">tailwind</a>, <a href="https://jquery.com/">jQuery/Ajax</a>, <a href="https://githubcom/axios/axios">Axios</a> and <a href="https://jwt.io/">JWT</a>.
 
 <a name="features">**How it works**</a><br>
 - Verified Twitter system
