@@ -3,14 +3,15 @@
 Content Table
 =================
 <!--ts-->
-   * [Technologies](#tecnologias)
-   * [About](#Sobre)
+   * [Technologies](#technologies)
+   * [About](#about)
    * [Features](#features)
-   * [Installation](#instalacao)
+   * [Installation](#instalation)
+   * [Pictures](#pictures)
    * [Status](#status)
 <!--te-->
 
-<a name="tecnologias">**Technologies used**</a>
+<a name="technologies">**Technologies used**</a>
 - Laravel 
 - MySQL
 - JavaScript
@@ -20,7 +21,7 @@ Content Table
 - Tailwind
 - JWT
 
-<a name="Sobre">**About**</a>
+<a name="about">**About**</a>
 ## The Twitter Clone is a social media and personal project developed in <a href="https://laravel.com/docs/8.x/" target="_blank">laravel</a>, <a href="https://tailwindcss.com" target="_blank">tailwind</a>, <a href="https://jquery.com/" target="_blank">jQuery/Ajax</a>, <a href="https://github.com/axios/axios" target="_blank">Axios</a> and <a href="https://jwt.io/" target="_blank">JWT</a>.
 
 <a name="features">**How it works**</a><br>
@@ -36,7 +37,7 @@ Content Table
 - Building...
 
 
-<a name="instalacao">**Installation**</a><br>
+<a name="instalation">**Installation**</a><br>
 - Clone the repository<br>
 ```
 $ git clone https://github.com/felipebrsk/twitter-clone
@@ -75,6 +76,10 @@ $ php artisan serve
 ```
 You can access in http://localhost:8000
 <br>
+
+<a name="pictures">
+    <img src="https://user-images.githubusercontent.com/75860661/119241839-dec15000-bb2f-11eb-9e2d-c730ac4de3a9.jpeg">
+</a>
 
 <a name="status">**Status**</a>
 <h4 align="left"> 
