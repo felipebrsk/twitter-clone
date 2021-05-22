@@ -18,11 +18,26 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        $status = Comment::create([
-            'user_id' => Auth::id(),
-            'tweet_id' => $request->tweet_id,
-            'comment' => $request->comment,
-        ]);
+        $data = $request->all();
+
+        if ($request->hasFile('comment_picture')) {
+            $image = $request->file('comment_picture');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+
+            $small = public_path('img/tweets/small/' . $filename);
+            $medium = public_path('img/tweets/medium/' . $filename);
+            $large = public_path('img/tweets/large/' . $filename);
+
+            \Image::make($image)->resize(600, 400)->save($small);
+            \Image::make($image)->resize(800, 600)->save($medium);
+            \Image::make($image)->resize(1920, 1080)->save($large);
+
+            $data['photo'] = $filename;
+        }
+
+        $data['user_id'] = Auth::id();
+
+        $status = Comment::create($data);
 
         $tweetAuthor = User::where('id', $request->author_id)->first();
 

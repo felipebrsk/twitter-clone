@@ -95,14 +95,14 @@
             @if ($tweet->photo != null)
                 <div class="flex mr-2 rounded-2xl border border-gray-600">
                     <img class="rounded-2xl object-center object-cover"
-                        onclick="document.getElementById('myModal-{{ $tweet->id }}').showModal()"
+                        onclick="document.getElementById('myModal-{{ $tweet->photo }}').showModal()"
                         src="{{ asset('img/tweets/medium/' . $tweet->photo) }}" alt="{{ $tweet->photo }}" />
-                    <dialog id="myModal-{{ $tweet->id }}"
+                    <dialog id="myModal-{{ $tweet->photo }}"
                         class="max-h-auto w-11/12 md:w-4/5 p-5 bg-black rounded-md text-white">
                         <div class="flex flex-col w-full h-auto ">
                             <!-- Header -->
                             <div class="flex w-full h-auto justify-start items-center">
-                                <div onclick="document.getElementById('myModal-{{ $tweet->id }}').close();"
+                                <div onclick="document.getElementById('myModal-{{ $tweet->photo }}').close();"
                                     class="flex w-1/12 h-auto justify-center cursor-pointer">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                         fill="currentColor" stroke="#FFF" stroke-width="2" stroke-linecap="round"
@@ -248,8 +248,21 @@
                                                 placeholder="Tweete sua resposta...">{{ old('comment') }}</textarea>
                                         </div>
                                     </div>
-                                    <button type="submit"
-                                        class="flex items-center p-2 float-right bg-blue-500 rounded-full font-bold">Responder</button>
+                                    <div class="flex justify-end items-center">
+                                        <div class="px-1 py-1 m-2 ml-8">
+                                            <label for="comment_picture" class="cursor-pointer status-svg">
+                                                <svg class="text-center h-7 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                                                    stroke-width="2" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path
+                                                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                                    </path>
+                                                </svg>
+                                            </label>
+                                            <input type="file" name="comment_picture" id="comment_picture" class="hidden">
+                                        </div>
+                                        <button type="submit"
+                                            class="flex items-center p-2 bg-blue-500 rounded-full font-bold">Responder</button>
+                                    </div>
                                 </form>
                                 <!-- End of Modal Comment Content-->
                             </div>
@@ -380,6 +393,41 @@
                 <div style="padding-left: 53px;" class="text-gray-300">
                     {{ $comment->comment }}
                 </div>
+                @if ($comment->photo)
+                    <div class="mt-3">
+                        <a href="#" onclick="event.preventDefault(); document.getElementById('myModal-{{ $comment->photo }}').showModal();">
+                            <img src="{{ asset('img/tweets/large/' . $comment->photo) }}" alt="Picture" class="object-cover rounded-lg">
+                        </a>
+                    </div>
+                    <dialog id="myModal-{{ $comment->photo }}"
+                        class="max-h-auto w-11/12 md:w-4/5 p-5 bg-black rounded-md text-white">
+                        <div class="flex flex-col w-full h-auto ">
+                            <!-- Header -->
+                            <div class="flex w-full h-auto justify-start items-center">
+                                <div onclick="document.getElementById('myModal-{{ $comment->photo }}').close();"
+                                    class="flex w-1/12 h-auto justify-center cursor-pointer">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="currentColor" stroke="#FFF" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="feather feather-x">
+                                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                                    </svg>
+                                </div>
+                                <!--Header End-->
+                            </div>
+                            <!-- Modal Content-->
+                            <div
+                                class="flex w-full h-auto py-10 px-2 justify-center items-center rounded text-center text-gray-500">
+                                <img src="{{ asset('img/tweets/large/' . $comment->photo) }}" alt="{{ $comment->photo }}"
+                                    class="w-full max-w-7xl">
+                            </div>
+                            <!-- End of Modal Content-->
+                        </div>
+                        <div class="flex justify-center items-center">
+
+                        </div>
+                    </dialog>
+                @endif
                 <div class="flex mt-8 pr-8" style="padding-left: 53px;">
                     <div class="w-full">
                         <div class="flex items-center justify-between text-gray-400">

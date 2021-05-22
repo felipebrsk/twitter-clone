@@ -11,6 +11,7 @@ class Comment extends Model
         'user_id',
         'tweet_id',
         'comment',
+        'photo',
     ];
 
     use HasFactory;
