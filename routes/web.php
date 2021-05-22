@@ -4,6 +4,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LikeCommentController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\LikeReplyController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\TweetController;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +28,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::resource('tweet', TweetController::class);
     Route::resource('like', LikeController::class);
     Route::resource('like-comment', LikeCommentController::class);
+    Route::resource('like-reply', LikeReplyController::class);
     Route::resource('notification', NotificationController::class);
     Route::resource('comment', CommentController::class);
 });

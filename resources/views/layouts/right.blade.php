@@ -25,7 +25,7 @@
             <!-- Trending Topic -->
             <div
                 class="text-blue-400 text-sm font-normal p-3 border-b border-dim-200 bg-gray-800 bg-opacity-0 hover:bg-opacity-25 cursor-pointer transition duration-350 ease-in-out">
-                <h2 class="font-bold text-md text-white">#PS5FORSALETODAY</h2>
+                <h2 class="font-bold text-md text-white">#LoremIpsum</h2>
                 <p class="text-xs text-gray-400">29.7K Tweets</p>
             </div>
             <!-- /Trending Topic -->
@@ -33,7 +33,7 @@
             <!-- Trending Topic -->
             <div
                 class="text-blue-400 text-sm font-normal p-3 border-b border-dim-200 bg-gray-800 bg-opacity-0 hover:bg-opacity-25 cursor-pointer transition duration-350 ease-in-out">
-                <h2 class="font-bold text-md text-white">#PrayForSomething</h2>
+                <h2 class="font-bold text-md text-white">#Laravel</h2>
                 <p class="text-xs text-gray-400">351K Tweets</p>
             </div>
             <!-- /Trending Topic -->

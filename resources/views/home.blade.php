@@ -243,7 +243,7 @@
                                         </path>
                                     </g>
                                 </svg>
-                                12.3 k
+                                {{ $tweet->comments->count() }}
                             </div>
                             <div
                                 class="flex items-center text-white text-xs hover:text-green-400 transition duration-350 ease-in-out">
