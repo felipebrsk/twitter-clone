@@ -418,6 +418,8 @@
                                     <form action="{{ route('reply.store') }}" method="POST" enctype="multipart/form-data">
                                         <input type="hidden" name="tweet_id" value="{{ $tweet->id }}">
                                         <input type="hidden" name="comment_id" value="{{ $comment->id }}">
+                                        <input type="hidden" name="tweet_author" value="{{ $comment->tweet->user_id }}">
+                                        <input type="hidden" name="author_id" value="{{ $comment->user->id }}">
                                         @csrf
                                         <div class="w-full py-10 px-2 rounded text-gray-500">
                                             <div class="flex items-center">
