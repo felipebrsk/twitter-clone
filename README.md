@@ -32,9 +32,9 @@ Content Table
 - Likes and unlikes (like a tweet, comment or reply) :heavy_check_mark:
 - Notification system to likes, comments, replies and retweets :heavy_check_mark:
 - Upload photos in tweet, comment or replies :heavy_check_mark:
-- Report system :white_check_mark:
-- Friendships :white_check_mark:
-- Show, edit, remove and retweet tweets :white_check_mark:
+- Report system 
+- Friendships 
+- Show, edit, remove and retweet tweets 
 
 
 <a name="instalation">**Installation**</a><br>
