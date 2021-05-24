@@ -25,16 +25,16 @@ Content Table
 ## The Twitter Clone is a social media and personal project developed in <a href="https://laravel.com/docs/8.x/" target="_blank">laravel</a>, <a href="https://tailwindcss.com" target="_blank">tailwind</a>, <a href="https://jquery.com/" target="_blank">jQuery/Ajax</a>, <a href="https://github.com/axios/axios" target="_blank">Axios</a> and <a href="https://jwt.io/" target="_blank">JWT</a>.
 
 <a name="features">**How it works**</a><br>
-- Verified Twitter system
-- Friendships
-- Cool UX/UI in auth section
-- Alternative login (email or phone)
-- Comments and replies
-- Likes and unlikes (like a tweet, comment or reply)
-- Show, edit, remove and retweet tweets
-- Notification system to likes, comments, replies and retweets
+- Verified Twitter system :heavy_check_mark:
+- Cool UX/UI in auth section :heavy_check_mark:
+- Alternative login (email or phone) :heavy_check_mark:
+- Comments and replies :heavy_check_mark:
+- Likes and unlikes (like a tweet, comment or reply) :heavy_check_mark:
+- Notification system to likes, comments, replies and retweets :heavy_check_mark:
+- Upload photos in tweet, comment or replies :heavy_check_mark:
 - Report system
-- Building...
+- Friendships
+- Show, edit, remove and retweet tweets
 
 
 <a name="instalation">**Installation**</a><br>
