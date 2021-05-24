@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->text('bio')->nullable();
-            $table->string('localization')->default('Brasil');
+            $table->string('location')->default('Brasil');
             $table->string('site')->nullable();
             $table->string('picture')->nullable();
             $table->string('phone')->nullable()->unique();

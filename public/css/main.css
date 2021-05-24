@@ -1291,6 +1291,11 @@ progress::-webkit-progress-value {
   transition-duration: 300ms;
 }
 
+.profile-card {
+  width: 100%;
+  max-width: 990px;
+}
+
 /* /Styles */
 
 /* Responsive */
@@ -1339,6 +1344,12 @@ progress::-webkit-progress-value {
   .notification-max-w {
     max-width: 280px;
     padding-left: 6px;
+  }
+}
+
+@media screen and (min-width: 640px) {
+  .profile-card {
+    width: 100%;
   }
 }
 

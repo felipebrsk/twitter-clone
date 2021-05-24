@@ -23,7 +23,7 @@ class User extends Authenticatable
         'username',
         'phone',
         'bio',
-        'localization',
+        'location',
         'site',
         'picture',
         'banner',
@@ -49,9 +49,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public static function getUserByUsername($username)
+    {
+        return User::where('username', $username)->first();
+    }
+
     public function tweets()
     {
-        return $this->hasMany(Tweet::class, 'id', 'user_id');
+        return $this->hasMany(Tweet::class);
     }
 
     public function likes()

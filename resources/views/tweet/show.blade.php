@@ -43,7 +43,7 @@
                 <div class="flex items-center">
                     <div>
                         @if ($tweet->user->picture != null)
-                            <img src="{{ asset('img/profiles/' . $tweet->user->picture) }}"
+                            <img src="{{ asset('img/profiles/' . $tweet->user->picture) }}" class="inline-block h-10 w-10 rounded-full"
                                 alt="{{ $tweet->user->username }}">
                         @else
                             <img class="inline-block h-10 w-10 rounded-full"
@@ -89,7 +89,7 @@
         </div>
         <div class="px-4 mt-4">
             <p class="text-base width-auto font-medium text-white flex-shrink px-1">
-                {{ $tweet->body }}
+                {!! nl2br(e($tweet->body)) !!}
             </p>
 
             @if ($tweet->photo != null)

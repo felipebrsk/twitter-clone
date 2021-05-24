@@ -159,7 +159,7 @@
                         <div>
                             @if ($tweet->user->picture != null)
                                 <img src="{{ asset('img/profiles/' . $tweet->user->picture) }}"
-                                    alt="{{ $tweet->user->username }}">
+                                    alt="{{ $tweet->user->username }}" class="w-10 h-10 inline-block rounded-full">
                             @else
                                 <img class="inline-block h-10 w-10 rounded-full"
                                     src="{{ asset('img/profiles/default-user.png') }}"
@@ -193,7 +193,7 @@
             <div class="pl-16">
                 <a href="{{ route('tweet.show', $tweet->id) }}">
                     <p class="text-base width-auto font-medium text-white flex-shrink px-1">
-                        {{ $tweet->body }}
+                        {!! nl2br(e($tweet->body)) !!}
                     </p>
                 </a>
 
