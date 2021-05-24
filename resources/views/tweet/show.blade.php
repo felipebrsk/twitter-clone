@@ -226,6 +226,41 @@
                                             <p>
                                                 {{ Str::limit($tweet->body, 255, '...') }}
                                             </p>
+                                            @if ($tweet->photo != null)
+                                                <div class="flex mr-2 rounded-2xl border border-gray-600">
+                                                    <img class="rounded-2xl object-center object-cover cursor-pointer"
+                                                        onclick="document.getElementById('myModal-{{ $tweet->photo }}').showModal()"
+                                                        src="{{ asset('img/tweets/medium/' . $tweet->photo) }}" alt="{{ $tweet->photo }}" />
+                                                    <dialog id="myModal-{{ $tweet->photo }}"
+                                                        class="max-h-auto w-11/12 md:w-4/5 p-5 bg-black rounded-md text-white">
+                                                        <div class="flex flex-col w-full h-auto ">
+                                                            <!-- Header -->
+                                                            <div class="flex w-full h-auto justify-start items-center">
+                                                                <div onclick="document.getElementById('myModal-{{ $tweet->photo }}').close();"
+                                                                    class="flex w-1/12 h-auto justify-center cursor-pointer">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                                                        fill="currentColor" stroke="#FFF" stroke-width="2" stroke-linecap="round"
+                                                                        stroke-linejoin="round" class="feather feather-x">
+                                                                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                                                                    </svg>
+                                                                </div>
+                                                                <!--Header End-->
+                                                            </div>
+                                                            <!-- Modal Content-->
+                                                            <div
+                                                                class="flex w-full h-auto py-10 px-2 justify-center items-center rounded text-center text-gray-500">
+                                                                <img src="{{ asset('img/tweets/large/' . $tweet->photo) }}" alt="{{ $tweet->photo }}"
+                                                                    class="w-full max-w-7xl">
+                                                            </div>
+                                                            <!-- End of Modal Content-->
+                                                        </div>
+                                                        <div class="flex justify-center items-center">
+
+                                                        </div>
+                                                    </dialog>
+                                                </div>
+                                            @endif
                                         </div>
                                         <div class="text-gray-400 pl-12 mt-2">
                                             Respondendo a
@@ -510,6 +545,41 @@
                                                 <p>
                                                     {{ Str::limit($comment->comment, 255, '...') }}
                                                 </p>
+                                                @if ($comment->photo != null)
+                                                    <div class="flex mr-2 rounded-2xl border border-gray-600">
+                                                        <img class="rounded-2xl object-center object-cover cursor-pointer"
+                                                            onclick="document.getElementById('myModal-{{ $comment->photo }}').showModal()"
+                                                            src="{{ asset('img/tweets/medium/' . $comment->photo) }}" alt="{{ $comment->photo }}" />
+                                                        <dialog id="myModal-{{ $comment->photo }}"
+                                                            class="max-h-auto w-11/12 md:w-4/5 p-5 bg-black rounded-md text-white">
+                                                            <div class="flex flex-col w-full h-auto ">
+                                                                <!-- Header -->
+                                                                <div class="flex w-full h-auto justify-start items-center">
+                                                                    <div onclick="document.getElementById('myModal-{{ $comment->photo }}').close();"
+                                                                        class="flex w-1/12 h-auto justify-center cursor-pointer">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                                                            fill="currentColor" stroke="#FFF" stroke-width="2" stroke-linecap="round"
+                                                                            stroke-linejoin="round" class="feather feather-x">
+                                                                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                                                                        </svg>
+                                                                    </div>
+                                                                    <!--Header End-->
+                                                                </div>
+                                                                <!-- Modal Content-->
+                                                                <div
+                                                                    class="flex w-full h-auto py-10 px-2 justify-center items-center rounded text-center text-gray-500">
+                                                                    <img src="{{ asset('img/tweets/large/' . $comment->photo) }}" alt="{{ $comment->photo }}"
+                                                                        class="w-full max-w-7xl">
+                                                                </div>
+                                                                <!-- End of Modal Content-->
+                                                            </div>
+                                                            <div class="flex justify-center items-center">
+
+                                                            </div>
+                                                        </dialog>
+                                                    </div>
+                                                @endif
                                             </div>
                                             <div class="text-gray-400 pl-12 mt-2">
                                                 Respondendo a
