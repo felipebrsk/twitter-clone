@@ -74,7 +74,8 @@
             <div class="flex">
                 <div class="m-2 w-10 py-1">
                     @if (Auth::user()->picture != null)
-
+                        <img src="{{ asset('img/profiles/' . Auth::user()->picture) }}" class="w-10 h-10 rounded-full"
+                            alt="{{ Auth::user()->username }}">
                     @else
                         <img class="inline-block h-10 w-10 rounded-full"
                             src="{{ asset('img/profiles/default-user.png') }}" alt="{{ Auth::user()->username }}">
@@ -154,7 +155,7 @@
         <div class="border-t border-l border-r @if ($loop->last) border-b mb-24 @endif border-dim-200 bg-gray-800 bg-opacity-0 hover:bg-opacity-25 cursor-pointer
             transition duration-350 ease-in-out pb-4">
             <div class="flex flex-shrink-0 p-4 pb-0">
-                <a href="#" class="flex-shrink-0 group block">
+                <a href="{{ route('profile.show', $tweet->user->username) }}" class="flex-shrink-0 group block">
                     <div class="flex items-center">
                         <div>
                             @if ($tweet->user->picture != null)

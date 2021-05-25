@@ -39,7 +39,7 @@
     <div
         class="border-b border-l border-r  border-dim-200 bg-gray-800 bg-opacity-0 hover:bg-opacity-25 transition duration-350 ease-in-out pb-4 text-white">
         <div class="flex flex-shrink-0 p-4 pb-0">
-            <a href="#" class="flex-shrink-0 group block">
+            <a href="{{ route('profile.show', $tweet->user->username) }}" class="flex-shrink-0 group block">
                 <div class="flex items-center">
                     <div>
                         @if ($tweet->user->picture != null)
@@ -383,7 +383,7 @@
     </div>
     @foreach ($tweet->comments as $comment)
         <div class="flex-shrink-0 p-4 border-b border-l border-r border-dim-200 text-white @if ($loop->last) mb-24 @endif">
-            <a href="#" class="flex-shrink-0 group block">
+            <a href="{{ route('profile.show', $comment->user->username) }}" class="flex-shrink-0 group block">
                 <div class="flex items-center">
                     <div>
                         @if ($comment->user->picture != null)
@@ -709,7 +709,7 @@
             </a>
             @if (count($comment->replies) > 0)
                 @foreach ($comment->replies as $reply)
-                <a href="#" class="flex-shrink-0 group block mt-2">
+                <a href="{{ route('profile.show', $reply->user->username) }}" class="flex-shrink-0 group block mt-2">
                     <div class="flex items-center">
                         <div>
                             @if ($reply->user->picture != null)
