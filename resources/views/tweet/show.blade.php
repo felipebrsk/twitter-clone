@@ -37,7 +37,7 @@
     </div>
 
     <div
-        class="border-b border-l border-r border-dim-200 bg-gray-800 bg-opacity-0 hover:bg-opacity-25 transition duration-350 ease-in-out pb-4 text-white">
+        class="border-b border-l border-r  border-dim-200 bg-gray-800 bg-opacity-0 hover:bg-opacity-25 transition duration-350 ease-in-out pb-4 text-white">
         <div class="flex flex-shrink-0 p-4 pb-0">
             <a href="#" class="flex-shrink-0 group block">
                 <div class="flex items-center">
@@ -74,6 +74,7 @@
                                             <circle cx="144.3" cy="496" r="144.3" />
                                             <circle cx="496" cy="496" r="144.3" />
                                             <circle cx="847.7" cy="496" r="144.3" />
+                                            <circle cx="847.7" cy="496" r="144.3" />
                                         </g>
                                     </svg>
                                 </a>
@@ -88,13 +89,13 @@
             </a>
         </div>
         <div class="px-4 mt-4">
-            <p class="text-base width-auto font-medium text-white flex-shrink px-1">
+            <p class="text-base w-auto font-medium text-white flex-shrink px-1 max-w-xl">
                 {!! nl2br(e($tweet->body)) !!}
             </p>
 
             @if ($tweet->photo != null)
                 <div class="flex mr-2 rounded-2xl border border-gray-600">
-                    <img class="rounded-2xl object-center object-cover"
+                    <img class="rounded-2xl object-center object-cover cursor-pointer"
                         onclick="document.getElementById('myModal-{{ $tweet->photo }}').showModal()"
                         src="{{ asset('img/tweets/medium/' . $tweet->photo) }}" alt="{{ $tweet->photo }}" />
                     <dialog id="myModal-{{ $tweet->photo }}"
@@ -105,7 +106,7 @@
                                 <div onclick="document.getElementById('myModal-{{ $tweet->photo }}').close();"
                                     class="flex w-1/12 h-auto justify-center cursor-pointer">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                        fill="currentColor" stroke="#FFF" stroke-width="2" stroke-linecap="round"
+                                        fill="currentColor" stroke="rgba(96, 165, 250)" stroke-width="2" stroke-linecap="round"
                                         stroke-linejoin="round" class="feather feather-x">
                                         <line x1="18" y1="6" x2="6" y2="18"></line>
                                         <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -120,9 +121,6 @@
                                     class="w-full max-w-7xl">
                             </div>
                             <!-- End of Modal Content-->
-                        </div>
-                        <div class="flex justify-center items-center">
-
                         </div>
                     </dialog>
                 </div>
@@ -190,7 +188,7 @@
                                             <div>
                                                 @if ($tweet->user->picture != null)
                                                     <img src="{{ asset('img/profiles/' . $tweet->user->picture) }}"
-                                                        alt="{{ $tweet->user->username }}">
+                                                        alt="{{ $tweet->user->username }}" class="w-10 h-10 rounded-full object-cover">
                                                 @else
                                                     <img class="inline-block h-10 w-10 rounded-full"
                                                         src="{{ asset('img/profiles/default-user.png') }}"
@@ -271,7 +269,7 @@
                                             <div class="mt-4">
                                                 @if ($tweet->user->picture != null)
                                                     <img src="{{ asset('img/profiles/' . $tweet->user->picture) }}"
-                                                        alt="{{ $tweet->user->username }}">
+                                                        alt="{{ $tweet->user->username }}" class="w-10 h-10 rounded-full object-cover">
                                                 @else
                                                     <img class="inline-block h-10 w-10 rounded-full"
                                                         src="{{ asset('img/profiles/default-user.png') }}"
@@ -390,7 +388,7 @@
                     <div>
                         @if ($comment->user->picture != null)
                             <img src="{{ asset('img/profiles/' . $comment->user->picture) }}"
-                                alt="{{ $comment->user->username }}">
+                                alt="{{ $comment->user->username }}" class="w-10 h-10 rounded-full object-cover">
                         @else
                             <img class="inline-block h-10 w-10 rounded-full"
                                 src="{{ asset('img/profiles/default-user.png') }}"
@@ -509,7 +507,7 @@
                                                 <div>
                                                     @if ($comment->user->picture != null)
                                                         <img src="{{ asset('img/profiles/' . $comment->user->picture) }}"
-                                                            alt="{{ $comment->user->username }}">
+                                                            alt="{{ $comment->user->username }}" class="w-10 h-10 rounded-full object-cover">
                                                     @else
                                                         <img class="inline-block h-10 w-10 rounded-full"
                                                             src="{{ asset('img/profiles/default-user.png') }}"
@@ -590,7 +588,7 @@
                                                 <div class="mt-4">
                                                     @if ($comment->user->picture != null)
                                                         <img src="{{ asset('img/profiles/' . $comment->user->picture) }}"
-                                                            alt="{{ $comment->user->username }}">
+                                                            alt="{{ $comment->user->username }}" class="w-10 h-10 rounded-full object-cover">
                                                     @else
                                                         <img class="inline-block h-10 w-10 rounded-full"
                                                             src="{{ asset('img/profiles/default-user.png') }}"
@@ -716,7 +714,7 @@
                         <div>
                             @if ($reply->user->picture != null)
                                 <img src="{{ asset('img/profiles/' . $reply->user->picture) }}"
-                                    alt="{{ $reply->user->username }}">
+                                    alt="{{ $reply->user->username }}" class="w-10 h-10 rounded-full object-cover">
                             @else
                                 <img class="inline-block h-10 w-10 rounded-full"
                                     src="{{ asset('img/profiles/default-user.png') }}"
@@ -797,7 +795,7 @@
                                                     <div>
                                                         @if ($reply->user->picture != null)
                                                             <img src="{{ asset('img/profiles/' . $reply->user->picture) }}"
-                                                                alt="{{ $reply->user->username }}">
+                                                                alt="{{ $reply->user->username }}" class="w-10 h-10 rounded-full object-cover">
                                                         @else
                                                             <img class="inline-block h-10 w-10 rounded-full"
                                                                 src="{{ asset('img/profiles/default-user.png') }}"
@@ -843,7 +841,7 @@
                                                     <div class="mt-4">
                                                         @if ($reply->user->picture != null)
                                                             <img src="{{ asset('img/profiles/' . $reply->user->picture) }}"
-                                                                alt="{{ $reply->user->username }}">
+                                                                alt="{{ $reply->user->username }}" class="w-10 h-10 rounded-full object-cover">
                                                         @else
                                                             <img class="inline-block h-10 w-10 rounded-full"
                                                                 src="{{ asset('img/profiles/default-user.png') }}"

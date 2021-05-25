@@ -56,7 +56,7 @@ class User extends Authenticatable
 
     public function tweets()
     {
-        return $this->hasMany(Tweet::class);
+        return $this->hasMany(Tweet::class)->orderBy('id', 'desc');
     }
 
     public function likes()
@@ -76,11 +76,11 @@ class User extends Authenticatable
 
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class)->orderBy('id', 'desc');
     }
 
     public function replies()
     {
-        return $this->hasMany(Reply::class);
+        return $this->hasMany(Reply::class)->orderBy('id', 'desc');
     }
 }

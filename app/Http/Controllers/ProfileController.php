@@ -19,11 +19,10 @@ class ProfileController extends Controller
     public function show($username)
     {
         $title = Auth::user()->name . ' ' . '(@' . Auth::user()->username . ')';
-        $site = new RedirectResponse(Auth::user()->site);
 
         $user = User::getUserByUsername($username);
 
-        return view('user.profile', compact('user', 'title', 'site'));
+        return view('user.profile', compact('user', 'title'));
     }
 
     /**

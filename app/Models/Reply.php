@@ -17,7 +17,7 @@ class Reply extends Model
 
     public function comment()
     {
-        return $this->belongsTo(Comment::class);
+        return $this->belongsTo(Comment::class)->orderBy('id', 'desc');
     }
 
     public function user()

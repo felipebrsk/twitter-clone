@@ -24,7 +24,6 @@
             <!-- Left -->
             @auth
                 @include('layouts.left')
-            @endauth
             <!-- /Left -->
 
             <!-- Timeline -->
@@ -43,7 +42,6 @@
             <!-- /Right -->
 
             <!-- Mobile Menu -->
-            @auth
                 @include('layouts.mobile-menu')
             @endauth
             <!-- /Mobile Menu -->

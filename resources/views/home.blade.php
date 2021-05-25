@@ -83,7 +83,7 @@
                 <div class="flex-1 px-2 pt-2 mt-2">
                     <textarea class="bg-transparent text-gray-400 font-medium text-lg w-full focus:outline-none" rows="2"
                         cols="50" name="body" placeholder="O que está acontecendo?">{{ old('body') }}</textarea>
-                    <img id="blah" src="#" alt="Imagem" class="hidden w-full rounded" />
+                    <img id="image_output_home" src="#" alt="Imagem" class="hidden w-full rounded" />
                 </div>
             </div>
             <!--middle creat tweet below icons-->
@@ -91,7 +91,7 @@
                 <div class="w-full pl-11">
                     <div class="flex items-center">
                         <div class="text-center px-1 py-1 m-2">
-                            <label for="tweet_picture" class="cursor-pointer status-svg">
+                            <label for="tweet_picture_home" class="cursor-pointer status-svg">
                                 <svg class="text-center h-7 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round"
                                     stroke-width="2" stroke="currentColor" viewBox="0 0 24 24">
                                     <path
@@ -99,7 +99,7 @@
                                     </path>
                                 </svg>
                             </label>
-                            <input type="file" name="tweet_picture" id="tweet_picture" class="hidden">
+                            <input type="file" name="tweet_picture" id="tweet_picture_home" class="hidden" accept="image/*">
                         </div>
 
                         <div class="text-center py-2 m-2">
@@ -151,7 +151,7 @@
 
     <!-- Tweet -->
     @foreach ($tweets as $tweet)
-        <div class="border-t border-l border-r @if ($loop->last) border-b @endif border-dim-200 bg-gray-800 bg-opacity-0 hover:bg-opacity-25 cursor-pointer
+        <div class="border-t border-l border-r @if ($loop->last) border-b mt-24 @endif border-dim-200 bg-gray-800 bg-opacity-0 hover:bg-opacity-25 cursor-pointer
             transition duration-350 ease-in-out pb-4">
             <div class="flex flex-shrink-0 p-4 pb-0">
                 <a href="#" class="flex-shrink-0 group block">
@@ -192,14 +192,14 @@
             </div>
             <div class="pl-16">
                 <a href="{{ route('tweet.show', $tweet->id) }}">
-                    <p class="text-base width-auto font-medium text-white flex-shrink px-1">
+                    <p class="text-base w-auto font-medium text-white flex-shrink px-1 max-w-lg">
                         {!! nl2br(e($tweet->body)) !!}
                     </p>
                 </a>
 
                 @if ($tweet->photo != null)
-                    <div class="flex mr-2 rounded-2xl border border-gray-600">
-                        <img class="rounded-2xl object-center object-cover"
+                    <div class="flex mr-2 rounded-2xl border border-gray-600 max-w-lg">
+                        <img class="rounded-2xl object-center object-cover cursor-pointer"
                             onclick="document.getElementById('myModal-{{ $tweet->id }}').showModal()"
                             src="{{ asset('img/tweets/medium/' . $tweet->photo) }}" alt="{{ $tweet->photo }}" />
                         <dialog id="myModal-{{ $tweet->id }}"
@@ -208,7 +208,7 @@
                                 <!-- Header -->
                                 <div class="flex w-full h-auto justify-start items-center">
                                     <div onclick="document.getElementById('myModal-{{ $tweet->id }}').close();"
-                                        class="flex w-1/12 h-auto justify-center cursor-pointer">
+                                        class="flex w-1/12 h-auto justify-center">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                             fill="currentColor" stroke="#FFF" stroke-width="2" stroke-linecap="round"
                                             stroke-linejoin="round" class="feather feather-x">
@@ -220,14 +220,11 @@
                                 </div>
                                 <!-- Modal Content-->
                                 <div
-                                    class="flex w-full h-auto py-10 px-2 justify-center items-center rounded text-center text-gray-500">
+                                    class="flex w-full h-auto py-10 px-2 justify-center items-center rounded text-center text-gray-500 cursor-default">
                                     <img src="{{ asset('img/tweets/large/' . $tweet->photo) }}"
                                         alt="{{ $tweet->photo }}" class="w-full max-w-7xl">
                                 </div>
                                 <!-- End of Modal Content-->
-                            </div>
-                            <div class="flex justify-center items-center">
-
                             </div>
                         </dialog>
                     </div>
@@ -391,11 +388,11 @@
         });
 
         // Render the image before post the tweet
-        tweet_picture.onchange = evt => {
-            const [file] = tweet_picture.files
+        tweet_picture_home.onchange = evt => {
+            const [file] = tweet_picture_home.files
             if (file) {
-                blah.style.display = 'block';
-                blah.src = URL.createObjectURL(file)
+                image_output_home.style.display = 'block';
+                image_output_home.src = URL.createObjectURL(file)
             }
         }
 

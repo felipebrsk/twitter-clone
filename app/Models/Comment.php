@@ -18,7 +18,7 @@ class Comment extends Model
 
     public function tweet()
     {
-        return $this->belongsTo(Tweet::class);
+        return $this->belongsTo(Tweet::class)->orderBy('id', 'desc');
     }
 
     public function user()
@@ -33,6 +33,6 @@ class Comment extends Model
 
     public function replies()
     {
-        return $this->hasMany(Reply::class);
+        return $this->hasMany(Reply::class)->orderBy('id', 'desc');
     }
 }
