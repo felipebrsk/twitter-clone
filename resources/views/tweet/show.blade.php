@@ -382,7 +382,7 @@
         </div>
     </div>
     @foreach ($tweet->comments as $comment)
-        <div class="flex-shrink-0 p-4 border-b border-l border-r border-dim-200 text-white">
+        <div class="flex-shrink-0 p-4 border-b border-l border-r border-dim-200 text-white @if ($loop->last) mb-24 @endif">
             <a href="#" class="flex-shrink-0 group block">
                 <div class="flex items-center">
                     <div>

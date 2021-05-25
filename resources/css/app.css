@@ -15,6 +15,10 @@
         @apply p-4 rounded flex items-start text-red-600 my-4 shadow-lg mx-auto max-w-xl justify-center border border-gray-700 bg-red-50;
     }
 
+    .success-content {
+        @apply p-4 rounded flex items-start text-green-600 my-4 shadow-lg mx-auto max-w-xl justify-center border border-gray-700 bg-red-50;
+    }
+
     .active {
         @apply bg-gray-900 text-blue-300;
     }

@@ -38,7 +38,7 @@
                     <div class="text-lg">
                         <svg xmlns="http://www.w3.org/2000/svg" class="fill-current w-5 pt-1" viewBox="0 0 24 24">
                             <path
-                                d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.597 17.954l-4.591-4.55-4.555 4.596-1.405-1.405 4.547-4.592-4.593-4.552 1.405-1.405 4.588 4.543 4.545-4.589 1.416 1.403-4.546 4.587 4.592 4.548-1.403 1.416z" />
+                                d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1.25 17.292l-4.5-4.364 1.857-1.858 2.643 2.506 5.643-5.784 1.857 1.857-7.5 7.643z" />
                         </svg>
                     </div>
                     <div class="px-3">
@@ -54,7 +54,7 @@
                 </div>
             @endif
             @if (session()->has('success_message'))
-                <div class="error-content">
+                <div class="success-content">
                     <div class="text-lg">
                         <svg xmlns="http://www.w3.org/2000/svg" class="fill-current w-5 pt-1" viewBox="0 0 24 24">
                             <path
@@ -151,7 +151,7 @@
 
     <!-- Tweet -->
     @foreach ($tweets as $tweet)
-        <div class="border-t border-l border-r @if ($loop->last) border-b mt-24 @endif border-dim-200 bg-gray-800 bg-opacity-0 hover:bg-opacity-25 cursor-pointer
+        <div class="border-t border-l border-r @if ($loop->last) border-b mb-24 @endif border-dim-200 bg-gray-800 bg-opacity-0 hover:bg-opacity-25 cursor-pointer
             transition duration-350 ease-in-out pb-4">
             <div class="flex flex-shrink-0 p-4 pb-0">
                 <a href="#" class="flex-shrink-0 group block">

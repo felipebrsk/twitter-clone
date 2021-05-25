@@ -23,7 +23,7 @@
                     </a>
                     <div class="flex flex-col sm:pl-8 pl-0">
                         <h2 class="mb-0 text-xl font-bold text-white">{{ $user->username }}</h2>
-                        <p class="mb-0 w-48 text-xs text-gray-400">{{ $user->tweets->count() }} Tweets</p>
+                        <p class="mb-0 w-48 text-xs text-gray-400">{{ $user->tweets->count() + $user->comments->count() + $user->replies->count() }} Tweets</p>
                     </div>
                 </div>
                 <!-- /Title -->
