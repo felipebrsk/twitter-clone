@@ -1051,13 +1051,14 @@
             $('.unlike-comment').on('click', function(e) {
                 e.preventDefault();
 
+                const commentId = e.target.parentNode.dataset['commentid'];
                 let commentLikes = e.target.parentNode.dataset['commentlikes'];
 
                 const data = {
                     _method: 'DELETE',
                 };
 
-                axios.post('{{ route('like-comment.destroy', $comment->id) }}', data).then(response => {
+                axios.post('/like-comment/' + commentId, data).then(response => {
                     e.currentTarget.parentNode.className =
                         'like-button text-white hover:text-red-600';
                     e.currentTarget.lastElementChild.innerHTML = --commentLikes;
@@ -1090,13 +1091,14 @@
             $('.unlike-reply').on('click', function(e) {
                 e.preventDefault();
 
+                const replyId = e.target.parentNode.dataset['replyid'];
                 let replyLikes = e.target.parentNode.dataset['replylikes'];
 
                 const data = {
                     _method: 'DELETE',
                 };
 
-                axios.post('{{ route('like-reply.destroy', $reply->id) }}', data).then(response => {
+                axios.post('/like-reply/' + replyId, data).then(response => {
                     e.currentTarget.parentNode.className =
                         'like-button text-white hover:text-red-600';
                     e.currentTarget.lastElementChild.innerHTML = --replyLikes;
