@@ -23,7 +23,7 @@
         </div>
     </div>
     @foreach ($user->follows as $following)
-        <div class="border-l border-r border-b @if ($loop->last) mb-24 @endif border-dim-200 bg-gray-800 bg-opacity-0 hover:bg-opacity-25 cursor-pointer
+        <div class="border-l border-r border-b @if ($loop->last) mb-48 @endif border-dim-200 bg-gray-800 bg-opacity-0 hover:bg-opacity-25 cursor-pointer
             transition duration-350 ease-in-out pb-4">
             <div class="flex justify-between flex-shrink-0 p-4 pb-0">
                 <a href="{{ route('profile.show', $following->following->username) }}" class="flex-shrink-0 group block">

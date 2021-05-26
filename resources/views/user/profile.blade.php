@@ -4,11 +4,11 @@
 @section('content')
     <main role="main">
         <div
-            class="border-b border-l border-r border-dim-200 bg-gray-800 bg-opacity-0 hover:bg-opacity-25 transition duration-350 ease-in-out pb-4 text-white">
+            class="profile-content border-dim-200">
             <!--Content (Center)-->
             <!-- Nav back-->
             <div
-                class="flex justify-between items-center border-b px-4 py-3 sticky top-0 w-full border-gray-700 bg-black text-white z-50">
+                class="profile-header">
                 <!-- Title -->
                 <div class="flex items-center space-x-6">
                     <a href="{{ route('home') }}">
@@ -22,8 +22,8 @@
                         </svg>
                     </a>
                     <div class="flex flex-col sm:pl-8 pl-0">
-                        <h2 class="mb-0 text-xl font-bold text-white">{{ $user->username }}</h2>
-                        <p class="mb-0 w-48 text-xs text-gray-400">
+                        <h2 class="text-xl font-bold text-white">{{ $user->username }}</h2>
+                        <p class="text-xs text-gray-400">
                             {{ $user->tweets->count() + $user->comments->count() + $user->replies->count() }} Tweets</p>
                     </div>
                 </div>
@@ -34,15 +34,15 @@
             <div class="w-full">
                 @if ($user->banner != null)
                     <div class="flex">
-                        <div class="w-full bg-cover bg-no-repeat bg-center h-52 cursor-pointer"
+                        <div class="banner"
                             onclick="document.getElementById('myModal-{{ $user->banner }}').showModal();"
                             style="background-image: url({{ asset('img/banners/' . $user->banner) }});">
                         </div>
                         <dialog id="myModal-{{ $user->banner }}"
-                            class="max-h-auto w-11/12 md:w-2/3 p-5 bg-black rounded-md text-white">
+                            class="banner-modal">
                             <div class="flex flex-col w-full h-auto ">
                                 <!-- Header -->
-                                <div class="flex border-b border-gray-800 mb-2 w-full h-auto justify-start items-center">
+                                <div class="banner-modal-header">
                                     <div onclick="document.getElementById('myModal-{{ $user->banner }}').close();"
                                         class="flex w-1/12 h-auto justify-center cursor-pointer">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -56,7 +56,7 @@
                                 </div>
                                 <!-- Modal Content-->
                                 <div
-                                    class="flex w-full h-full justify-center items-center rounded text-center text-gray-500">
+                                    class="modal-content">
                                     <img src="{{ asset('img/banners/' . $user->banner) }}" alt="{{ $user->banner }}"
                                         class="w-full">
                                 </div>
@@ -72,13 +72,13 @@
                             @csrf
                             <input type="file" id="banner" name="banner" accept="image/*" class="hidden">
                             <label for="banner" class="cursor-pointer">
-                                <div class="w-full bg-contain bg-no-repeat bg-center h-52"
+                                <div class="no-banner"
                                     style="background-image: url({{ asset('img/upload-banner.png') }});">
                                 </div>
                             </label>
                         </form>
                     @else
-                        <div class="w-full bg-cover bg-no-repeat bg-center h-48"
+                        <div class="no-banner"
                             style="background-image: url(https://png.pngtree.com/thumb_back/fh260/back_pic/03/64/88/7957ad99ea3cbf0.jpg);">
                         </div>
                     @endif
@@ -88,19 +88,19 @@
                         <!-- Avatar -->
                         <div class="flex flex-1">
                             <div class="-mt-24">
-                                <div class="w-36 h-36 md rounded-full relative avatar">
+                                <div class="avatar-content">
                                     @if ($user->picture != null)
                                         <div class="flex mr-2 rounded-2xl">
-                                            <img class="md rounded-full relative border-4 border-black w-36 h-36 object-cover object-center cursor-pointer"
+                                            <img class="avatar cursor-pointer"
                                                 onclick="document.getElementById('myModal-{{ $user->picture }}').showModal();"
                                                 src="{{ asset('img/profiles/' . $user->picture) }}"
                                                 alt="{{ $user->username }}">
                                             <dialog id="myModal-{{ $user->picture }}"
-                                                class="max-h-auto w-11/12 md:w-1/3 p-5 bg-black rounded-md text-white">
-                                                <div class="flex flex-col w-full h-auto ">
+                                                class="modal-container">
+                                                <div class="flex flex-col w-full h-auto">
                                                     <!-- Header -->
                                                     <div
-                                                        class="flex border-b border-gray-800 mb-2 w-full h-auto justify-start items-center">
+                                                        class="header-modal-avatar">
                                                         <div onclick="document.getElementById('myModal-{{ $user->picture }}').close();"
                                                             class="flex w-1/12 h-auto justify-center cursor-pointer">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -116,7 +116,7 @@
                                                     </div>
                                                     <!-- Modal Content-->
                                                     <div
-                                                        class="flex w-full h-auto py-10 px-2 justify-center items-center rounded text-center text-gray-500">
+                                                        class="modal-content">
                                                         <img src="{{ asset('img/profiles/' . $user->picture) }}"
                                                             alt="{{ $user->picture }}"
                                                             class="w-full max-w-xl rounded-full">
@@ -134,13 +134,13 @@
                                                 <input type="file" name="profile-picture" accept="image/*"
                                                     id="profile-picture" class="hidden">
                                                 <label for="profile-picture" class="cursor-pointer">
-                                                    <img class="md rounded-full relative border-4 border-black w-36 h-36 object-cover object-center"
+                                                    <img class="md avatar"
                                                         src="{{ asset('img/profiles/default-user.png') }}"
                                                         alt="{{ $user->username }}">
                                                 </label>
                                             </form>
                                         @else
-                                            <img class="md rounded-full relative border-4 border-black w-36 h-36 object-cover object-center"
+                                            <img class="md avatar"
                                                 src="{{ asset('img/profiles/default-user.png') }}"
                                                 alt="{{ $user->username }}">
                                         @endif
@@ -153,12 +153,12 @@
                             <div class="flex flex-col">
                                 <div class="flex mr-2 rounded-2xl">
                                     <button onclick="document.getElementById('myModal-{{ $user->id }}').showModal();"
-                                        class="flex justify-center max-h-max whitespace-nowrap focus:outline-none focus:ring max-w-max border bg-transparent border-blue-500 text-blue-500 hover:border-blue-800 items-center hover:shadow-lg font-bold py-2 px-4 rounded-full mr-0 ml-auto">
+                                        class="edit-profile-button">
                                         Editar perfil
                                     </button>
                                     <!-- Edit profile Modal -->
                                     <dialog id="myModal-{{ $user->id }}"
-                                        class="max-h-auto w-11/12 md:w-1/3 p-5 bg-black rounded-md text-white">
+                                        class="modal-container">
                                         <div class="flex flex-col w-full h-auto">
                                             <form action="{{ route('profile.update', $user->username) }}" method="POST"
                                                 enctype="multipart/form-data">
@@ -166,7 +166,7 @@
                                                 @csrf
                                                 <!-- Header -->
                                                 <div
-                                                    class="flex w-full border-b border-gray-800 mb-4 h-auto justify-between items-center">
+                                                    class="edit-modal-header">
                                                     <div onclick="document.getElementById('myModal-{{ $user->id }}').close();"
                                                         class="flex w-1/12 h-auto justify-center cursor-pointer">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -214,7 +214,7 @@
                                                                                 class="hidden">
                                                                             <label for="changepicture"
                                                                                 class="cursor-pointer">
-                                                                                <img class="md rounded-full relative border-4 border-black w-36 h-36 object-cover object-center"
+                                                                                <img class="md avatar"
                                                                                     src="{{ asset('img/profiles/' . $user->picture) }}"
                                                                                     alt="{{ $user->username }}">
                                                                             </label>
@@ -224,7 +224,7 @@
                                                                                 class="hidden">
                                                                             <label for="changepicture"
                                                                                 class="cursor-pointer">
-                                                                                <img class="md rounded-full relative border-4 border-black w-36 h-36 object-cover object-center"
+                                                                                <img class="md avatar"
                                                                                     src="{{ asset('img/profiles/default-user.png') }}"
                                                                                     alt="{{ $user->username }}">
                                                                             </label>
@@ -276,9 +276,9 @@
                                 </div>
                             </div>
                         @else
-                            <div class="flex items-center sm:space-x-2 space-x-0">
+                            <div class="no-profile-auth">
                                 <button
-                                    class="flex justify-center whitespace-nowrap focus:outline-none focus:ring border bg-transparent border-blue-500 text-blue-500 hover:border-blue-800 items-center hover:shadow-lg py-3 font-bold px-3 rounded-full mr-0">
+                                    class="profile-svg py-3">
                                     <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                                         xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16" height="16"
                                         fill="currentColor" viewBox="0 0 992 992" style="enable-background:new 0 0 992 992;"
@@ -291,7 +291,7 @@
                                     </svg>
                                 </button>
                                 <button
-                                    class="flex justify-center whitespace-nowrap focus:outline-none focus:ring border bg-transparent border-blue-500 text-blue-500 hover:border-blue-800 items-center hover:shadow-lg py-3 font-bold px-3 rounded-full mr-0">
+                                    class="profile-svg py-3">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
                                         fill="currentColor">
                                         <path
@@ -309,14 +309,14 @@
                                         @foreach (Auth::user()->follows as $follow)
                                             @if ($follow->following->id == $user->id)
                                                 <button id="unfollow-btn"
-                                                    class="flex justify-center whitespace-nowrap focus:outline-none items-center hover:shadow-lg font-bold py-2 px-2 rounded-full mr-0"
+                                                    class="already-following-button"
                                                     style="background: rgb(29,161,242);">
                                                     Seguindo
                                                 </button>
                                             @break
                                         @elseif ($i == $c)
                                             <button id="follow-btn"
-                                                class="flex justify-center whitespace-nowrap focus:outline-none border bg-transparent border-blue-500 text-blue-500 hover:border-blue-800 items-center hover:shadow-lg font-bold py-2 px-2 rounded-full mr-0">
+                                                class="profile-svg py-2">
                                                 Seguir
                                             </button>
                                         @endif
@@ -326,7 +326,7 @@
                                     @endforeach
                                     @if ($i == 0)
                                         <button id="follow-btn"
-                                            class="flex justify-center whitespace-nowrap focus:outline-none border bg-transparent border-blue-500 text-blue-500 hover:border-blue-800 items-center hover:shadow-lg font-bold py-2 px-2 rounded-full mr-0">
+                                            class="profile-svg py-2">
                                             Seguir
                                         </button>
                                     @endif
@@ -340,18 +340,18 @@
             <div class="w-full mt-3 ml-3">
                 <!-- User basic-->
                 <div>
-                    <h2 class="text-xl leading-6 font-bold text-white">{{ $user->name }}
+                    <h2 class="profile-name">{{ $user->name }}
                     </h2>
-                    <p class="text-sm leading-5 font-medium text-gray-600">{{ '@' . $user->username }}</p>
+                    <p class="profile-username">{{ '@' . $user->username }}</p>
                 </div>
-                <!-- Description and others -->
+                <!-- Bio and others -->
                 <div class="mt-3 text-gray-400 leading-tight mb-2">
                     @if ($user->bio != null)
                         <p class="mt-1">
                             {{ $user->bio }}
                         </p>
                     @endif
-                    <div class="text-gray-600 mt-2 sm:flex sm:space-x-3 space-x-0 sm:space-y-0 space-y-2">
+                    <div class="profile-info sm:space-y-0 space-y-2">
                         <div class="flex items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                                 <path
@@ -379,7 +379,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="text-gray-600 mt-2 sm:flex sm:space-x-3 space-x-0 items-center">
+                    <div class="profile-info items-center">
                         <div class="flex items-center">
                             <svg viewBox="0 0 24 24" class="h-5 w-5 text-gray-500" fill="currentColor">
                                 <g>
@@ -405,7 +405,7 @@
                         </div>
                     </div>
                     @if ($user->site != null)
-                        <div class="text-gray-600 mt-2 sm:flex sm:space-x-3 space-x-0">
+                        <div class="profile-info">
                             <div class="flex items-center">
                                 <svg viewBox="0 0 24 24" class="h-5 w-5 text-gray-500" fill="currentColor">
                                     <g>
@@ -424,9 +424,9 @@
                         </div>
                     @endif
                 </div>
-                <div class="pt-3 flex justify-start items-start w-full">
-                    <a href="{{ route('follow.followers', $user->username) }}" class="hover:underline">
-                        <div class="text-center pr-3 flex items-center border-r border-gray-800">
+                <div class="pt-3 flex items-center w-full">
+                    <a href="{{ route('follow.following', $user->username) }}" class="hover:underline">
+                        <div class="text-center pr-3 flex border-r border-gray-800">
                             <div class="font-bold text-gray-200">
                                 {{ $user->follows->count() }}
                             </div>
@@ -436,7 +436,7 @@
                         </div>
                     </a>
                     <a href="#" class="hover:underline">
-                        <div class="text-center flex items-center ml-3">
+                        <div class="flex ml-3">
                             <div class="font-bold text-gray-200">
                                 23,4m
                             </div>
@@ -447,22 +447,22 @@
                     </a>
                 </div>
                 <div class="flex items-center justify-between sm:px-8 -mb-8 px-0 text-white mt-8 overflow-auto">
-                    <div class="text-blue-400 border-b-4 border-blue-400 font-bold py-2">
+                    <div class="active-profile-options">
                         <a href="#">
                             Tweets
                         </a>
                     </div>
-                    <div class="hover:text-blue-400 font-medium text-gray-300 transition-colors">
+                    <div class="inactive-profile-options">
                         <a href="#">
                             Tweets e respostas
                         </a>
                     </div>
-                    <div class="hover:text-blue-400 font-medium text-gray-300 transition-colors">
+                    <div class="inactive-profile-options">
                         <a href="#">
                             Mídia
                         </a>
                     </div>
-                    <div class="hover:text-blue-400 font-medium text-gray-300 transition-colors">
+                    <div class="inactive-profile-options">
                         <a href="#">
                             Curtidas
                         </a>
@@ -474,8 +474,7 @@
         </div>
     </main>
     @foreach ($user->tweets as $tweet)
-        <div class="border-l border-r border-t @if ($loop->last) border-b mb-24 @endif border-dim-200 bg-gray-800 bg-opacity-0 hover:bg-opacity-25 cursor-pointer
-            transition duration-350 ease-in-out pb-4">
+        <div class="tweet-content border-dim-200 @if ($loop->last) border-b mb-48 @endif">
             <div class="flex flex-shrink-0 p-4 pb-0">
                 <a href="#" class="flex-shrink-0 group block">
                     <div class="flex items-center">
@@ -490,7 +489,7 @@
                             @endif
                         </div>
                         <div class="ml-3">
-                            <p class="flex items-center text-base leading-6 font-medium text-white">
+                            <p class="tweet-head">
                                 <b class="hover:underline">{{ $tweet->user->name }}</b>
                                 @if ($tweet->user->verified === 1)
                                     <svg viewBox="0 0 24 24" aria-label="Verified account" fill="currentColor"
@@ -503,7 +502,7 @@
                                     </svg>
                                 @endif
                                 <span
-                                    class="ml-1 text-sm leading-5 font-medium text-gray-400 group-hover:text-gray-300 transition ease-in-out duration-150">
+                                    class="tweet-username">
                                     {{ '@' . $tweet->user->username }} &bull;
                                     <b class="hover:underline"
                                         title="{{ $tweet->created_at->format('d/m/Y, H:i:s') }}">{{ $tweet->created_at->diffForHumans() }}</b>
@@ -515,21 +514,21 @@
             </div>
             <div class="pl-16">
                 <a href="{{ route('tweet.show', $tweet->id) }}">
-                    <p class="text-base width-auto font-medium text-white flex-shrink px-1">
+                    <p class="tweet-body">
                         {!! nl2br(e($tweet->body)) !!}
                     </p>
                 </a>
 
                 @if ($tweet->photo != null)
-                    <div class="flex mr-2 rounded-2xl border border-gray-600 max-w-lg">
-                        <img class="rounded-2xl object-center object-cover cursor-pointer"
+                    <div class="photo-container">
+                        <img class="tweet-img"
                             onclick="document.getElementById('myModal-{{ $tweet->id }}').showModal()"
                             src="{{ asset('img/tweets/medium/' . $tweet->photo) }}" alt="{{ $tweet->photo }}" />
                         <dialog id="myModal-{{ $tweet->id }}"
-                            class="max-h-auto w-11/12 md:w-4/5 p-5 bg-black rounded-md text-white">
+                            class="modal-img">
                             <div class="flex flex-col w-full h-auto ">
                                 <!-- Header -->
-                                <div class="flex w-full h-auto justify-start items-center">
+                                <div class="modal-header">
                                     <div onclick="document.getElementById('myModal-{{ $tweet->id }}').close();"
                                         class="flex w-1/12 h-auto justify-center">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -543,7 +542,7 @@
                                 </div>
                                 <!-- Modal Content-->
                                 <div
-                                    class="flex w-full h-auto py-10 px-2 justify-center items-center rounded text-center text-gray-500">
+                                    class="modal-content">
                                     <img src="{{ asset('img/tweets/large/' . $tweet->photo) }}"
                                         alt="{{ $tweet->photo }}" class="w-full max-w-7xl cursor-default">
                                 </div>
@@ -555,9 +554,9 @@
 
                 <div class="flex mt-8">
                     <div class="w-full">
-                        <div class="flex items-center md:justify-between justify-end md:pr-16 pr-4 md:space-x-0 space-x-8">
+                        <div class="tweet-actions">
                             <div
-                                class="flex items-center text-white text-xs hover:text-blue-400 transition duration-350 ease-in-out">
+                                class="tweet-action-icons hover:text-blue-400">
                                 <a href="{{ route('tweet.show', $tweet->id) }}" class="flex items-center">
                                     <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
                                         <g>
@@ -572,7 +571,7 @@
                                 </a>
                             </div>
                             <div
-                                class="flex items-center text-white text-xs hover:text-green-400 transition duration-350 ease-in-out">
+                                class="tweet-action-icons hover:text-green-400">
                                 <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
                                     <g>
                                         <path

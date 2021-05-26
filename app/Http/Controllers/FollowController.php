@@ -98,12 +98,12 @@ class FollowController extends Controller
         //
     }
 
-    public function followers($username, Follow $following_id)
+    public function following($username, Follow $following_id)
     {
         $user = User::getUserByUsername($username);
 
         $title = 'Pessoas seguidas por ' . $user->name . ' (@' . $user->username . ')';
 
-        return view('user.followers', compact('user', 'title'));
+        return view('user.following', compact('user', 'title'));
     }
 }

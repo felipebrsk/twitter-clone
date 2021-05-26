@@ -4,11 +4,13 @@
 @section('content')
     <!-- Header -->
     <div
-        class="flex justify-between items-center border-b px-4 py-3 sticky top-0 w-full border-l border-r border-gray-700 bg-black">
+        class="home-header">
         <!-- Title -->
-        <div class=" flex items-center">
-            <img src="{{ asset('img/profiles/default-user.png') }}" alt="{{ Auth::user()->username }}"
-                class="rounded-full w-6 h-6 show-mobile">
+        <div class="flex items-center">
+            <a href="{{ route('profile.show', Auth::user()->username) }}">
+                <img src="{{ asset('img/profiles/default-user.png') }}" alt="{{ Auth::user()->username }}"
+                    class="show-mobile img-header">
+            </a>
             <h2 class="text-gray-100 font-bold font-sm">
                 Página inicial
             </h2>
@@ -32,7 +34,7 @@
     <!-- Post Tweet -->
     <form action="{{ route('tweet.store') }}" method="POST" class="mb-4" enctype="multipart/form-data">
         @csrf
-        <div class="md:block hidden border-b border-l border-r border-dim-200">
+        <div class="post-tweet-home border-dim-200">
             @if ($errors->any())
                 <div class="error-content">
                     <div class="text-lg">
@@ -141,7 +143,7 @@
 
                 <div>
                     <button
-                        class="bg-blue-400 mr-4 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-full focus:outline-none">
+                        class="tweet-button">
                         Tweet
                     </button>
                 </div>
@@ -152,23 +154,22 @@
 
     <!-- Tweet -->
     @foreach ($tweets as $tweet)
-        <div class="border-t border-l border-r @if ($loop->last) border-b mb-24 @endif border-dim-200 bg-gray-800 bg-opacity-0 hover:bg-opacity-25 cursor-pointer
-            transition duration-350 ease-in-out pb-4">
+        <div class="tweet-content border-dim-200 @if ($loop->last) border-b mb-48 @endif">
             <div class="flex flex-shrink-0 p-4 pb-0">
                 <a href="{{ route('profile.show', $tweet->user->username) }}" class="flex-shrink-0 group block">
                     <div class="flex items-center">
                         <div>
                             @if ($tweet->user->picture != null)
                                 <img src="{{ asset('img/profiles/' . $tweet->user->picture) }}"
-                                    alt="{{ $tweet->user->username }}" class="w-10 h-10 inline-block rounded-full">
+                                    alt="{{ $tweet->user->username }}" class="profile-image inline-block">
                             @else
-                                <img class="inline-block h-10 w-10 rounded-full"
+                                <img class="inline-block profile-image"
                                     src="{{ asset('img/profiles/default-user.png') }}"
                                     alt="{{ $tweet->user->username }}" />
                             @endif
                         </div>
                         <div class="ml-3">
-                            <p class="flex items-center text-base leading-6 font-medium text-white">
+                            <p class="tweet-head">
                                 <b class="hover:underline">{{ $tweet->user->name }}</b>
                                 @if ($tweet->user->verified === 1)
                                     <svg viewBox="0 0 24 24" aria-label="Verified account" fill="currentColor"
@@ -181,7 +182,7 @@
                                     </svg>
                                 @endif
                                 <span
-                                    class="ml-1 text-sm leading-5 font-medium text-gray-400 group-hover:text-gray-300 transition ease-in-out duration-150">
+                                    class="tweet-username">
                                     {{ '@' . $tweet->user->username }} &bull;
                                     <b class="hover:underline"
                                         title="{{ $tweet->created_at->format('d/m/Y, H:i:s') }}">{{ $tweet->created_at->diffForHumans() }}</b>
@@ -193,21 +194,21 @@
             </div>
             <div class="pl-16">
                 <a href="{{ route('tweet.show', $tweet->id) }}">
-                    <p class="text-base w-auto font-medium text-white flex-shrink px-1 max-w-lg">
+                    <p class="tweet-body">
                         {!! nl2br(e($tweet->body)) !!}
                     </p>
                 </a>
 
                 @if ($tweet->photo != null)
-                    <div class="flex mr-2 rounded-2xl border border-gray-600 max-w-lg">
-                        <img class="rounded-2xl object-center object-cover cursor-pointer"
+                    <div class="photo-container">
+                        <img class="tweet-img"
                             onclick="document.getElementById('myModal-{{ $tweet->id }}').showModal()"
                             src="{{ asset('img/tweets/medium/' . $tweet->photo) }}" alt="{{ $tweet->photo }}" />
                         <dialog id="myModal-{{ $tweet->id }}"
-                            class="max-h-auto w-11/12 md:w-4/5 p-5 bg-black rounded-md text-white">
-                            <div class="flex flex-col w-full h-auto ">
+                            class="modal-img">
+                            <div class="flex flex-col w-full h-auto">
                                 <!-- Header -->
-                                <div class="flex w-full h-auto justify-start items-center">
+                                <div class="modal-header">
                                     <div onclick="document.getElementById('myModal-{{ $tweet->id }}').close();"
                                         class="flex w-1/12 h-auto justify-center">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -221,7 +222,7 @@
                                 </div>
                                 <!-- Modal Content-->
                                 <div
-                                    class="flex w-full h-auto py-10 px-2 justify-center items-center rounded text-center text-gray-500 cursor-default">
+                                    class="modal-content">
                                     <img src="{{ asset('img/tweets/large/' . $tweet->photo) }}"
                                         alt="{{ $tweet->photo }}" class="w-full max-w-7xl">
                                 </div>
@@ -233,9 +234,9 @@
 
                 <div class="flex mt-8">
                     <div class="w-full">
-                        <div class="flex items-center md:justify-between justify-end md:pr-16 pr-4 md:space-x-0 space-x-8">
+                        <div class="tweet-actions">
                             <div
-                                class="flex items-center text-white text-xs hover:text-blue-400 transition duration-350 ease-in-out">
+                                class="tweet-action-icons hover:text-blue-400">
                                 <a href="{{ route('tweet.show', $tweet->id) }}" class="flex items-center">
                                     <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
                                         <g>
@@ -250,7 +251,7 @@
                                 </a>
                             </div>
                             <div
-                                class="flex items-center text-white text-xs hover:text-green-400 transition duration-350 ease-in-out">
+                                class="tweet-action-icons hover:text-green-400">
                                 <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
                                     <g>
                                         <path
@@ -260,6 +261,7 @@
                                 </svg>
                                 14 k
                             </div>
+
                             @php
                                 $i = Auth::user()
                                     ->likes()
@@ -269,7 +271,9 @@
                                 
                                 $likeCount = $tweet->likes()->count();
                             @endphp
+
                             @foreach (Auth::user()->likes as $like)
+
                                 @if ($like->tweet_id == $tweet->id)
                                     <div class="like-button text-red-600">
                                         <a href="#" class="unlike flex items-center" data-tweetId="{{ $tweet->id }}"
@@ -288,6 +292,7 @@
                                         </a>
                                     </div>
                                 @break
+
                             @elseif ($i == $c)
                                 <div class="like-button text-white text-xs hover:text-red-600 ">
                                     <a href="#" class="like flex items-center" data-tweetId="{{ $tweet->id }}"
@@ -306,44 +311,48 @@
                                     </a>
                                 </div>
                             @endif
+
                             @php
                                 $c++;
                             @endphp
-    @endforeach
-    @if ($i == 0)
-        <div class="like-button text-white text-xs hover:text-red-600 ">
-            <a href="#" class="like flex items-center" data-tweetId="{{ $tweet->id }}"
-                data-authorId="{{ $tweet->user->id }}" data-tweetLikes="{{ $tweet->likes->count() }}">
-                <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
-                    <g>
-                        <path
-                            d="M12 21.638h-.014C9.403 21.59 1.95 14.856 1.95 8.478c0-3.064 2.525-5.754 5.403-5.754 2.29 0 3.83 1.58 4.646 2.73.814-1.148 2.354-2.73 4.645-2.73 2.88 0 5.404 2.69 5.404 5.755 0 6.376-7.454 13.11-10.037 13.157H12zM7.354 4.225c-2.08 0-3.903 1.988-3.903 4.255 0 5.74 7.034 11.596 8.55 11.658 1.518-.062 8.55-5.917 8.55-11.658 0-2.267-1.823-4.255-3.903-4.255-2.528 0-3.94 2.936-3.952 2.965-.23.562-1.156.562-1.387 0-.014-.03-1.425-2.965-3.954-2.965z">
-                        </path>
-                    </g>
-                </svg>
-                <p>
-                    {{ $tweet->likes()->count() }}
-                </p>
-            </a>
+
+                            @endforeach
+
+                            @if ($i == 0)
+                                <div class="like-button text-white text-xs hover:text-red-600 ">
+                                    <a href="#" class="like flex items-center" data-tweetId="{{ $tweet->id }}"
+                                        data-authorId="{{ $tweet->user->id }}" data-tweetLikes="{{ $tweet->likes->count() }}">
+                                        <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
+                                            <g>
+                                                <path
+                                                    d="M12 21.638h-.014C9.403 21.59 1.95 14.856 1.95 8.478c0-3.064 2.525-5.754 5.403-5.754 2.29 0 3.83 1.58 4.646 2.73.814-1.148 2.354-2.73 4.645-2.73 2.88 0 5.404 2.69 5.404 5.755 0 6.376-7.454 13.11-10.037 13.157H12zM7.354 4.225c-2.08 0-3.903 1.988-3.903 4.255 0 5.74 7.034 11.596 8.55 11.658 1.518-.062 8.55-5.917 8.55-11.658 0-2.267-1.823-4.255-3.903-4.255-2.528 0-3.94 2.936-3.952 2.965-.23.562-1.156.562-1.387 0-.014-.03-1.425-2.965-3.954-2.965z">
+                                                </path>
+                                            </g>
+                                        </svg>
+                                        <p>
+                                            {{ $tweet->likes()->count() }}
+                                        </p>
+                                    </a>
+                                </div>
+                            @endif
+
+                            <div class="tweet-action-icons hover:text-blue-400">
+                                <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
+                                    <g>
+                                        <path
+                                            d="M17.53 7.47l-5-5c-.293-.293-.768-.293-1.06 0l-5 5c-.294.293-.294.768 0 1.06s.767.294 1.06 0l3.72-3.72V15c0 .414.336.75.75.75s.75-.336.75-.75V4.81l3.72 3.72c.146.147.338.22.53.22s.384-.072.53-.22c.293-.293.293-.767 0-1.06z">
+                                        </path>
+                                        <path
+                                            d="M19.708 21.944H4.292C3.028 21.944 2 20.916 2 19.652V14c0-.414.336-.75.75-.75s.75.336.75.75v5.652c0 .437.355.792.792.792h15.416c.437 0 .792-.355.792-.792V14c0-.414.336-.75.75-.75s.75.336.75.75v5.652c0 1.264-1.028 2.292-2.292 2.292z">
+                                        </path>
+                                    </g>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    @endif
-    <div class="flex items-center text-white text-xs hover:text-blue-400 transition duration-350 ease-in-out">
-        <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
-            <g>
-                <path
-                    d="M17.53 7.47l-5-5c-.293-.293-.768-.293-1.06 0l-5 5c-.294.293-.294.768 0 1.06s.767.294 1.06 0l3.72-3.72V15c0 .414.336.75.75.75s.75-.336.75-.75V4.81l3.72 3.72c.146.147.338.22.53.22s.384-.072.53-.22c.293-.293.293-.767 0-1.06z">
-                </path>
-                <path
-                    d="M19.708 21.944H4.292C3.028 21.944 2 20.916 2 19.652V14c0-.414.336-.75.75-.75s.75.336.75.75v5.652c0 .437.355.792.792.792h15.416c.437 0 .792-.355.792-.792V14c0-.414.336-.75.75-.75s.75.336.75.75v5.652c0 1.264-1.028 2.292-2.292 2.292z">
-                </path>
-            </g>
-        </svg>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
     @endforeach
     <!-- /Tweet -->
 @endsection
@@ -364,7 +373,7 @@
                     author_id: authorId,
                 };
 
-                axios.post('like', data).then(response => {
+                axios.post('{{ route('like.store') }}', data).then(response => {
                     e.currentTarget.parentNode.className = 'like-button text-red-600';
                     e.currentTarget.lastElementChild.innerHTML = ++tweetLikes;
                 });
@@ -373,14 +382,13 @@
             $('.unlike').on('click', function(e) {
                 e.preventDefault();
 
-                const tweetId = e.target.parentNode.dataset['tweetid'];
                 let tweetLikes = e.target.parentNode.dataset['tweetlikes'];
 
                 const data = {
                     _method: 'DELETE',
                 };
 
-                axios.post('like/' + tweetId, data).then(response => {
+                axios.post('{{ route('like.destroy', $tweet->id) }}', data).then(response => {
                     e.currentTarget.parentNode.className =
                         'like-button text-white hover:text-red-600';
                     e.currentTarget.lastElementChild.innerHTML = --tweetLikes;
