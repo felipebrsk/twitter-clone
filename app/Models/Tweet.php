@@ -42,4 +42,9 @@ class Tweet extends Model
     {
         return $this->hasMany(Comment::class)->orderBy('id', 'desc');
     }
+
+    public function follows()
+    {
+        return $this->belongsToMany(Follow::class);
+    }
 }

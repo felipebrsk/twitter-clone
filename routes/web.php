@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\FollowController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LikeCommentController;
 use App\Http\Controllers\LikeController;
@@ -36,6 +37,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::resource('reply', ReplyController::class);
 
     Route::resource('profile', ProfileController::class);
+    Route::resource('follow', FollowController::class);
+    Route::get('profile/{username}/followers', [FollowController::class, 'followers'])->name('follow.followers');
 });
 
 Route::view('/tests', 'tests');

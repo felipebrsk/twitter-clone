@@ -83,4 +83,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Reply::class)->orderBy('id', 'desc');
     }
+
+    public function follows()
+    {
+        return $this->hasMany(Follow::class, 'follower_id');
+    }
+
+    public function followsReq()
+    {
+        return $this->hasMany(Follow::class, 'following_id');
+    }
 }
