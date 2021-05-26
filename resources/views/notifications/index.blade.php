@@ -33,7 +33,7 @@
 
     @foreach (Auth::user()->notifications as $notification)
         <a href="{{ $notification->data['actionURL'] }}">
-            <div class="border-b border-l border-r border-dim-200 text-white">
+            <div class="border-b border-l border-r border-dim-200 text-white @if ($loop->last) mb-24 @endif">
                 <div class="flex md:items-center p-6">
                     <div>
                         <svg viewBox="0 0 24 24" width="48" height="48" aria-hidden="true" class="text-blue-500"

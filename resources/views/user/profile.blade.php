@@ -2,7 +2,7 @@
 @section('title', $title)
 
 @section('content')
-    <main role="main" class="sm:mb-0 mb-24">
+    <main role="main">
         <div
             class="border-b border-l border-r border-dim-200 bg-gray-800 bg-opacity-0 hover:bg-opacity-25 transition duration-350 ease-in-out pb-4 text-white">
             <!--Content (Center)-->
