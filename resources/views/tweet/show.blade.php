@@ -612,7 +612,7 @@
 
                             <a href="#">
                                 <div
-                                    class="flex items-center text-xs hover:text-green-400 transition duration-350 ease-in-out">
+                                    class="tweet-action-icons hover:text-green-400">
                                     <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
                                         <g>
                                             <path
@@ -783,7 +783,7 @@
                             <dialog id="myModal-{{ $reply->id }}" class="modal-comment">
                                 <div class="flex flex-col w-full h-auto">
                                     <!-- Header -->
-                                    <div class="flex w-full h-auto justify-start items-center border-b border-dim-200">
+                                    <div class="reply-modal border-dim-200">
                                         <div onclick="document.getElementById('myModal-{{ $reply->id }}').close();"
                                             class="flex w-1/12 h-auto cursor-pointer">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -878,7 +878,7 @@
                             <!-- End of omment modal -->
                             <a href="#">
                                 <div
-                                    class="flex items-center text-xs hover:text-green-400 transition duration-350 ease-in-out">
+                                    class="tweet-action-icons hover:text-green-400">
                                     <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
                                         <g>
                                             <path

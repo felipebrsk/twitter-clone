@@ -2163,6 +2163,15 @@ progress::-webkit-progress-value {
   color: rgba(255, 255, 255, var(--tw-text-opacity));
 }
 
+.reply-modal {
+  border-bottom-width: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: auto;
+  width: 100%;
+}
+
 /* /Styles */
 
 /* Responsive */
