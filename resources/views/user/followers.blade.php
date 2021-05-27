@@ -22,27 +22,27 @@
             </div>
         </div>
     </div>
-    @foreach ($user->follows as $following)
+    @foreach ($user->followsReq as $follower)
         <div class="border-l border-r border-b @if ($loop->last) mb-48 @endif border-dim-200 bg-gray-800 bg-opacity-0 hover:bg-opacity-25 cursor-pointer
             transition duration-350 ease-in-out pb-4">
             <div class="flex justify-between flex-shrink-0 p-4 pb-0">
-                <a href="{{ route('profile.show', $following->following->username) }}" class="flex-shrink-0 group block">
+                <a href="{{ route('profile.show', $follower->follower->username) }}" class="flex-shrink-0 group block">
                     <div class="flex items-center">
                         <div>
-                            @if ($following->following->picture != null)
-                                <img src="{{ asset('img/profiles/' . $following->following->picture) }}"
-                                    alt="{{ $following->following->username }}"
+                            @if ($follower->follower->picture != null)
+                                <img src="{{ asset('img/profiles/' . $follower->follower->picture) }}"
+                                    alt="{{ $follower->follower->username }}"
                                     class="w-10 h-10 inline-block rounded-full">
                             @else
                                 <img class="inline-block h-10 w-10 rounded-full"
                                     src="{{ asset('img/profiles/default-user.png') }}"
-                                    alt="{{ $following->following->username }}" />
+                                    alt="{{ $follower->follower->username }}" />
                             @endif
                         </div>
                         <div class="ml-3">
                             <p class="flex items-center text-base leading-6 font-medium text-white">
-                                <b class="hover:underline">{{ $following->following->name }}</b>
-                                @if ($following->following->verified === 1)
+                                <b class="hover:underline">{{ $follower->follower->name }}</b>
+                                @if ($follower->follower->verified === 1)
                                     <svg viewBox="0 0 24 24" aria-label="Verified account" fill="currentColor"
                                         class="w-4 h-4 ml-1">
                                         <g>
@@ -55,14 +55,14 @@
                             </p>
                             <span
                                 class="ml-1 text-sm leading-5 font-medium text-gray-400 group-hover:text-gray-300 transition ease-in-out duration-150">
-                                {{ '@' . $following->following->username }}
+                                {{ '@' . $follower->follower->username }}
                             </span>
                         </div>
                     </div>
                 </a>
-                <div class="pull-right" data-followingId="{{ $following->following->id }}"
-                    data-followingName="{{ $following->following->username }}" data-followId="{{ $following->id }}">
-                    @if ($following->following->id != Auth::id())
+                <div class="pull-right" data-followerId="{{ $follower->follower->id }}"
+                    data-followerName="{{ $follower->follower->username }}">
+                    @if ($follower->follower->id != Auth::id())
                         @php
                             $i = Auth::user()
                                 ->follows()
@@ -71,8 +71,8 @@
                             $k = 1;
                         @endphp
                         @foreach (Auth::user()->follows as $authFollows)
-                            @if ($authFollows->following_id === $following->following->id)
-                                <button
+                            @if ($authFollows->following_id === $follower->follower->id)
+                                <button data-followId="{{ $authFollows->id }}"
                                     class="already-following-button unfollow-button"
                                     style="background: rgb(29,161,242);">
                                         Seguindo
@@ -98,9 +98,9 @@
                 </div>
             </div>
             <div class="pl-16">
-                <a href="{{ route('profile.show', $following->following->username) }}">
+                <a href="{{ route('profile.show', $follower->follower->username) }}">
                     <p class="w-full max-w-lg font-medium text-gray-300 flex-shrink px-1 text-sm">
-                        {!! nl2br(e($following->following->bio)) !!}
+                        {!! nl2br(e($follower->follower->bio)) !!}
                     </p>
                 </a>
             </div>
@@ -110,31 +110,32 @@
 
 @push('scripts')
     <script>
-        // Axios request to follow action
-        $('.follow-button').on('click', function(e) {
-            e.preventDefault();
-
-            const followingId = e.target.parentNode.dataset['followingid'];
-            const followingName = e.target.parentNode.dataset['followingname'];
-
-            const data = {
-                follower_id: {{ Auth::id() }},
-                following_id: followingId,
-                following_name: followingName,
-            };
-
-            axios.post('{{ route('follow.store') }}', data).then(response => {
-                $(this).css('background', 'rgb(29,161,242)').css('color', 'white');
-                $(this)[0].innerHTML = 'Seguindo';
-            });
-        });
-
-        // Axios request to unfollow action
-        $('.unfollow-button').on('click', function(e) {
+        $(document).ready(function() {
+            // Axios request to follow action
+            $('.follow-button').on('click', function(e) {
                 e.preventDefault();
 
-                const followId = e.target.parentNode.dataset['followid'];
-                const followingName = e.target.parentNode.dataset['followingname'];
+                const followerId = e.target.parentNode.dataset['followerid'];
+                const followerName = e.target.parentNode.dataset['followername'];
+
+                const data = {
+                    follower_id: {{ Auth::id() }},
+                    following_id: followerId,
+                    following_name: followerName,
+                };
+
+                axios.post('{{ route('follow.store') }}', data).then(response => {
+                    $(this).css('background', 'rgb(29,161,242)').css('color', 'white');
+                    $(this)[0].innerHTML = 'Seguindo';
+                });
+            });
+
+            // Axios request to follow action
+            $('.unfollow-button').on('click', function(e) {
+                e.preventDefault();
+
+                const followId = e.target.dataset['followid'];
+                const followingName = e.target.parentNode.dataset['followername'];
 
                 data = {
                     _method: 'DELETE',
@@ -142,9 +143,13 @@
                 };
 
                 axios.post('/follow/' + followId, data).then(response => {
-                    e.target.parentNode.parentNode.parentNode.closest('div').remove();
+                    $(this).removeClass('already-following-button unfollow-button');
+                    $(this).css('background', 'none');
+                    $(this).addClass('follow-button');
+                    e.currentTarget.innerHTML = 'Seguir';  
                 });
             });
+        });
 
     </script>
 @endpush

@@ -286,7 +286,7 @@
     }
     
     .profile-content {
-        @apply border-l border-r bg-gray-800 bg-opacity-0 hover:bg-opacity-25 transition duration-300 ease-in-out pb-4 text-white;
+        @apply border-l border-r bg-gray-800 bg-opacity-0 hover:bg-opacity-25 transition duration-300 ease-in-out pb-4 text-white border-b;
     }
 
     .profile-header {
@@ -342,7 +342,7 @@
     }
 
     .already-following-button {
-        @apply flex justify-center whitespace-nowrap focus:outline-none items-center hover:shadow-lg font-bold py-2 px-2 rounded-full mr-0;
+        @apply flex justify-center whitespace-nowrap focus:outline-none items-center hover:shadow-lg font-bold py-1 px-2 rounded-full mr-0 text-white;
     }
 
     .profile-name {
@@ -419,6 +419,22 @@
 
     .reply-modal {
         @apply flex w-full h-auto justify-start items-center border-b;
+    }
+
+    .right-content {
+        @apply text-blue-400 text-sm font-normal p-3 border-b bg-gray-800 bg-opacity-0 hover:bg-opacity-25 cursor-pointer transition duration-300 ease-in-out;
+    }
+
+    .follow-button {
+        @apply text-xs font-bold text-blue-400 px-4 py-1 rounded-full border-2 border-blue-400 focus:outline-none;
+    }
+    
+    .follow-button-right {
+        @apply text-xs font-bold text-blue-400 px-4 py-1 rounded-full border-2 border-blue-400 focus:outline-none;
+    }
+
+    .show-more-button {
+        @apply text-blue-400 text-sm font-normal p-3 bg-gray-800 bg-opacity-0 hover:bg-opacity-25 cursor-pointer transition duration-300 ease-in-out;
     }
     /* /Styles */
 

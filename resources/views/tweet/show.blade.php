@@ -8,7 +8,7 @@
     <div class="show-header">
         <!-- Title -->
         <div class="flex items-center space-x-6">
-            <a href="{{ route('home') }}">
+            <a href="{{ url()->previous() }}">
                 <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" width="24" height="24"
                     class="text-blue-500">
                     <g>

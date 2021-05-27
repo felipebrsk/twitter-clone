@@ -93,17 +93,53 @@ class FollowController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $follow = Follow::findOrFail($id);
+
+        $status = $follow->delete();
+
+        $user = User::where('username', $request->following_name)->first();
+        $authUser = User::where('username', Auth::user()->username)->first();
+
+        $detailsUser = [
+            'title' => '@' . Auth::user()->username . ' deixou de te seguir.',
+            'actionURL' => route('profile.show', Auth::user()->username),
+            'fas' => 'fa-sad-tear',
+        ];
+
+        $detailsAuth = [
+            'title' => 'Você deixou de seguir @' . $request->following_name,
+            'actionURL' => route('profile.show', $request->following_name),
+            'fas' => 'fa-sad-tear',
+        ];
+
+        if ($status) {
+            \Notification::send($user, new StatusNotification($detailsUser));
+
+            \Notification::send($authUser, new StatusNotification($detailsAuth));
+            
+            return redirect()->back();
+        } else {
+            return redirect()->back()->withErrors('Não foi possível completar esta ação. Por favor, tente novamente ou envie-nos um ticket para investigar o que está acontecendo.');
+        }
     }
 
-    public function following($username, Follow $following_id)
+    public function following($username)
     {
         $user = User::getUserByUsername($username);
 
         $title = 'Pessoas seguidas por ' . $user->name . ' (@' . $user->username . ')';
 
         return view('user.following', compact('user', 'title'));
+    }
+
+    public function followers($username)
+    {
+        $user = User::getUserByUsername($username);
+
+        $title = 'Pessoas que seguem ' . $user->name . ' (@' . $user->username . ')';
+
+        return view('user.followers', compact('user', 'title'));
     }
 }

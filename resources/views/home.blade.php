@@ -294,7 +294,7 @@
                                 @break
 
                             @elseif ($i == $c)
-                                <div class="like-button text-white text-xs hover:text-red-600 ">
+                                <div class="like-button text-gray-400 text-xs hover:text-red-600 ">
                                     <a href="#" class="like flex items-center" data-tweetId="{{ $tweet->id }}"
                                         data-authorId="{{ $tweet->user->id }}"
                                         data-tweetLikes="{{ $tweet->likes->count() }}">
@@ -319,7 +319,7 @@
                             @endforeach
 
                             @if ($i == 0)
-                                <div class="like-button text-white text-xs hover:text-red-600 ">
+                                <div class="like-button text-gray-400 text-xs hover:text-red-600 ">
                                     <a href="#" class="like flex items-center" data-tweetId="{{ $tweet->id }}"
                                         data-authorId="{{ $tweet->user->id }}" data-tweetLikes="{{ $tweet->likes->count() }}">
                                         <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">

@@ -1630,6 +1630,7 @@ progress::-webkit-progress-value {
 
 .profile-content {
   border-right-width: 1px;
+  border-bottom-width: 1px;
   border-left-width: 1px;
   padding-bottom: 1rem;
   --tw-text-opacity: 1;
@@ -1900,8 +1901,8 @@ progress::-webkit-progress-value {
 }
 
 .already-following-button {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
 }
@@ -1912,6 +1913,8 @@ progress::-webkit-progress-value {
 }
 
 .already-following-button {
+  --tw-text-opacity: 1;
+  color: rgba(255, 255, 255, var(--tw-text-opacity));
   white-space: nowrap;
 }
 
@@ -2170,6 +2173,109 @@ progress::-webkit-progress-value {
   justify-content: flex-start;
   height: auto;
   width: 100%;
+}
+
+.right-content {
+  --tw-bg-opacity: 1;
+  background-color: rgba(31, 41, 55, var(--tw-bg-opacity));
+  --tw-bg-opacity: 0;
+}
+
+.right-content:hover {
+  --tw-bg-opacity: 0.25;
+}
+
+.right-content {
+  border-bottom-width: 1px;
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  padding: 0.75rem;
+  --tw-text-opacity: 1;
+  color: rgba(96, 165, 250, var(--tw-text-opacity));
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.follow-button {
+  --tw-border-opacity: 1;
+  border-color: rgba(96, 165, 250, var(--tw-border-opacity));
+  border-radius: 9999px;
+  border-width: 2px;
+  font-weight: 700;
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.follow-button:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.follow-button {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  --tw-text-opacity: 1;
+  color: rgba(96, 165, 250, var(--tw-text-opacity));
+}
+
+.follow-button-right {
+  --tw-border-opacity: 1;
+  border-color: rgba(96, 165, 250, var(--tw-border-opacity));
+  border-radius: 9999px;
+  border-width: 2px;
+  font-weight: 700;
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.follow-button-right:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.follow-button-right {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  --tw-text-opacity: 1;
+  color: rgba(96, 165, 250, var(--tw-text-opacity));
+}
+
+.show-more-button {
+  --tw-bg-opacity: 1;
+  background-color: rgba(31, 41, 55, var(--tw-bg-opacity));
+  --tw-bg-opacity: 0;
+}
+
+.show-more-button:hover {
+  --tw-bg-opacity: 0.25;
+}
+
+.show-more-button {
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  padding: 0.75rem;
+  --tw-text-opacity: 1;
+  color: rgba(96, 165, 250, var(--tw-text-opacity));
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
 }
 
 /* /Styles */

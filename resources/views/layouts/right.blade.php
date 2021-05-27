@@ -23,31 +23,28 @@
             </h1>
 
             <!-- Trending Topic -->
-            <div
-                class="text-blue-400 text-sm font-normal p-3 border-b border-dim-200 bg-gray-800 bg-opacity-0 hover:bg-opacity-25 cursor-pointer transition duration-350 ease-in-out">
+            <div class="right-content border-dim-200">
                 <h2 class="font-bold text-md text-white">#LoremIpsum</h2>
                 <p class="text-xs text-gray-400">29.7K Tweets</p>
             </div>
             <!-- /Trending Topic -->
 
             <!-- Trending Topic -->
-            <div
-                class="text-blue-400 text-sm font-normal p-3 border-b border-dim-200 bg-gray-800 bg-opacity-0 hover:bg-opacity-25 cursor-pointer transition duration-350 ease-in-out">
+            <div class="right-content border-dim-200">
                 <h2 class="font-bold text-md text-white">#Laravel</h2>
                 <p class="text-xs text-gray-400">351K Tweets</p>
             </div>
             <!-- /Trending Topic -->
 
             <!-- Trending Topic -->
-            <div
-                class="text-blue-400 text-sm font-normal p-3 border-b border-dim-200 bg-gray-800 bg-opacity-0 hover:bg-opacity-25 cursor-pointer transition duration-350 ease-in-out">
+            <div class="right-content border-dim-200">
                 <h2 class="font-bold text-md text-white">#HelloWorld</h2>
                 <p class="text-xs text-gray-400">52.7K Tweets</p>
             </div>
             <!-- /Trending Topic -->
 
             <div
-                class="text-blue-400 text-sm font-normal p-3 bg-gray-800 bg-opacity-0 hover:bg-opacity-25 cursor-pointer transition duration-350 ease-in-out">
+                class="show-more-button">
                 Mostrar mais
             </div>
         </div>
@@ -58,78 +55,83 @@
             <h1 class="text-white text-md font-bold p-3 border-b border-dim-200">
                 Quem seguir
             </h1>
-
+            @php
+                $users = \App\Models\User::with('follows')
+                    ->inRandomOrder()
+                    ->limit(3)
+                    ->get();
+                    
+                $myFollows = Auth::user()->follows;
+            @endphp
             <!-- Twitter Account -->
-            <div
-                class="text-blue-400 text-sm font-normal p-3 border-b border-dim-200 bg-gray-800 bg-opacity-0 hover:bg-opacity-25 cursor-pointer transition duration-350 ease-in-out">
-                <div class="flex flex-row justify-between p-2">
-                    <div class="flex flex-row">
-                        <img class="w-10 h-10 rounded-full"
-                            src="https://blogs.correiobraziliense.com.br/vicente/wp-content/uploads/sites/16/2020/04/BolsonaroVirus.jpg"
-                            alt="Joe Biden" />
-                        <div class="flex flex-col ml-2">
-                            <h1 class="text-white font-bold text-sm hover:underline">Jair M. Bolsonaro</h1>
-                            <p class="text-gray-400 text-sm">@jairbolsonaro</p>
+            @foreach ($users as $j => $user)
+                @if ($user->id != Auth::id())
+                    <div class="right-content border-dim-200">
+                        <div class="flex flex-row justify-between p-2">
+                            <div class="flex flex-row">
+                                @if ($user->picture != null)
+                                    <img src="{{ asset('img/profiles/' . $user->picture) }}"
+                                        alt="{{ $user->username }}" class="profile-pictures">
+                                @else
+                                    <img class="inline-block profile-pictures"
+                                        src="{{ asset('img/profiles/default-user.png') }}"
+                                        alt="{{ $user->username }}" />
+                                @endif
+                                <div class="flex flex-col ml-2">
+                                    <a href="{{ route('profile.show', $user->username) }}">
+                                        <h2 class="text-white font-bold text-sm hover:underline">{{ $user->name }}</h2>
+                                        <p class="text-gray-400 text-sm">{{ '@' .  $user->username }}</p>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="">
+                                <div class="flex items-center h-full text-white">
+                                    <div class="pull-right" data-followingId="{{ $user->id }}"
+                                        data-followingName="{{ $user->username }}">
+
+                                        @php
+                                            $i = Auth::user()
+                                                ->follows()
+                                                ->count();
+
+                                            $c = 1;
+                                        @endphp
+
+                                        @foreach ($myFollows as $follow)
+                                            @if ($follow->following->id == $user->id)
+                                            <button data-followId="{{ $follow->id }}" data-followingName="{{ $follow->following->username }}"
+                                                class="already-following-button unfollow-button-left"
+                                                style="background: rgb(29,161,242);">
+                                                    Seguindo
+                                            </button>
+                                                @break
+                                            @elseif ($i == $c)
+                                                <button
+                                                    class="follow-button-right">
+                                                    Seguir
+                                                </button>
+                                            @endif
+                                            @php
+                                                $c++;
+                                            @endphp
+                                        @endforeach
+                                        @if ($i == 0)
+                                            <button
+                                                class="follow-button-right">
+                                                Seguir
+                                            </button>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="">
-                        <div class="flex items-center h-full text-white">
-                            <a href="#"
-                                class="text-xs font-bold text-blue-400 px-4 py-1 rounded-full border-2 border-blue-400">Seguir</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                @endif
+            @endforeach
             <!-- /Twitter Account -->
 
-            <!-- Twitter Account -->
             <div
-                class="text-blue-400 text-sm font-normal p-3 border-b border-dim-200 bg-gray-800 bg-opacity-0 hover:bg-opacity-25 cursor-pointer transition duration-350 ease-in-out">
-                <div class="flex flex-row justify-between p-2">
-                    <div class="flex flex-row">
-                        <img class="w-10 h-10 rounded-full"
-                            src="https://pbs.twimg.com/profile_images/1382815821148385287/evfQlSZ__400x400.jpg"
-                            alt="Joe Biden" />
-                        <div class="flex flex-col ml-2">
-                            <h1 class="text-white font-bold text-sm hover:underline">Lula</h1>
-                            <p class="text-gray-400 text-sm">@LulaOficial</p>
-                        </div>
-                    </div>
-                    <div class="">
-                        <div class="flex items-center h-full text-white">
-                            <a href="#"
-                                class="text-xs font-bold text-blue-400 px-4 py-1 rounded-full border-2 border-blue-400">Seguir</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /Twitter Account -->
-
-            <!-- Twitter Account -->
-            <div
-                class="text-blue-400 text-sm font-normal p-3 border-b border-dim-200 bg-gray-800 bg-opacity-0 hover:bg-opacity-25 cursor-pointer transition duration-350 ease-in-out">
-                <div class="flex flex-row justify-between p-2">
-                    <div class="flex flex-row">
-                        <img class="w-10 h-10 rounded-full"
-                            src="https://pbs.twimg.com/profile_images/1308769664240160770/AfgzWVE7_normal.jpg"
-                            alt="Joe Biden" />
-                        <div class="flex flex-col ml-2">
-                            <h1 class="text-white font-bold text-sm hover:underline">Joe Biden</h1>
-                            <p class="text-gray-400 text-sm">@JoeBiden</p>
-                        </div>
-                    </div>
-                    <div class="">
-                        <div class="flex items-center h-full text-white">
-                            <a href="#"
-                                class="text-xs font-bold text-blue-400 px-4 py-1 rounded-full border-2 border-blue-400">Seguir</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /Twitter Account -->
-
-            <div
-                class="text-blue-400 text-sm font-normal p-3 bg-gray-800 bg-opacity-0 hover:bg-opacity-25 cursor-pointer transition duration-350 ease-in-out">
+                class="show-more-button">
                 Mostrar mais
             </div>
         </div>
@@ -142,8 +144,7 @@
             </h1>
 
             <!-- Trending Topic -->
-            <div
-                class="text-blue-400 text-sm font-normal p-3 border-b border-dim-200 bg-gray-800 bg-opacity-0 hover:bg-opacity-25 cursor-pointer transition duration-350 ease-in-out">
+            <div class="right-content border-dim-200">
                 <div class="flex items-center justify-between">
                     <div>
                         <h2 class="font-bold text-md text-white">League of Legends</h2>
@@ -151,7 +152,7 @@
                     </div>
                     <div class="flex items-center space-x-2">
                         <a href="#"
-                            class="text-xs font-bold text-blue-400 px-4 py-1 rounded-full border-2 border-blue-400">Seguir</a>
+                            class="follow-button">Seguir</a>
                         <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
                             fill="currentColor"
                             class="text-gray-600 bg-blue-200 bg-opacity-0 hover:bg-opacity-10 rounded-full"
@@ -165,8 +166,7 @@
             <!-- /Trending Topic -->
 
             <!-- Trending Topic -->
-            <div
-                class="text-blue-400 text-sm font-normal p-3 border-b border-dim-200 bg-gray-800 bg-opacity-0 hover:bg-opacity-25 cursor-pointer transition duration-350 ease-in-out">
+            <div class="right-content border-dim-200">
                 <div class="flex items-center justify-between">
                     <div>
                         <h2 class="font-bold text-md text-white">Futebol</h2>
@@ -174,7 +174,7 @@
                     </div>
                     <div class="flex items-center space-x-2">
                         <a href="#"
-                            class="text-xs font-bold text-blue-400 px-4 py-1 rounded-full border-2 border-blue-400">Seguir</a>
+                            class="follow-button">Seguir</a>
                         <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
                             fill="currentColor"
                             class="text-gray-600 bg-blue-200 bg-opacity-0 hover:bg-opacity-10 rounded-full"
@@ -188,8 +188,7 @@
             <!-- /Trending Topic -->
 
             <!-- Trending Topic -->
-            <div
-                class="text-blue-400 text-sm font-normal p-3 border-b border-dim-200 bg-gray-800 bg-opacity-0 hover:bg-opacity-25 cursor-pointer transition duration-350 ease-in-out">
+            <div class="right-content border-dim-200">
                 <div class="flex items-center justify-between">
                     <div>
                         <h2 class="font-bold text-md text-white">Big Brother Brasil</h2>
@@ -197,7 +196,7 @@
                     </div>
                     <div class="flex items-center space-x-2">
                         <a href="#"
-                            class="text-xs font-bold text-blue-400 px-4 py-1 rounded-full border-2 border-blue-400">Seguir</a>
+                            class="follow-button">Seguir</a>
                         <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
                             fill="currentColor"
                             class="text-gray-600 bg-blue-200 bg-opacity-0 hover:bg-opacity-10 rounded-full"
@@ -211,7 +210,7 @@
             <!-- /Trending Topic -->
 
             <div
-                class="text-blue-400 text-sm font-normal p-3 bg-gray-800 bg-opacity-0 hover:bg-opacity-25 cursor-pointer transition duration-350 ease-in-out">
+                class="show-more-button">
                 Mostrar mais
             </div>
         </div>
@@ -239,3 +238,49 @@
         </footer>
     </div>
 </div>
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            // Axios request to follow action
+            $('.follow-button-right').on('click', function(e) {
+                e.preventDefault();
+
+                const followingId = e.target.parentNode.dataset['followingid'];
+                const followingName = e.target.parentNode.dataset['followingname'];
+
+                const data = {
+                    follower_id: {{ Auth::id() }},
+                    following_id: followingId,
+                    following_name: followingName,
+                };
+
+                axios.post('{{ route('follow.store') }}', data).then(response => {
+                    $(this).css('background', 'rgb(29,161,242)').css('color', 'white');
+                    $(this)[0].innerHTML = 'Seguindo';
+                });
+            });
+
+            // Axios request to follow action
+            $('.unfollow-button-left').on('click', function(e) {
+                e.preventDefault();
+
+                const followId = e.target.dataset['followid'];
+                const followingName = e.target.dataset['followingname'];
+
+                const data = {
+                    _method: 'DELETE',
+                    following_name: followingName,
+                };
+
+                axios.post('/follow/' + followId, data).then(response => {
+                    $(this).removeClass('already-following-button unfollow-button-left');
+                    $(this).css('background', 'none');
+                    $(this).addClass('follow-button');
+                    e.currentTarget.innerHTML = 'Seguir';
+                });
+            });
+        });
+
+    </script>
+@endpush

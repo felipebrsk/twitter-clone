@@ -11,7 +11,7 @@
                 class="profile-header">
                 <!-- Title -->
                 <div class="flex items-center space-x-6">
-                    <a href="{{ route('home') }}">
+                    <a href="{{ url()->previous() }}">
                         <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" width="24" height="24"
                             class="text-blue-500">
                             <g>
@@ -309,7 +309,7 @@
                                         @foreach (Auth::user()->follows as $follow)
                                             @if ($follow->following->id == $user->id)
                                                 <button id="unfollow-btn"
-                                                    class="already-following-button"
+                                                    class="already-following-button py-2"
                                                     style="background: rgb(29,161,242);">
                                                     Seguindo
                                                 </button>
@@ -435,10 +435,10 @@
                             </div>
                         </div>
                     </a>
-                    <a href="#" class="hover:underline">
+                    <a href="{{ route('follow.followers', $user->username) }}" class="hover:underline">
                         <div class="flex ml-3">
                             <div class="font-bold text-gray-200">
-                                23,4m
+                                {{ $user->followsReq->count() }}
                             </div>
                             <div class="text-gray-600 ml-1">
                                 Seguidores
@@ -474,7 +474,7 @@
         </div>
     </main>
     @foreach ($user->tweets as $tweet)
-        <div class="tweet-content border-dim-200 @if ($loop->last) border-b mb-48 @endif">
+        <div class="tweet-content border-t-0 border-dim-200 @if ($loop->last) border-b mb-48 @endif">
             <div class="flex flex-shrink-0 p-4 pb-0">
                 <a href="#" class="flex-shrink-0 group block">
                     <div class="flex items-center">
