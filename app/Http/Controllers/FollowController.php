@@ -11,16 +11,6 @@ use Illuminate\Support\Facades\Auth;
 class FollowController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -65,29 +55,6 @@ class FollowController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
@@ -125,6 +92,12 @@ class FollowController extends Controller
         }
     }
 
+    /**
+     *  See how's being followed by the user.
+     * 
+     *  @param string $username;
+     *  @return \Illuminate\Http\Response
+     */
     public function following($username)
     {
         $user = User::getUserByUsername($username);
@@ -134,6 +107,12 @@ class FollowController extends Controller
         return view('user.following', compact('user', 'title'));
     }
 
+    /**
+     *  See how the user is following.
+     * 
+     *  @param string $username;
+     *  @return \Illuminate\Http\Response
+     */
     public function followers($username)
     {
         $user = User::getUserByUsername($username);
