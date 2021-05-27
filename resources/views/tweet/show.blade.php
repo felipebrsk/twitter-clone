@@ -247,13 +247,13 @@
                                         </div>
                                         <div class="flex items-center">
                                             <div class="mt-4">
-                                                @if ($tweet->user->picture != null)
-                                                    <img src="{{ asset('img/profiles/' . $tweet->user->picture) }}"
-                                                        alt="{{ $tweet->user->username }}" class="profile-pictures">
+                                                @if (Auth::user()->picture != null)
+                                                    <img src="{{ asset('img/profiles/' . Auth::user()->picture) }}"
+                                                        alt="{{ Auth::user()->username }}" class="profile-pictures">
                                                 @else
                                                     <img class="inline-block profile-pictures"
                                                         src="{{ asset('img/profiles/default-user.png') }}"
-                                                        alt="{{ $tweet->user->username }}" />
+                                                        alt="{{ Auth::user()->username }}" />
                                                 @endif
                                             </div>
                                             <textarea name="comment" class="modal-comment-textarea border-dim-200"
@@ -585,14 +585,14 @@
                                             </div>
                                             <div class="flex items-center">
                                                 <div class="mt-4">
-                                                    @if ($comment->user->picture != null)
-                                                        <img src="{{ asset('img/profiles/' . $comment->user->picture) }}"
-                                                            alt="{{ $comment->user->username }}"
+                                                    @if (Auth::user()->picture != null)
+                                                        <img src="{{ asset('img/profiles/' . Auth::user()->picture) }}"
+                                                            alt="{{ Auth::user()->username }}"
                                                             class="profile-pictures">
                                                     @else
                                                         <img class="inline-block profile-pictures"
                                                             src="{{ asset('img/profiles/default-user.png') }}"
-                                                            alt="{{ $comment->user->username }}" />
+                                                            alt="{{ Auth::user()->username }}" />
                                                     @endif
                                                 </div>
                                                 <textarea name="reply" class="modal-comment-textarea border-dim-200"
@@ -853,13 +853,13 @@
                                             </div>
                                             <div class="flex items-center">
                                                 <div class="mt-4">
-                                                    @if ($reply->user->picture != null)
-                                                        <img src="{{ asset('img/profiles/' . $reply->user->picture) }}"
-                                                            alt="{{ $reply->user->username }}" class="profile-pictures">
+                                                    @if (Auth::user()->picture != null)
+                                                        <img src="{{ asset('img/profiles/' . Auth::user()->picture) }}"
+                                                            alt="{{ Auth::user()->username }}" class="profile-pictures">
                                                     @else
                                                         <img class="inline-block profile-pictures"
                                                             src="{{ asset('img/profiles/default-user.png') }}"
-                                                            alt="{{ $reply->user->username }}" />
+                                                            alt="{{ Auth::user()->username }}" />
                                                     @endif
                                                 </div>
                                                 <textarea name="reply" class="modal-comment-textarea border-dim-200"

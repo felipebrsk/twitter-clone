@@ -50,7 +50,7 @@ class TweetController extends Controller
         $data['slug'] = $slug;
         $data['user_id'] = Auth::id();
 
-        $followers = User::whereIn('id', Auth::user()->follows()->pluck('following_id'))->get();
+        $followers = User::whereIn('id', Auth::user()->followsReq()->pluck('follower_id'))->get();
 
         $status = Tweet::create($data);
 
