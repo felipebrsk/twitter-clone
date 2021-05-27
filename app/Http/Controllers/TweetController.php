@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TweetRequest;
 use App\Models\Tweet;
+use App\Notifications\StatusNotification;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class TweetController extends Controller
 {
@@ -48,9 +50,19 @@ class TweetController extends Controller
         $data['slug'] = $slug;
         $data['user_id'] = Auth::id();
 
+        $followers = User::whereIn('id', Auth::user()->follows()->pluck('following_id'))->get();
+
         $status = Tweet::create($data);
+
+        $details = [
+            'title' => '@' . Auth::user()->username . ' acabou de publicar um tweet!',
+            'actionURL' => route('tweet.show', $status->id),
+            'fas' => 'fa-newspaper',
+        ];
         
         if ($status) {
+            \Notification::send($followers, new StatusNotification($details));
+
             return redirect()->route('home')->with('success_message', 'Tweetado com sucesso!');
         } else {
             return back()->withErrors('Não foi possível publicar esse Tweet. Por favor, tente novamente ou entre em contato informando o problema!');

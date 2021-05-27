@@ -474,7 +474,7 @@
         </div>
     </main>
     @foreach ($user->tweets as $tweet)
-        <div class="tweet-content border-t-0 border-dim-200 @if ($loop->last) border-b mb-48 @endif">
+        <div class="tweet-content border-t-0 border-b border-dim-200 @if ($loop->last) mb-48 @endif">
             <div class="flex flex-shrink-0 p-4 pb-0">
                 <a href="#" class="flex-shrink-0 group block">
                     <div class="flex items-center">
