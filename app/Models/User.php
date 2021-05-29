@@ -56,7 +56,7 @@ class User extends Authenticatable
 
     public function tweets()
     {
-        return $this->hasMany(Tweet::class)->orderBy('id', 'desc');
+        return $this->hasMany(Tweet::class)->orderBy('is_fixed', 'desc')->orderBy('id', 'desc');
     }
 
     public function likes()

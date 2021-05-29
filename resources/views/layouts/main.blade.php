@@ -19,7 +19,7 @@
 </head>
 
 <body>
-    <div class="mx-auto h-screen">
+    <div class="mx-auto h-full">
         <div class="flex flex-row justify-center">
             <!-- Left -->
             @auth

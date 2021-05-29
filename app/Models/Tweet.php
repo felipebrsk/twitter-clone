@@ -12,6 +12,7 @@ class Tweet extends Model
         'slug',
         'body',
         'photo',
+        'is_fixed',
         'category_id',
         'user_id',
     ];

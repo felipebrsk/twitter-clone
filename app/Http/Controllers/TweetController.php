@@ -106,13 +106,57 @@ class TweetController extends Controller
     }
 
     /**
+     *  Fix the tweet to your profile page.
+     *  
+     *  @param \Illuminate\Http\Request $request;
+     *  @return \Illuminate\Http\Response
+     */
+    public function fixTweet(Request $request)
+    {
+        $removeFixed = Tweet::query()->where('user_id', Auth::id());
+
+        $removeFixed->update([
+            'is_fixed' => 0,
+        ]);
+
+        $tweet = Tweet::findOrFail($request->tweet_id);
+
+        $tweet->update([
+            'is_fixed' => 1,
+        ]);
+
+        return redirect()->route('profile.show', Auth::user()->username)->with('success_message', 'Tweet fixado com sucesso!');
+    }
+
+    /** 
+     *  Unfix the tweet from your profile page.
+     *  
+     *  @param \Illuminate\Http\Request $request
+     *  @return \Illuminate\Http\Response
+     */
+    public function unfixTweet(Request $request)
+    {
+        $tweet = Tweet::findOrFail($request->tweet_id);
+
+        $tweet->update([
+            'is_fixed' => 0,
+        ]);
+
+        return redirect()->route('profile.show', Auth::user()->username)->with('success_message', 'Tweet desfixado com sucesso!');
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $tweet = Tweet::findOrFail($request->tweet_id);
+
+        $tweet->delete(); 
+
+        return redirect()->route('profile.show', Auth::user()->username)->with('success_message', 'O tweet foi deletado com sucesso!');
     }
 }

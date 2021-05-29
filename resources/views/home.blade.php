@@ -34,7 +34,7 @@
     <!-- Post Tweet -->
     <form action="{{ route('tweet.store') }}" method="POST" class="mb-4" enctype="multipart/form-data">
         @csrf
-        <div class="post-tweet-home border-dim-200">
+        <div class="post-tweet-home border-dim-200 @if ($errors->any()) border-t @endif">
             @if ($errors->any())
                 <div class="error-content">
                     <div class="text-lg">

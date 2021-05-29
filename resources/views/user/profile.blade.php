@@ -3,12 +3,10 @@
 
 @section('content')
     <main role="main">
-        <div
-            class="profile-content border-dim-200">
+        <div class="profile-content border-dim-200">
             <!--Content (Center)-->
             <!-- Nav back-->
-            <div
-                class="profile-header">
+            <div class="profile-header">
                 <!-- Title -->
                 <div class="flex items-center space-x-6">
                     <a href="{{ url()->previous() }}">
@@ -34,12 +32,10 @@
             <div class="w-full">
                 @if ($user->banner != null)
                     <div class="flex">
-                        <div class="banner"
-                            onclick="document.getElementById('myModal-{{ $user->banner }}').showModal();"
+                        <div class="banner" onclick="document.getElementById('myModal-{{ $user->banner }}').showModal();"
                             style="background-image: url({{ asset('img/banners/' . $user->banner) }});">
                         </div>
-                        <dialog id="myModal-{{ $user->banner }}"
-                            class="banner-modal">
+                        <dialog id="myModal-{{ $user->banner }}" class="banner-modal">
                             <div class="flex flex-col w-full h-auto ">
                                 <!-- Header -->
                                 <div class="banner-modal-header">
@@ -55,8 +51,7 @@
                                     <!--Header End-->
                                 </div>
                                 <!-- Modal Content-->
-                                <div
-                                    class="modal-content">
+                                <div class="modal-content">
                                     <img src="{{ asset('img/banners/' . $user->banner) }}" alt="{{ $user->banner }}"
                                         class="w-full">
                                 </div>
@@ -95,12 +90,10 @@
                                                 onclick="document.getElementById('myModal-{{ $user->picture }}').showModal();"
                                                 src="{{ asset('img/profiles/' . $user->picture) }}"
                                                 alt="{{ $user->username }}">
-                                            <dialog id="myModal-{{ $user->picture }}"
-                                                class="modal-container">
+                                            <dialog id="myModal-{{ $user->picture }}" class="modal-container">
                                                 <div class="flex flex-col w-full h-auto">
                                                     <!-- Header -->
-                                                    <div
-                                                        class="header-modal-avatar">
+                                                    <div class="header-modal-avatar">
                                                         <div onclick="document.getElementById('myModal-{{ $user->picture }}').close();"
                                                             class="flex w-1/12 h-auto justify-center cursor-pointer">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -115,8 +108,7 @@
                                                         <!--Header End-->
                                                     </div>
                                                     <!-- Modal Content-->
-                                                    <div
-                                                        class="modal-content">
+                                                    <div class="modal-content">
                                                         <img src="{{ asset('img/profiles/' . $user->picture) }}"
                                                             alt="{{ $user->picture }}"
                                                             class="w-full max-w-xl rounded-full">
@@ -140,8 +132,7 @@
                                                 </label>
                                             </form>
                                         @else
-                                            <img class="md avatar"
-                                                src="{{ asset('img/profiles/default-user.png') }}"
+                                            <img class="md avatar" src="{{ asset('img/profiles/default-user.png') }}"
                                                 alt="{{ $user->username }}">
                                         @endif
                                     @endif
@@ -157,16 +148,14 @@
                                         Editar perfil
                                     </button>
                                     <!-- Edit profile Modal -->
-                                    <dialog id="myModal-{{ $user->id }}"
-                                        class="modal-container">
+                                    <dialog id="myModal-{{ $user->id }}" class="modal-container">
                                         <div class="flex flex-col w-full h-auto">
                                             <form action="{{ route('profile.update', $user->username) }}" method="POST"
                                                 enctype="multipart/form-data">
                                                 @method('PATCH')
                                                 @csrf
                                                 <!-- Header -->
-                                                <div
-                                                    class="edit-modal-header">
+                                                <div class="edit-modal-header">
                                                     <div onclick="document.getElementById('myModal-{{ $user->id }}').close();"
                                                         class="flex w-1/12 h-auto justify-center cursor-pointer">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -277,8 +266,7 @@
                             </div>
                         @else
                             <div class="no-profile-auth">
-                                <button
-                                    class="profile-svg py-3">
+                                <button class="profile-svg py-3">
                                     <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                                         xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16" height="16"
                                         fill="currentColor" viewBox="0 0 992 992" style="enable-background:new 0 0 992 992;"
@@ -290,15 +278,15 @@
                                         </g>
                                     </svg>
                                 </button>
-                                <button
-                                    class="profile-svg py-3">
+                                <button class="profile-svg py-3">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
                                         fill="currentColor">
                                         <path
                                             d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm5.694 7.188l3.824 3.099 3.83-3.104 5.612 6.817h-18.779l5.513-6.812zm9.208-1.264l4.616-3.741v9.348l-4.616-5.607z" />
                                     </svg>
                                 </button>
-                                <div class="pull-right" data-followingId="{{ $user->id }}" data-followingName="{{ $user->username }}">
+                                <div class="pull-right" data-followingId="{{ $user->id }}"
+                                    data-followingName="{{ $user->username }}">
                                     @if (Auth::check())
                                         @php
                                             $i = Auth::user()
@@ -308,15 +296,13 @@
                                         @endphp
                                         @foreach (Auth::user()->follows as $follow)
                                             @if ($follow->following->id == $user->id)
-                                                <button id="unfollow-btn"
-                                                    class="already-following-button py-2"
+                                                <button id="unfollow-btn" class="already-following-button py-2"
                                                     style="background: rgb(29,161,242);">
                                                     Seguindo
                                                 </button>
                                             @break
                                         @elseif ($i == $c)
-                                            <button id="follow-btn"
-                                                class="profile-svg py-2">
+                                            <button id="follow-btn" class="profile-svg py-2">
                                                 Seguir
                                             </button>
                                         @endif
@@ -325,8 +311,7 @@
                                         @endphp
                                     @endforeach
                                     @if ($i == 0)
-                                        <button id="follow-btn"
-                                            class="profile-svg py-2">
+                                        <button id="follow-btn" class="profile-svg py-2">
                                             Seguir
                                         </button>
                                     @endif
@@ -474,8 +459,20 @@
         </div>
     </main>
     @foreach ($user->tweets as $tweet)
-        <div class="tweet-content border-t-0 border-b border-dim-200 @if ($loop->last) mb-48 @endif">
-            <div class="flex flex-shrink-0 p-4 pb-0">
+        <div class="tweet-content border-t-0 border-b border-dim-200 remove-on-delete-{{ $tweet->id }} @if ($loop->last) mb-48 @endif @if($tweet->is_fixed) pt-2 @endif">
+            @if ($tweet->is_fixed)
+                <div class="text-gray-400 pl-16 flex items-center font-bold">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" width="16" heigh="16">
+                        <g>
+                            <path
+                                d="M20.235 14.61c-.375-1.745-2.342-3.506-4.01-4.125l-.544-4.948 1.495-2.242c.157-.236.172-.538.037-.787-.134-.25-.392-.403-.675-.403h-9.14c-.284 0-.542.154-.676.403-.134.25-.12.553.038.788l1.498 2.247-.484 4.943c-1.668.62-3.633 2.38-4.004 4.116-.04.16-.016.404.132.594.103.132.304.29.68.29H8.64l2.904 6.712c.078.184.26.302.458.302s.38-.118.46-.302l2.903-6.713h4.057c.376 0 .576-.156.68-.286.146-.188.172-.434.135-.59z">
+                            </path>
+                        </g>
+                    </svg>
+                    Tweet Fixado
+                </div>
+            @endif
+            <div class="flex justify-between items-center flex-shrink-0 p-4 pb-0 @if($tweet->is_fixed) -mt-4 @endif">
                 <a href="#" class="flex-shrink-0 group block">
                     <div class="flex items-center">
                         <div>
@@ -501,8 +498,7 @@
                                         </g>
                                     </svg>
                                 @endif
-                                <span
-                                    class="tweet-username">
+                                <span class="tweet-username">
                                     {{ '@' . $tweet->user->username }} &bull;
                                     <b class="hover:underline"
                                         title="{{ $tweet->created_at->format('d/m/Y, H:i:s') }}">{{ $tweet->created_at->diffForHumans() }}</b>
@@ -511,6 +507,174 @@
                         </div>
                     </div>
                 </a>
+                <div class="text-left">
+                    <div class="dropdown flex flex-col">
+                        <button
+                            class="focus:outline-none hover:bg-gray-900 hover:bg-opacity-25 rounded-full p-2 text-gray-400 hover:text-blue-600 transition-colors ease-in-out"
+                            data-toggle="dropdown" data-target="#basic-example-3" aria-haspopup="true"
+                            aria-expanded="false">
+                            <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16" height="16"
+                                fill="currentColor" viewBox="0 0 992 992" style="enable-background:new 0 0 992 992;"
+                                xml:space="preserve">
+                                <g>
+                                    <circle cx="144.3" cy="496" r="144.3" />
+                                    <circle cx="496" cy="496" r="144.3" />
+                                    <circle cx="847.7" cy="496" r="144.3" />
+                                </g>
+                            </svg>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right bg-black w-80 font-normal"
+                            style="animation: fadeIn 0.4s backwards ease" role="menu">
+                            @if (Auth::id() === $tweet->user->id)
+                                <li class="hover:bg-gray-900 hover:bg-opacity-50 p-2 flex items-center h-12 rounded-t-2xl">
+                                    <a href="#"
+                                        onclick="event.preventDefault(); document.getElementById('myModal-{{ $tweet->id }}-delete').showModal();"
+                                        class="text-red-600 flex items-center ml-2" tabindex="-1" rel="noreferrer"
+                                        role="menuitem">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" width="20"
+                                            height="20">
+                                            <g>
+                                                <path
+                                                    d="M20.746 5.236h-3.75V4.25c0-1.24-1.01-2.25-2.25-2.25h-5.5c-1.24 0-2.25 1.01-2.25 2.25v.986h-3.75c-.414 0-.75.336-.75.75s.336.75.75.75h.368l1.583 13.262c.216 1.193 1.31 2.027 2.658 2.027h8.282c1.35 0 2.442-.834 2.664-2.072l1.577-13.217h.368c.414 0 .75-.336.75-.75s-.335-.75-.75-.75zM8.496 4.25c0-.413.337-.75.75-.75h5.5c.413 0 .75.337.75.75v.986h-7V4.25zm8.822 15.48c-.1.55-.664.795-1.18.795H7.854c-.517 0-1.083-.246-1.175-.75L5.126 6.735h13.74L17.32 19.732z">
+                                                </path>
+                                                <path
+                                                    d="M10 17.75c.414 0 .75-.336.75-.75v-7c0-.414-.336-.75-.75-.75s-.75.336-.75.75v7c0 .414.336.75.75.75zm4 0c.414 0 .75-.336.75-.75v-7c0-.414-.336-.75-.75-.75s-.75.336-.75.75v7c0 .414.336.75.75.75z">
+                                                </path>
+                                            </g>
+                                        </svg>
+                                        <span>
+                                            Excluir
+                                        </span>
+                                    </a>
+                                </li>
+                            @endif
+                            @if ($tweet->is_fixed != true)
+                                <li
+                                    class="hover:bg-gray-900 hover:bg-opacity-50 p-2 flex items-center h-12 border-t border-dim-200">
+                                    <a href="#" tabindex="-1" rel="noreferrer" role="menuitem"
+                                        class="flex items-center ml-2 text-gray-400 fix-tweet"
+                                        data-tweetId="{{ $tweet->id }}">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" width="20"
+                                            height="20">
+                                            <g>
+                                                <path
+                                                    d="M20.472 14.738c-.388-1.808-2.24-3.517-3.908-4.246l-.474-4.307 1.344-2.016c.258-.387.28-.88.062-1.286-.218-.406-.64-.66-1.102-.66H7.54c-.46 0-.884.254-1.1.66-.22.407-.197.9.06 1.284l1.35 2.025-.42 4.3c-1.667.732-3.515 2.44-3.896 4.222-.066.267-.043.672.222 1.01.14.178.46.474 1.06.474h3.858l2.638 6.1c.12.273.39.45.688.45s.57-.177.688-.45l2.638-6.1h3.86c.6 0 .92-.297 1.058-.474.265-.34.288-.745.228-.988zM12 20.11l-1.692-3.912h3.384L12 20.11zm-6.896-5.413c.456-1.166 1.904-2.506 3.265-2.96l.46-.153.566-5.777-1.39-2.082h7.922l-1.39 2.08.637 5.78.456.153c1.355.45 2.796 1.78 3.264 2.96H5.104z">
+                                                </path>
+                                            </g>
+                                        </svg>
+                                        <span>
+                                            Fixar no seu perfil
+                                        </span>
+                                    </a>
+                                </li>
+                            @else
+                                <li
+                                    class="hover:bg-gray-900 hover:bg-opacity-50 p-2 flex items-center h-12 border-t border-dim-200">
+                                    <a href="#" tabindex="-1" rel="noreferrer" role="menuitem"
+                                        class="flex items-center ml-2 text-gray-400 unfix-tweet"
+                                        data-tweetId="{{ $tweet->id }}">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" width="20"
+                                            height="20">
+                                            <g>
+                                                <path
+                                                    d="M20.472 14.738c-.388-1.808-2.24-3.517-3.908-4.246l-.474-4.307 1.344-2.016c.258-.387.28-.88.062-1.286-.218-.406-.64-.66-1.102-.66H7.54c-.46 0-.884.254-1.1.66-.22.407-.197.9.06 1.284l1.35 2.025-.42 4.3c-1.667.732-3.515 2.44-3.896 4.222-.066.267-.043.672.222 1.01.14.178.46.474 1.06.474h3.858l2.638 6.1c.12.273.39.45.688.45s.57-.177.688-.45l2.638-6.1h3.86c.6 0 .92-.297 1.058-.474.265-.34.288-.745.228-.988zM12 20.11l-1.692-3.912h3.384L12 20.11zm-6.896-5.413c.456-1.166 1.904-2.506 3.265-2.96l.46-.153.566-5.777-1.39-2.082h7.922l-1.39 2.08.637 5.78.456.153c1.355.45 2.796 1.78 3.264 2.96H5.104z">
+                                                </path>
+                                            </g>
+                                        </svg>
+                                        <span>
+                                            Desfixar tweet
+                                        </span>
+                                    </a>
+                                </li>
+                            @endif
+                            <li
+                                class="hover:bg-gray-900 hover:bg-opacity-50 p-2 flex items-center h-12 rounded-b-2xl border-t border-dim-200">
+                                <a href="#" tabindex="-1" rel="noreferrer" role="menuitem"
+                                    class="flex items-center ml-2 text-gray-400">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" width="20" height="20">
+                                        <g>
+                                            <path
+                                                d="M23.25 3.25h-2.425V.825c0-.414-.336-.75-.75-.75s-.75.336-.75.75V3.25H16.9c-.414 0-.75.336-.75.75s.336.75.75.75h2.425v2.425c0 .414.336.75.75.75s.75-.336.75-.75V4.75h2.425c.414 0 .75-.336.75-.75s-.336-.75-.75-.75zM18.575 22H4.25C3.01 22 2 20.99 2 19.75V5.5c0-1.24 1.01-2.25 2.25-2.25h8.947c.414 0 .75.336.75.75s-.336.75-.75.75H4.25c-.413 0-.75.336-.75.75v14.25c0 .414.337.75.75.75h14.325c.413 0 .75-.336.75-.75v-8.872c0-.414.336-.75.75-.75s.75.336.75.75v8.872c0 1.24-1.01 2.25-2.25 2.25z">
+                                            </path>
+                                            <path
+                                                d="M16.078 9.583H6.673c-.414 0-.75-.336-.75-.75s.336-.75.75-.75h9.405c.414 0 .75.336.75.75s-.336.75-.75.75zm0 3.867H6.673c-.414 0-.75-.337-.75-.75s.336-.75.75-.75h9.405c.414 0 .75.335.75.75s-.336.75-.75.75zm-4.703 3.866H6.673c-.414 0-.75-.336-.75-.75s.336-.75.75-.75h4.702c.414 0 .75.336.75.75s-.336.75-.75.75z">
+                                            </path>
+                                        </g>
+                                    </svg>
+                                    <span>
+                                        Adicionar/remover {{ '@' . $tweet->user->username }} das Listas
+                                    </span>
+                                </a>
+                            </li>
+                            <li
+                                class="hover:bg-gray-900 hover:bg-opacity-50 p-2 flex items-center h-12 rounded-b-2xl border-t border-dim-200">
+                                <a href="#" tabindex="-1" rel="noreferrer" role="menuitem"
+                                    class="flex items-center ml-2 text-gray-400">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" width="20" height="20">
+                                        <g>
+                                            <path
+                                                d="M23.804 11.5l-6.496-7.25c-.278-.31-.752-.334-1.06-.06-.308.277-.334.752-.058 1.06L22.238 12l-6.047 6.75c-.275.308-.25.782.06 1.06.142.127.32.19.5.19.204 0 .41-.084.558-.25l6.496-7.25c.252-.28.258-.713 0-1zm-23.606 0l6.496-7.25c.278-.31.752-.334 1.06-.06.308.277.334.752.058 1.06L1.764 12l6.047 6.75c.277.308.25.782-.057 1.06-.143.127-.322.19-.5.19-.206 0-.41-.084-.56-.25L.197 12.5c-.252-.28-.257-.713 0-1zm9.872 12c-.045 0-.09-.004-.135-.012-.407-.073-.68-.463-.605-.87l3.863-21.5c.074-.407.466-.674.87-.606.408.073.68.463.606.87l-3.864 21.5c-.065.363-.38.618-.737.618z">
+                                            </path>
+                                        </g>
+                                    </svg>
+                                    <span>
+                                        Incorporar Tweet
+                                    </span>
+                                </a>
+                            </li>
+                            <li
+                                class="hover:bg-gray-900 hover:bg-opacity-50 p-2 flex items-center h-12 rounded-b-2xl border-t border-dim-200">
+                                <a href="#" tabindex="-1" rel="noreferrer" role="menuitem"
+                                    class="flex items-center ml-2 text-gray-400">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" width="20" height="20">
+                                        <g>
+                                            <path
+                                                d="M12 22c-.414 0-.75-.336-.75-.75V2.75c0-.414.336-.75.75-.75s.75.336.75.75v18.5c0 .414-.336.75-.75.75zm5.14 0c-.415 0-.75-.336-.75-.75V7.89c0-.415.335-.75.75-.75s.75.335.75.75v13.36c0 .414-.337.75-.75.75zM6.86 22c-.413 0-.75-.336-.75-.75V10.973c0-.414.337-.75.75-.75s.75.336.75.75V21.25c0 .414-.335.75-.75.75z">
+                                            </path>
+                                        </g>
+                                    </svg>
+                                    <span>
+                                        Ver atividade do Tweet
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                        @if (Auth::id() === $tweet->user->id)
+                            <dialog id="myModal-{{ $tweet->id }}-delete"
+                                class="modal-img xl:w-1/5 lg:w-1/3 md:w-1/2 w-full p-4 cursor-default">
+                                <div class="flex flex-col w-full h-auto">
+                                    <!-- Header -->
+                                    <div class="cursor-text">
+                                        <div class="flex justify-center font-extrabold text-lg">
+                                            Excluir tweet?
+                                        </div>
+                                        <!--Header End-->
+                                    </div>
+                                    <!-- Modal Content-->
+                                    <div class="modal-content py-6 cursor-text">
+                                        Essa ação não poderá ser desfeita, e ele será removido do seu perfil, da timeline de
+                                        todas as contas que seguem você e dos resultados de busca do Twitter.
+                                    </div>
+                                    <!-- End of Modal Content-->
+                                    <div class="flex items-center justify-center space-x-4">
+                                        <button
+                                            class="font-bold flex items-center px-4 py-2 rounded-full focus:outline-none"
+                                            onclick="event.preventDefault(); document.getElementById('myModal-{{ $tweet->id }}-delete').close();"
+                                            style="background: rgb(32,35,39);">
+                                            Cancelar
+                                        </button>
+                                        <button
+                                            class="flex items-center px-4 py-2 rounded-full font-bold bg-red-600 focus:outline-none delete-tweet"
+                                            data-tweetId="{{ $tweet->id }}">
+                                            Excluir
+                                        </button>
+                                    </div>
+                                </div>
+                            </dialog>
+                        @endif
+                    </div>
+                </div>
             </div>
             <div class="pl-16">
                 <a href="{{ route('tweet.show', $tweet->id) }}">
@@ -521,11 +685,9 @@
 
                 @if ($tweet->photo != null)
                     <div class="photo-container">
-                        <img class="tweet-img"
-                            onclick="document.getElementById('myModal-{{ $tweet->id }}').showModal()"
+                        <img class="tweet-img" onclick="document.getElementById('myModal-{{ $tweet->id }}').showModal()"
                             src="{{ asset('img/tweets/medium/' . $tweet->photo) }}" alt="{{ $tweet->photo }}" />
-                        <dialog id="myModal-{{ $tweet->id }}"
-                            class="modal-img">
+                        <dialog id="myModal-{{ $tweet->id }}" class="modal-img">
                             <div class="flex flex-col w-full h-auto ">
                                 <!-- Header -->
                                 <div class="modal-header">
@@ -541,8 +703,7 @@
                                     <!--Header End-->
                                 </div>
                                 <!-- Modal Content-->
-                                <div
-                                    class="modal-content">
+                                <div class="modal-content">
                                     <img src="{{ asset('img/tweets/large/' . $tweet->photo) }}"
                                         alt="{{ $tweet->photo }}" class="w-full max-w-7xl cursor-default">
                                 </div>
@@ -555,8 +716,7 @@
                 <div class="flex mt-8">
                     <div class="w-full">
                         <div class="tweet-actions">
-                            <div
-                                class="tweet-action-icons hover:text-blue-400">
+                            <div class="tweet-action-icons hover:text-blue-400">
                                 <a href="{{ route('tweet.show', $tweet->id) }}" class="flex items-center">
                                     <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
                                         <g>
@@ -570,8 +730,7 @@
                                     </p>
                                 </a>
                             </div>
-                            <div
-                                class="tweet-action-icons hover:text-green-400">
+                            <div class="tweet-action-icons hover:text-green-400">
                                 <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
                                     <g>
                                         <path
@@ -610,7 +769,7 @@
                                     </div>
                                 @break
                             @elseif ($i == $c)
-                                <div class="like-button text-white text-xs hover:text-red-600 ">
+                                <div class="like-button text-gray-400 text-xs hover:text-red-600 ">
                                     <a href="#" class="like flex items-center" data-tweetId="{{ $tweet->id }}"
                                         data-authorId="{{ $tweet->user->id }}"
                                         data-tweetLikes="{{ $tweet->likes->count() }}">
@@ -632,7 +791,7 @@
                             @endphp
     @endforeach
     @if ($i == 0)
-        <div class="like-button text-white text-xs hover:text-red-600 ">
+        <div class="like-button text-gray-400 text-xs hover:text-red-600 ">
             <a href="#" class="like flex items-center" data-tweetId="{{ $tweet->id }}"
                 data-authorId="{{ $tweet->user->id }}" data-tweetLikes="{{ $tweet->likes->count() }}">
                 <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
@@ -648,7 +807,7 @@
             </a>
         </div>
     @endif
-    <div class="flex items-center text-white text-xs hover:text-blue-400 transition duration-350 ease-in-out">
+    <div class="flex items-center text-gray-400 text-xs hover:text-blue-400 transition duration-350 ease-in-out">
         <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
             <g>
                 <path
@@ -719,7 +878,62 @@
                     $(this)[0].innerHTML = 'Seguindo';
                 });
             });
+
+            // Delete Tweet by modal - Axios
+            $('.delete-tweet').on('click', function(e) {
+                e.preventDefault();
+
+                const tweetId = e.target.dataset['tweetid'];
+
+                data = {
+                    _method: 'DELETE',
+                    tweet_id: tweetId,
+                };
+
+                axios.post('/tweet/' + tweetId, data).then(response => {
+                    document.getElementById('myModal-' + tweetId + '-delete').close();
+                    $('.remove-on-delete-' + tweetId + '').closest('div').remove();
+                });
+            });
+
+            // Action to fix the tweet in profile 
+            $('.fix-tweet').on('click', function(e) {
+                e.preventDefault();
+
+                const tweetId = e.target.parentNode.dataset['tweetid'];
+
+                data = {
+                    _method: 'PUT',
+                    tweet_id: tweetId,
+                };
+
+                axios.post('/tweet/fix/' + tweetId, data).then(response => {
+                    alert('fixed');
+                });
+            });
+
+            // Action to unfix the tweet in profile 
+            $('.unfix-tweet').on('click', function(e) {
+                e.preventDefault();
+
+                const tweetId = e.target.parentNode.dataset['tweetid'];
+
+                data = {
+                    _method: 'PUT',
+                    tweet_id: tweetId,
+                };
+
+                axios.post('/tweet/unfix/' + tweetId, data).then(response => {
+                    alert('unfixed');
+                });
+            });
         });
 
     </script>
+@endpush
+
+@push('styles')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 @endpush

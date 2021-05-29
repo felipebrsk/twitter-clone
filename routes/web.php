@@ -29,6 +29,9 @@ Route::view('/', 'welcome')->name('welcome');
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::resource('tweet', TweetController::class);
+    Route::put('tweet/fix/{id}', [TweetController::class, 'fixTweet']);
+    Route::put('tweet/unfix/{id}', [TweetController::class, 'unfixTweet']);
+
     Route::resource('like', LikeController::class);
     Route::resource('like-comment', LikeCommentController::class);
     Route::resource('like-reply', LikeReplyController::class);
