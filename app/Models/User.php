@@ -24,6 +24,7 @@ class User extends Authenticatable
         'phone',
         'bio',
         'location',
+        'views',
         'site',
         'picture',
         'banner',

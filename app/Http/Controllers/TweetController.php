@@ -77,7 +77,19 @@ class TweetController extends Controller
      */
     public function show(Tweet $tweet)
     {
-        $title = $tweet->user->username . ' no Twiter: ' . Str::limit($tweet->body, 40, '...');
+        $notification_count = Auth::user()->unreadNotifications->count();
+        $tweet_details = $tweet->user->username . ' no Twiter: ' . Str::limit($tweet->body, 40, '...');
+
+        if ($notification_count > 0) {
+            $title = '(' . $notification_count . ') ' . $tweet_details;
+        } else {
+            $title = $tweet_details;
+        }
+
+
+        if (Auth::id() != $tweet->user->id) {
+            $tweet->increment('views', 1);
+        }
         
         return view('tweet.show', compact('tweet', 'title'));
     }

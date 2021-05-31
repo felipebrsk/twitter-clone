@@ -1466,7 +1466,7 @@ progress::-webkit-progress-value {
 }
 
 .tweet-head {
-  display: flex;
+  display: block;
   align-items: center;
   font-weight: 500;
   font-size: 1rem;
@@ -1476,12 +1476,18 @@ progress::-webkit-progress-value {
   color: rgba(255, 255, 255, var(--tw-text-opacity));
 }
 
+@media (min-width: 640px) {
+  .tweet-head {
+    display: flex;
+  }
+}
+
 .tweet-username {
   font-weight: 500;
   font-size: 0.875rem;
   line-height: 1.25rem;
   line-height: 1.25rem;
-  margin-left: 0.25rem;
+  margin-left: 0px;
   --tw-text-opacity: 1;
   color: rgba(156, 163, 175, var(--tw-text-opacity));
 }
@@ -1499,6 +1505,12 @@ progress::-webkit-progress-value {
   transition-duration: 150ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
+}
+
+@media (min-width: 640px) {
+  .tweet-username {
+    margin-left: 0.25rem;
+  }
 }
 
 .tweet-body {

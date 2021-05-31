@@ -19,6 +19,7 @@ class CreateTweetsTable extends Migration
             $table->string('slug')->unique();
             $table->text('body');
             $table->string('photo')->nullable();
+            $table->integer('views')->default(0);
             $table->boolean('is_fixed')->default(0);
 
             $table->foreignId('category_id')->nullable()->constrained('categories')->cascadeOnDelete()->cascadeOnUpdate();

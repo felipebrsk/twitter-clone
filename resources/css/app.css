@@ -246,11 +246,11 @@
     }
 
     .tweet-head {
-        @apply flex items-center text-base leading-6 font-medium text-white;
+        @apply sm:flex block items-center text-base leading-6 font-medium text-white;
     }
 
     .tweet-username {
-        @apply ml-1 text-sm leading-5 font-medium text-gray-400 group-hover:text-gray-300 transition ease-in-out duration-150;
+        @apply sm:ml-1 ml-0 text-sm leading-5 font-medium text-gray-400 group-hover:text-gray-300 transition ease-in-out duration-150;
     }
 
     .tweet-body {

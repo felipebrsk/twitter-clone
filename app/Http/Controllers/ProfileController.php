@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Tweet;
+use App\Notifications\StatusNotification;
 
 class ProfileController extends Controller
 {
@@ -17,9 +18,27 @@ class ProfileController extends Controller
      */
     public function show($username)
     {
-        $title = Auth::user()->name . ' ' . '(@' . Auth::user()->username . ')';
+        $notification_count = Auth::user()->unreadNotifications->count();
+        $name = Auth::user()->name . ' ' . '(@' . Auth::user()->username . ')';
+
+        if ($notification_count > 0) {
+            $title = '(' . $notification_count . ') ' . $username;
+        } else {
+            $title = $name;
+        }
 
         $user = User::getUserByUsername($username);
+
+        $details = [
+            'title' => '@' . Auth::user()->username . ' viu o seu perfil',
+            'actionURL' => route('profile.show', Auth::user()->username),
+            'fas' => 'fa-eye',
+        ];
+
+        if (Auth::id() != $user->id) {
+            $user->increment('views', 1);
+            \Notification::send($user, new StatusNotification($details));
+        }
 
         return view('user.profile', compact('user', 'title'));
     }

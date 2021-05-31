@@ -15,8 +15,14 @@ class HomeController extends Controller
 
     public function index()
     {
+        $notification_count = Auth::user()->unreadNotifications->count();
+
+        if ($notification_count > 0) {
+            $title = '(' . $notification_count . ') ';
+        }
+
         $tweets = Tweet::whereIn('user_id', Auth::user()->follows()->pluck('following_id'))->orderBy('id', 'desc')->get();
 
-        return view('home', compact('tweets'));
+        return view('home', compact('tweets', 'title'));
     }
 }

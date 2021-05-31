@@ -1,7 +1,7 @@
-<div class="w-16 xl:w-275 h-screen hide-mobile">
+<div class="w-16 xl:w-275 h-full hide-mobile">
     <div class="flex flex-col h-screen xl:pr-3 fixed overflow-y-auto w-16 xs:w-88 xl:w-275">
         <!-- Logo -->
-        <a class="flex xl:mr-0 mr-3 xl:ml-4 ml-0 my-2 justify-center xl:justify-start" href="#">
+        <a class="flex xl:mr-0 mr-7 xl:ml-4 ml-0 my-2 justify-center xl:justify-start" href="#">
             <svg viewBox="0 0 24 24" class="w-8 h-8 text-white" fill="currentColor">
                 <g>
                     <path

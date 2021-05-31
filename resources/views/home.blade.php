@@ -1,10 +1,9 @@
 @extends('layouts.main')
-@section('title', 'Página Inicial')
+@section('title', $title . ' Página Inicial')
 
 @section('content')
     <!-- Header -->
-    <div
-        class="home-header">
+    <div class="home-header">
         <!-- Title -->
         <div class="flex items-center">
             <a href="{{ route('profile.show', Auth::user()->username) }}">
@@ -142,8 +141,7 @@
                 </div>
 
                 <div>
-                    <button
-                        class="tweet-button">
+                    <button class="tweet-button">
                         Tweet
                     </button>
                 </div>
@@ -155,42 +153,132 @@
     <!-- Tweet -->
     @foreach ($tweets as $tweet)
         <div class="tweet-content border-dim-200 @if ($loop->last) border-b mb-48 @endif">
-            <div class="flex flex-shrink-0 p-4 pb-0">
+            <div class="flex justify-between items-center flex-shrink-0 p-4 pb-0 @if ($tweet->
+                is_fixed) -mt-4 @endif">
                 <a href="{{ route('profile.show', $tweet->user->username) }}" class="flex-shrink-0 group block">
                     <div class="flex items-center">
                         <div>
                             @if ($tweet->user->picture != null)
                                 <img src="{{ asset('img/profiles/' . $tweet->user->picture) }}"
-                                    alt="{{ $tweet->user->username }}" class="profile-image inline-block">
+                                    alt="{{ $tweet->user->username }}" class="w-10 h-10 inline-block rounded-full">
                             @else
-                                <img class="inline-block profile-image"
+                                <img class="inline-block h-10 w-10 rounded-full"
                                     src="{{ asset('img/profiles/default-user.png') }}"
                                     alt="{{ $tweet->user->username }}" />
                             @endif
                         </div>
                         <div class="ml-3">
-                            <p class="tweet-head">
-                                <b class="hover:underline">{{ $tweet->user->name }}</b>
-                                @if ($tweet->user->verified === 1)
-                                    <svg viewBox="0 0 24 24" aria-label="Verified account" fill="currentColor"
-                                        class="w-4 h-4 ml-1">
-                                        <g>
-                                            <path
-                                                d="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.154-.435.238-.905.238-1.4 0-2.21-1.71-3.998-3.818-3.998-.47 0-.92.084-1.336.25C14.818 2.415 13.51 1.5 12 1.5s-2.816.917-3.437 2.25c-.415-.165-.866-.25-1.336-.25-2.11 0-3.818 1.79-3.818 4 0 .494.083.964.237 1.4-1.272.65-2.147 2.018-2.147 3.6 0 1.495.782 2.798 1.942 3.486-.02.17-.032.34-.032.514 0 2.21 1.708 4 3.818 4 .47 0 .92-.086 1.335-.25.62 1.334 1.926 2.25 3.437 2.25 1.512 0 2.818-.916 3.437-2.25.415.163.865.248 1.336.248 2.11 0 3.818-1.79 3.818-4 0-.174-.012-.344-.033-.513 1.158-.687 1.943-1.99 1.943-3.484zm-6.616-3.334l-4.334 6.5c-.145.217-.382.334-.625.334-.143 0-.288-.04-.416-.126l-.115-.094-2.415-2.415c-.293-.293-.293-.768 0-1.06s.768-.294 1.06 0l1.77 1.767 3.825-5.74c.23-.345.696-.436 1.04-.207.346.23.44.696.21 1.04z">
-                                            </path>
-                                        </g>
-                                    </svg>
-                                @endif
-                                <span
-                                    class="tweet-username">
+                            <div class="tweet-head">
+                                <b class="hover:underline flex items-center">
+                                    {{ $tweet->user->name }}
+                                    @if ($tweet->user->verified === 1)
+                                        <svg viewBox="0 0 24 24" aria-label="Verified account" fill="currentColor"
+                                            class="w-4 h-4 ml-1">
+                                            <g>
+                                                <path
+                                                    d="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.154-.435.238-.905.238-1.4 0-2.21-1.71-3.998-3.818-3.998-.47 0-.92.084-1.336.25C14.818 2.415 13.51 1.5 12 1.5s-2.816.917-3.437 2.25c-.415-.165-.866-.25-1.336-.25-2.11 0-3.818 1.79-3.818 4 0 .494.083.964.237 1.4-1.272.65-2.147 2.018-2.147 3.6 0 1.495.782 2.798 1.942 3.486-.02.17-.032.34-.032.514 0 2.21 1.708 4 3.818 4 .47 0 .92-.086 1.335-.25.62 1.334 1.926 2.25 3.437 2.25 1.512 0 2.818-.916 3.437-2.25.415.163.865.248 1.336.248 2.11 0 3.818-1.79 3.818-4 0-.174-.012-.344-.033-.513 1.158-.687 1.943-1.99 1.943-3.484zm-6.616-3.334l-4.334 6.5c-.145.217-.382.334-.625.334-.143 0-.288-.04-.416-.126l-.115-.094-2.415-2.415c-.293-.293-.293-.768 0-1.06s.768-.294 1.06 0l1.77 1.767 3.825-5.74c.23-.345.696-.436 1.04-.207.346.23.44.696.21 1.04z">
+                                                </path>
+                                            </g>
+                                        </svg>
+                                    @endif
+                                </b>
+                                <span class="tweet-username">
                                     {{ '@' . $tweet->user->username }} &bull;
                                     <b class="hover:underline"
                                         title="{{ $tweet->created_at->format('d/m/Y, H:i:s') }}">{{ $tweet->created_at->diffForHumans() }}</b>
                                 </span>
-                            </p>
+                            </div>
                         </div>
                     </div>
                 </a>
+                <div class="text-left">
+                    <div class="dropdown flex flex-col">
+                        <button
+                            class="focus:outline-none hover:bg-gray-900 hover:bg-opacity-75 focus:text-blue-600 rounded-full p-2 text-gray-400 hover:text-blue-600 transition-colors ease-in-out"
+                            data-toggle="dropdown" data-target="#basic-example-3" aria-haspopup="true"
+                            aria-expanded="false">
+                            <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16" height="16"
+                                fill="currentColor" viewBox="0 0 992 992" style="enable-background:new 0 0 992 992;"
+                                xml:space="preserve">
+                                <g>
+                                    <circle cx="144.3" cy="496" r="144.3" />
+                                    <circle cx="496" cy="496" r="144.3" />
+                                    <circle cx="847.7" cy="496" r="144.3" />
+                                </g>
+                            </svg>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right bg-black w-80 font-normal"
+                            style="animation: fadeIn 0.4s backwards ease" role="menu">
+                            @if (Auth::id() === $tweet->user->id)
+                                <a href="#" class="hover:bg-gray-900 hover:bg-opacity-50 p-2 flex items-center h-12"
+                                    tabindex="-1" rel="noreferrer" role="menuitem">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" width="20" height="20">
+                                        <g>
+                                            <path
+                                                d="M12 22.75C6.072 22.75 1.25 17.928 1.25 12S6.072 1.25 12 1.25 22.75 6.072 22.75 12 17.928 22.75 12 22.75zm0-20C6.9 2.75 2.75 6.9 2.75 12S6.9 21.25 12 21.25s9.25-4.15 9.25-9.25S17.1 2.75 12 2.75z">
+                                            </path>
+                                            <path
+                                                d="M12 13.415c1.892 0 3.633.95 4.656 2.544.224.348.123.81-.226 1.035-.348.226-.812.124-1.036-.226-.747-1.162-2.016-1.855-3.395-1.855s-2.648.693-3.396 1.854c-.224.35-.688.45-1.036.225-.35-.224-.45-.688-.226-1.036 1.025-1.594 2.766-2.545 4.658-2.545zm4.216-3.957c0 .816-.662 1.478-1.478 1.478s-1.478-.66-1.478-1.478c0-.817.662-1.478 1.478-1.478s1.478.66 1.478 1.478zm-5.476 0c0 .816-.662 1.478-1.478 1.478s-1.478-.66-1.478-1.478c0-.817.662-1.478 1.478-1.478.817 0 1.478.66 1.478 1.478z">
+                                            </path>
+                                        </g>
+                                    </svg>
+                                    <span>
+                                        Excluir
+                                    </span>
+                                </a>
+                            @endif
+                            <a href="#" tabindex="-1" rel="noreferrer" role="menuitem"
+                                class="hover:bg-gray-900 hover:bg-opacity-50 p-2 flex items-center h-12 rounded-b-2xl border-t border-dim-200 text-gray-400">
+                                <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" width="20" height="20"
+                                    class="ml-2">
+                                    <g>
+                                        <path
+                                            d="M23.25 3.25h-2.425V.825c0-.414-.336-.75-.75-.75s-.75.336-.75.75V3.25H16.9c-.414 0-.75.336-.75.75s.336.75.75.75h2.425v2.425c0 .414.336.75.75.75s.75-.336.75-.75V4.75h2.425c.414 0 .75-.336.75-.75s-.336-.75-.75-.75zM18.575 22H4.25C3.01 22 2 20.99 2 19.75V5.5c0-1.24 1.01-2.25 2.25-2.25h8.947c.414 0 .75.336.75.75s-.336.75-.75.75H4.25c-.413 0-.75.336-.75.75v14.25c0 .414.337.75.75.75h14.325c.413 0 .75-.336.75-.75v-8.872c0-.414.336-.75.75-.75s.75.336.75.75v8.872c0 1.24-1.01 2.25-2.25 2.25z">
+                                        </path>
+                                        <path
+                                            d="M16.078 9.583H6.673c-.414 0-.75-.336-.75-.75s.336-.75.75-.75h9.405c.414 0 .75.336.75.75s-.336.75-.75.75zm0 3.867H6.673c-.414 0-.75-.337-.75-.75s.336-.75.75-.75h9.405c.414 0 .75.335.75.75s-.336.75-.75.75zm-4.703 3.866H6.673c-.414 0-.75-.336-.75-.75s.336-.75.75-.75h4.702c.414 0 .75.336.75.75s-.336.75-.75.75z">
+                                        </path>
+                                    </g>
+                                </svg>
+                                <span>
+                                    Adicionar/remover {{ '@' . $tweet->user->username }} das Listas
+                                </span>
+                            </a>
+                            <a href="#" tabindex="-1" rel="noreferrer" role="menuitem"
+                                class="hover:bg-gray-900 hover:bg-opacity-50 p-2 flex items-center h-12 rounded-b-2xl border-t border-dim-200 text-gray-400">
+                                <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" width="20" height="20"
+                                    class="ml-2">
+                                    <g>
+                                        <path
+                                            d="M23.804 11.5l-6.496-7.25c-.278-.31-.752-.334-1.06-.06-.308.277-.334.752-.058 1.06L22.238 12l-6.047 6.75c-.275.308-.25.782.06 1.06.142.127.32.19.5.19.204 0 .41-.084.558-.25l6.496-7.25c.252-.28.258-.713 0-1zm-23.606 0l6.496-7.25c.278-.31.752-.334 1.06-.06.308.277.334.752.058 1.06L1.764 12l6.047 6.75c.277.308.25.782-.057 1.06-.143.127-.322.19-.5.19-.206 0-.41-.084-.56-.25L.197 12.5c-.252-.28-.257-.713 0-1zm9.872 12c-.045 0-.09-.004-.135-.012-.407-.073-.68-.463-.605-.87l3.863-21.5c.074-.407.466-.674.87-.606.408.073.68.463.606.87l-3.864 21.5c-.065.363-.38.618-.737.618z">
+                                        </path>
+                                    </g>
+                                </svg>
+                                <span>
+                                    Incorporar Tweet
+                                </span>
+                            </a>
+                            @if (Auth::id() === $tweet->user->id)
+                                <a href="#" tabindex="-1" rel="noreferrer" role="menuitem"
+                                    class=" hover:bg-gray-900 hover:bg-opacity-50 text-gray-400 p-2 flex items-center h-12 rounded-b-2xl border-t border-dim-200"
+                                    onclick="event.preventDefault(); document.getElementById('myModal-{{ $tweet->views }}-interactions').showModal();">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" width="20" height="20"
+                                        class="ml-2">
+                                        <g>
+                                            <path
+                                                d="M12 22c-.414 0-.75-.336-.75-.75V2.75c0-.414.336-.75.75-.75s.75.336.75.75v18.5c0 .414-.336.75-.75.75zm5.14 0c-.415 0-.75-.336-.75-.75V7.89c0-.415.335-.75.75-.75s.75.335.75.75v13.36c0 .414-.337.75-.75.75zM6.86 22c-.413 0-.75-.336-.75-.75V10.973c0-.414.337-.75.75-.75s.75.336.75.75V21.25c0 .414-.335.75-.75.75z">
+                                            </path>
+                                        </g>
+                                    </svg>
+                                    <span>
+                                        Ver atividade do Tweet
+                                    </span>
+                                </a>
+                            @endif
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="pl-16">
                 <a href="{{ route('tweet.show', $tweet->id) }}">
@@ -201,16 +289,14 @@
 
                 @if ($tweet->photo != null)
                     <div class="photo-container">
-                        <img class="tweet-img"
-                            onclick="document.getElementById('myModal-{{ $tweet->id }}').showModal()"
+                        <img class="tweet-img" onclick="document.getElementById('myModal-{{ $tweet->id }}').showModal()"
                             src="{{ asset('img/tweets/medium/' . $tweet->photo) }}" alt="{{ $tweet->photo }}" />
-                        <dialog id="myModal-{{ $tweet->id }}"
-                            class="modal-img">
+                        <dialog id="myModal-{{ $tweet->id }}" class="modal-img">
                             <div class="flex flex-col w-full h-auto">
                                 <!-- Header -->
                                 <div class="modal-header">
                                     <div onclick="document.getElementById('myModal-{{ $tweet->id }}').close();"
-                                        class="flex w-1/12 h-auto justify-center">
+                                        class="flex w-1/12 h-auto justify-start">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                             fill="currentColor" stroke="rgba(96, 165, 250)" stroke-width="2"
                                             stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
@@ -221,8 +307,7 @@
                                     <!--Header End-->
                                 </div>
                                 <!-- Modal Content-->
-                                <div
-                                    class="modal-content">
+                                <div class="modal-content">
                                     <img src="{{ asset('img/tweets/large/' . $tweet->photo) }}"
                                         alt="{{ $tweet->photo }}" class="w-full max-w-7xl">
                                 </div>
@@ -235,8 +320,7 @@
                 <div class="flex mt-8">
                     <div class="w-full">
                         <div class="tweet-actions">
-                            <div
-                                class="tweet-action-icons hover:text-blue-400">
+                            <div class="tweet-action-icons hover:text-blue-400">
                                 <a href="{{ route('tweet.show', $tweet->id) }}" class="flex items-center">
                                     <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
                                         <g>
@@ -250,8 +334,7 @@
                                     </p>
                                 </a>
                             </div>
-                            <div
-                                class="tweet-action-icons hover:text-green-400">
+                            <div class="tweet-action-icons hover:text-green-400">
                                 <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
                                     <g>
                                         <path
@@ -316,43 +399,43 @@
                                 $c++;
                             @endphp
 
-                            @endforeach
+    @endforeach
 
-                            @if ($i == 0)
-                                <div class="like-button text-gray-400 text-xs hover:text-red-600 ">
-                                    <a href="#" class="like flex items-center" data-tweetId="{{ $tweet->id }}"
-                                        data-authorId="{{ $tweet->user->id }}" data-tweetLikes="{{ $tweet->likes->count() }}">
-                                        <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
-                                            <g>
-                                                <path
-                                                    d="M12 21.638h-.014C9.403 21.59 1.95 14.856 1.95 8.478c0-3.064 2.525-5.754 5.403-5.754 2.29 0 3.83 1.58 4.646 2.73.814-1.148 2.354-2.73 4.645-2.73 2.88 0 5.404 2.69 5.404 5.755 0 6.376-7.454 13.11-10.037 13.157H12zM7.354 4.225c-2.08 0-3.903 1.988-3.903 4.255 0 5.74 7.034 11.596 8.55 11.658 1.518-.062 8.55-5.917 8.55-11.658 0-2.267-1.823-4.255-3.903-4.255-2.528 0-3.94 2.936-3.952 2.965-.23.562-1.156.562-1.387 0-.014-.03-1.425-2.965-3.954-2.965z">
-                                                </path>
-                                            </g>
-                                        </svg>
-                                        <p>
-                                            {{ $tweet->likes()->count() }}
-                                        </p>
-                                    </a>
-                                </div>
-                            @endif
-
-                            <div class="tweet-action-icons hover:text-blue-400">
-                                <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
-                                    <g>
-                                        <path
-                                            d="M17.53 7.47l-5-5c-.293-.293-.768-.293-1.06 0l-5 5c-.294.293-.294.768 0 1.06s.767.294 1.06 0l3.72-3.72V15c0 .414.336.75.75.75s.75-.336.75-.75V4.81l3.72 3.72c.146.147.338.22.53.22s.384-.072.53-.22c.293-.293.293-.767 0-1.06z">
-                                        </path>
-                                        <path
-                                            d="M19.708 21.944H4.292C3.028 21.944 2 20.916 2 19.652V14c0-.414.336-.75.75-.75s.75.336.75.75v5.652c0 .437.355.792.792.792h15.416c.437 0 .792-.355.792-.792V14c0-.414.336-.75.75-.75s.75.336.75.75v5.652c0 1.264-1.028 2.292-2.292 2.292z">
-                                        </path>
-                                    </g>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    @if ($i == 0)
+        <div class="like-button text-gray-400 text-xs hover:text-red-600 ">
+            <a href="#" class="like flex items-center" data-tweetId="{{ $tweet->id }}"
+                data-authorId="{{ $tweet->user->id }}" data-tweetLikes="{{ $tweet->likes->count() }}">
+                <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
+                    <g>
+                        <path
+                            d="M12 21.638h-.014C9.403 21.59 1.95 14.856 1.95 8.478c0-3.064 2.525-5.754 5.403-5.754 2.29 0 3.83 1.58 4.646 2.73.814-1.148 2.354-2.73 4.645-2.73 2.88 0 5.404 2.69 5.404 5.755 0 6.376-7.454 13.11-10.037 13.157H12zM7.354 4.225c-2.08 0-3.903 1.988-3.903 4.255 0 5.74 7.034 11.596 8.55 11.658 1.518-.062 8.55-5.917 8.55-11.658 0-2.267-1.823-4.255-3.903-4.255-2.528 0-3.94 2.936-3.952 2.965-.23.562-1.156.562-1.387 0-.014-.03-1.425-2.965-3.954-2.965z">
+                        </path>
+                    </g>
+                </svg>
+                <p>
+                    {{ $tweet->likes()->count() }}
+                </p>
+            </a>
         </div>
+    @endif
+
+    <div class="tweet-action-icons hover:text-blue-400">
+        <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
+            <g>
+                <path
+                    d="M17.53 7.47l-5-5c-.293-.293-.768-.293-1.06 0l-5 5c-.294.293-.294.768 0 1.06s.767.294 1.06 0l3.72-3.72V15c0 .414.336.75.75.75s.75-.336.75-.75V4.81l3.72 3.72c.146.147.338.22.53.22s.384-.072.53-.22c.293-.293.293-.767 0-1.06z">
+                </path>
+                <path
+                    d="M19.708 21.944H4.292C3.028 21.944 2 20.916 2 19.652V14c0-.414.336-.75.75-.75s.75.336.75.75v5.652c0 .437.355.792.792.792h15.416c.437 0 .792-.355.792-.792V14c0-.414.336-.75.75-.75s.75.336.75.75v5.652c0 1.264-1.028 2.292-2.292 2.292z">
+                </path>
+            </g>
+        </svg>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
     @endforeach
     <!-- /Tweet -->
 @endsection
