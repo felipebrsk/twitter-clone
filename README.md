@@ -36,6 +36,7 @@ Content Table
 - Possibility to follow how your Following user follows ✔️
 - My profile/users profile ✔️
 - Experiences by modals (post tweet, comment, see pictures, photos etc) ✔️
+- Fix n' unfix Tweets ✔️
 - Report system 
 - Show, edit, remove and retweet tweets 
 
