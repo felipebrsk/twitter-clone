@@ -19,6 +19,8 @@ class HomeController extends Controller
 
         if ($notification_count > 0) {
             $title = '(' . $notification_count . ') ';
+        }else {
+            $title = '';
         }
 
         $tweets = Tweet::whereIn('user_id', Auth::user()->follows()->pluck('following_id'))->orderBy('id', 'desc')->get();

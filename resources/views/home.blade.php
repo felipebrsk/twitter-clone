@@ -471,7 +471,7 @@
                     _method: 'DELETE',
                 };
 
-                axios.post('{{ route('like.destroy', $tweet->id) }}', data).then(response => {
+                axios.post('{{ route('like.destroy', isset($tweet->id)) }}', data).then(response => {
                     e.currentTarget.parentNode.className =
                         'like-button text-white hover:text-red-600';
                     e.currentTarget.lastElementChild.innerHTML = --tweetLikes;

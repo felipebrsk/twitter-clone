@@ -80,7 +80,7 @@ class RegisterController extends Controller
                 'phone' => $data['phone'],
                 'username' => $data['username'],
                 'birthdate' => date($data['birth_year'] . '/' . $data['birth_month'] . '/' . $data['birth_day']),
-                'password' => Hash::make($data['password']),
+                'password' => $data['password'],
             ]);
         } 
         
@@ -90,7 +90,7 @@ class RegisterController extends Controller
                 'email' => $data['email'],
                 'username' => $data['username'],
                 'birthdate' => date($data['birth_year'] . '/' . $data['birth_month'] . '/' . $data['birth_day']),
-                'password' => Hash::make($data['password']),
+                'password' => $data['password'],
             ]);
         }
     }
