@@ -82,7 +82,9 @@ class RegisterController extends Controller
                 'birthdate' => date($data['birth_year'] . '/' . $data['birth_month'] . '/' . $data['birth_day']),
                 'password' => Hash::make($data['password']),
             ]);
-        } elseif (isset($data['email'])) {
+        } 
+        
+        if (isset($data['email'])) {
             return User::create([
                 'name' => $data['name'],
                 'email' => $data['email'],
