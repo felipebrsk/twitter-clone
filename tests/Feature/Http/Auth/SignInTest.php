@@ -21,6 +21,8 @@ class SignInTest extends TestCase
 
         $this->credentials = [
             'email' => 'dummyuser@test.com',
+            'username' => 'dummyuser',
+            'phone' => '75981247326',
             'password' => 'secret1234',
         ];
     }
@@ -30,7 +32,9 @@ class SignInTest extends TestCase
      */
     public function test_if_login_route_responds_ok()
     {
-        $this->get('/login')->assertOk()->assertViewIs('auth.login');
+        $this->get('/login')
+            ->assertOk()
+            ->assertViewIs('auth.login');
     }
 
     /**
@@ -40,7 +44,16 @@ class SignInTest extends TestCase
     {
         $user = $this->createDummyUser($this->credentials);
 
-        $this->actingAs($user)->get('/login')->assertRedirect('/home');
+        $this->actingAs($user)->get('/login')
+            ->assertRedirect('/home');
+    }
+
+    /**
+     *  Test if application redirect to login when not authenticated.
+     */
+    public function test_if_application_redirect_to_login_page_when_not_authenticated()
+    {
+        $this->get('/home')->assertRedirect('/login');
     }
 
     /**
@@ -61,5 +74,56 @@ class SignInTest extends TestCase
         $this->assertTrue(session()->hasOldInput('email'));
         $this->assertFalse(session()->hasOldInput('password'));
         $this->assertGuest();
+    }
+    
+    /**
+     *  Test if an user can sign in with a valid email.
+     */
+    public function test_if_an_user_can_sign_in_with_a_valid_email()
+    {
+        $this->withoutMiddleware();
+
+        $user = $this->createDummyUser($this->credentials);
+        
+        $this->post('/login', [
+            'credentials' => $this->credentials['email'],
+            'password' => $this->credentials['password'] 
+        ]);
+
+        $this->assertAuthenticatedAs($user);
+    }
+
+    /**
+     *  Test if an user can sign in with a valid username.
+     */
+    public function test_if_an_user_can_sign_in_with_a_valid_username()
+    {
+        $this->withoutMiddleware();
+
+        $user = $this->createDummyUser($this->credentials);
+        
+        $this->post('/login', [
+            'credentials' => $this->credentials['username'],
+            'password' => $this->credentials['password'] 
+        ]);
+
+        $this->assertAuthenticatedAs($user);
+    }
+
+    /**
+     *  Test if an user can sign in with a valid phone number.
+     */
+    public function test_if_an_user_can_sign_in_with_a_valid_phone_number()
+    {
+        $this->withoutMiddleware();
+
+        $user = $this->createDummyUser($this->credentials);
+        
+        $this->post('/login', [
+            'credentials' => $this->credentials['phone'],
+            'password' => $this->credentials['password'] 
+        ]);
+
+        $this->assertAuthenticatedAs($user);
     }
 }

@@ -27,12 +27,12 @@ trait HasDummyUser
     }
 
     /**
-     * Create a faker user and make it current user.
+     * Create a dummy user and make it current user.
      *
      * @param array $data
      * @return \App\Models\User
      */
-    protected function actingAsFakerUser(array $data = []): User {
+    protected function actingAsDummyUser(array $data = []): User {
         $user = $this->createDummyUser($data);
 
         $this->actingAs($user);
