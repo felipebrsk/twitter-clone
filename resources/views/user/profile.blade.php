@@ -554,7 +554,7 @@
                                     @if ($tweet->is_fixed != true)
                                         <a href="#" tabindex="-1" rel="noreferrer" role="menuitem"
                                             class="hover:bg-gray-900 hover:bg-opacity-50 p-2 flex items-center h-12 border-t border-dim-200 text-gray-400 fix-tweet"
-                                            data-tweetId="{{ $tweet->id }}">
+                                            data-likableId="{{ $tweet->id }}" data-likableType="App\Models\Tweet">
                                             <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" width="20"
                                                 class="ml-2" height="20">
                                                 <g>
@@ -570,7 +570,7 @@
                                     @else
                                         <a href="#" tabindex="-1" rel="noreferrer" role="menuitem"
                                             class="hover:bg-gray-900 hover:bg-opacity-50 p-2 flex items-center h-12 border-t border-dim-200 text-gray-400 unfix-tweet"
-                                            data-tweetId="{{ $tweet->id }}">
+                                            data-likableId="{{ $tweet->id }}" data-likableType="App\Models\Tweet">
                                             <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" width="20"
                                                 class="ml-2" height="20">
                                                 <g>
@@ -661,7 +661,7 @@
                                             </button>
                                             <button
                                                 class="flex items-center px-4 py-2 rounded-full font-bold bg-red-600 focus:outline-none delete-tweet"
-                                                data-tweetId="{{ $tweet->id }}">
+                                                data-likableId="{{ $tweet->id }}" data-likableType="App\Models\Tweet">
                                                 Excluir
                                             </button>
                                         </div>
@@ -877,7 +877,7 @@
                                 @foreach (Auth::user()->likes as $like)
                                     @if ($like->tweet_id == $tweet->id)
                                         <div class="like-button text-red-600">
-                                            <a href="#" class="unlike flex items-center" data-tweetId="{{ $tweet->id }}"
+                                            <a href="#" class="unlike flex items-center" data-likableId="{{ $tweet->id }}" data-likableType="App\Models\Tweet"
                                                 data-authorId="{{ $tweet->user->id }}"
                                                 data-tweetLikes="{{ $tweet->likes->count() }}">
                                                 <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
@@ -895,7 +895,7 @@
                                     @break
                                 @elseif ($i == $c)
                                     <div class="like-button text-gray-400 text-xs hover:text-red-600 ">
-                                        <a href="#" class="like flex items-center" data-tweetId="{{ $tweet->id }}"
+                                        <a href="#" class="like flex items-center" data-likableId="{{ $tweet->id }}" data-likableType="App\Models\Tweet"
                                             data-authorId="{{ $tweet->user->id }}"
                                             data-tweetLikes="{{ $tweet->likes->count() }}">
                                             <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
@@ -917,7 +917,7 @@
             @endforeach
             @if ($i == 0)
                 <div class="like-button text-gray-400 text-xs hover:text-red-600 ">
-                    <a href="#" class="like flex items-center" data-tweetId="{{ $tweet->id }}"
+                    <a href="#" class="like flex items-center" data-likableId="{{ $tweet->id }}" data-likableType="App\Models\Tweet"
                         data-authorId="{{ $tweet->user->id }}" data-tweetLikes="{{ $tweet->likes->count() }}">
                         <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
                             <g>
@@ -968,13 +968,14 @@
             $('.like').on('click', function(e) {
                 e.preventDefault();
 
-                const tweetId = e.target.parentNode.dataset['tweetid'];
+                const likableId = e.target.parentNode.dataset['likableid'];
                 const authorId = e.target.parentNode.dataset['authorid'];
+                const likableType = e.target.parentNode.dataset['likabletype'];
                 let tweetLikes = e.target.parentNode.dataset['tweetlikes'];
 
                 const data = {
-                    user_id: {{ Auth::id() }},
-                    tweet_id: tweetId,
+                    likable_id: likableId,
+                    likable_type: likableType,
                     author_id: authorId,
                 };
 

@@ -2,44 +2,49 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
-use App\Models\Like;
+use App\Models\{User, Like};
+use Illuminate\Support\Facades\{Auth, DB, Notification};
 use App\Notifications\StatusNotification;
+use App\Http\Requests\Like\LikeRequest;
 
 class LikeController extends Controller
 {
     /**
      * Store a newly created resource in storage.
      *
-     * @param \App\Models\Tweet $tweet;
-     * @param \Illuminate\Http\Request $request;
+     * @param \App\Http\Requests\Like\LikeRequest $request;
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(LikeRequest $request)
     {
-        $verifyExists = Like::where('user_id', Auth::id())->where('tweet_id', $request->tweet_id)->first();
+        $data = $request->validated();
 
-        if ($verifyExists) {
+        if (
+            DB::table('likes')
+                ->where('user_id', Auth::id())
+                ->where('likable_id', $data['likable_id'])
+                ->exists()
+        ) {
             return response()->json(['data' => ['message' => 'Você já curtiu esse tweet!']], 409);
-        } else {
-            $status = Like::create($request->all());
         }
 
-        $tweetAuthor = User::where('id', $request->author_id)->first();
+        $data['user_id'] = Auth::id();
+
+        $status = Like::create($data);
+
+        $tweetAuthor = User::where('id', $data['author_id'])->firstOrFail();
 
         $details = [
             'title' => '@' . Auth::user()->username . ' curtiu o seu tweet!',
-            'actionURL' => route('tweet.show', $request->tweet_id), // Alterar home para url da publicação, quando existir
+            'actionURL' => route('tweet.show', $data['likable_id']), // Alterar home para url da publicação, quando existir
             'fas' => 'fa-heart',
         ];
 
         if ($status) {
-            if ($request->author_id == Auth::id()) {
+            if ($data['author_id'] === Auth::id()) {
                 return redirect()->route('home');
             } else {
-                \Notification::send($tweetAuthor, new StatusNotification($details));
+                Notification::send($tweetAuthor, new StatusNotification($details));
                 return redirect()->route('home');
             }
         } else {
@@ -50,15 +55,11 @@ class LikeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id;
-     * @return \Illuminate\Http\Response
+     * @param  string  $id;
+     * @return void
      */
-    public function destroy($id)
+    public function destroy(string $id): void
     {
-        $like = Like::where('user_id', Auth::id())->where('tweet_id', $id)->first();
-
-        $like->delete();
-
-        return redirect()->route('home');
+        Like::where('user_id', Auth::id())->where('likable_id', $id)->delete();
     }
 }

@@ -101,7 +101,8 @@
                                     </path>
                                 </svg>
                             </label>
-                            <input type="file" name="tweet_picture" id="tweet_picture_home" class="hidden" accept="image/*">
+                            <input type="file" name="tweet_picture" id="tweet_picture_home" class="hidden"
+                                accept="image/*">
                         </div>
 
                         <div class="text-center py-2 m-2">
@@ -153,8 +154,7 @@
     <!-- Tweet -->
     @foreach ($tweets as $tweet)
         <div class="tweet-content border-dim-200 @if ($loop->last) border-b mb-48 @endif">
-            <div class="flex justify-between items-center flex-shrink-0 p-4 pb-0 @if ($tweet->
-                is_fixed) -mt-4 @endif">
+            <div class="flex justify-between items-center flex-shrink-0 p-4 pb-0 @if ($tweet->is_fixed) -mt-4 @endif">
                 <a href="{{ route('profile.show', $tweet->user->username) }}" class="flex-shrink-0 group block">
                     <div class="flex items-center">
                         <div>
@@ -289,7 +289,8 @@
 
                 @if ($tweet->photo != null)
                     <div class="photo-container">
-                        <img class="tweet-img" onclick="document.getElementById('myModal-{{ $tweet->id }}').showModal()"
+                        <img class="tweet-img"
+                            onclick="document.getElementById('myModal-{{ $tweet->id }}').showModal()"
                             src="{{ asset('img/tweets/medium/' . $tweet->photo) }}" alt="{{ $tweet->photo }}" />
                         <dialog id="myModal-{{ $tweet->id }}" class="modal-img">
                             <div class="flex flex-col w-full h-auto">
@@ -359,7 +360,8 @@
 
                                 @if ($like->tweet_id == $tweet->id)
                                     <div class="like-button text-red-600">
-                                        <a href="#" class="unlike flex items-center" data-tweetId="{{ $tweet->id }}"
+                                        <a href="#" class="unlike flex items-center" data-likableId="{{ $tweet->id }}"
+                                            data-likableType="App\Models\Tweet"
                                             data-authorId="{{ $tweet->user->id }}"
                                             data-tweetLikes="{{ $tweet->likes->count() }}">
                                             <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
@@ -378,7 +380,8 @@
 
                             @elseif ($i == $c)
                                 <div class="like-button text-gray-400 text-xs hover:text-red-600 ">
-                                    <a href="#" class="like flex items-center" data-tweetId="{{ $tweet->id }}"
+                                    <a href="#" class="like flex items-center" data-likableId="{{ $tweet->id }}"
+                                        data-likableType="App\Models\Tweet"
                                         data-authorId="{{ $tweet->user->id }}"
                                         data-tweetLikes="{{ $tweet->likes->count() }}">
                                         <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
@@ -403,7 +406,8 @@
 
     @if ($i == 0)
         <div class="like-button text-gray-400 text-xs hover:text-red-600 ">
-            <a href="#" class="like flex items-center" data-tweetId="{{ $tweet->id }}"
+            <a href="#" class="like flex items-center" data-likableId="{{ $tweet->id }}"
+                data-likableType="App\Models\Tweet"
                 data-authorId="{{ $tweet->user->id }}" data-tweetLikes="{{ $tweet->likes->count() }}">
                 <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
                     <g>
@@ -446,14 +450,16 @@
             $('.like').on('click', function(e) {
                 e.preventDefault();
 
-                const tweetId = e.target.parentNode.dataset['tweetid'];
+                const likableId = e.target.parentNode.dataset['likableId'];
                 const authorId = e.target.parentNode.dataset['authorid'];
+                const likableType = e.target.parentNode.dataset['likabletype'];
                 let tweetLikes = e.target.parentNode.dataset['tweetlikes'];
 
                 const data = {
                     user_id: {{ Auth::id() }},
-                    tweet_id: tweetId,
+                    likable_id: likableId,
                     author_id: authorId,
+                    likable_type: likableType,
                 };
 
                 axios.post('{{ route('like.store') }}', data).then(response => {
@@ -472,6 +478,7 @@
                 };
 
                 axios.post('{{ route('like.destroy', isset($tweet->id)) }}', data).then(response => {
+                    console.log(response);
                     e.currentTarget.parentNode.className =
                         'like-button text-white hover:text-red-600';
                     e.currentTarget.lastElementChild.innerHTML = --tweetLikes;
@@ -487,6 +494,5 @@
                 image_output_home.src = URL.createObjectURL(file)
             }
         }
-
     </script>
 @endpush

@@ -5,161 +5,125 @@
 @tailwind utilities;
 @layer components {
     @import url("https://fonts.googleapis.com/css2?family=Lato:wght@900&display=swap");
-
-    ::-webkit-scrollbar {
+     ::-webkit-scrollbar {
         display: flow-root;
     }
-
     /* Styles */
     .error-content {
         @apply p-4 rounded flex items-start text-red-600 my-4 shadow-lg mx-auto max-w-xl justify-center border border-gray-700 bg-red-50;
     }
-
     .success-content {
         @apply p-4 rounded flex items-start text-green-600 my-4 shadow-lg mx-auto max-w-xl justify-center border border-gray-700 bg-red-50;
     }
-
     .active {
         @apply bg-gray-900 text-blue-300;
     }
-
     .auth-main-content {
-        @apply flex md:flex-row flex-col;
+        @apply flex md: flex-row flex-col;
     }
-
     .auth-first-box {
-        @apply md:w-1/2 w-full bg-no-repeat bg-center items-center justify-center text-white;
+        @apply md: w-1/2 w-full bg-no-repeat bg-center items-center justify-center text-white;
         background-image: url("https://abs.twimg.com/sticky/illustrations/lohp_1302x955.png");
         height: 925px;
     }
-
     .auth-second-box {
-        @apply md:w-1/2 w-full flex justify-between flex-col md:py-64 py-12 lg:space-y-10 md:space-y-0 space-y-16 md:px-10 sm:px-20 px-8;
+        @apply md: w-1/2 w-full flex justify-between flex-col md: py-64 py-12 lg: space-y-10 md: space-y-0 space-y-16 md: px-10 sm: px-20 px-8;
         font-family: "Lato", sans-serif;
     }
-
     .happening-now {
-        @apply text-gray-300 lg:text-7xl md:text-5xl sm:text-7xl text-5xl;
+        @apply text-gray-300 lg: text-7xl md: text-5xl sm: text-7xl text-5xl;
     }
-
     .auth-buttons {
-        @apply flex md:flex-col md:space-y-4 flex-col sm:space-y-0 space-y-4 md:space-x-0 sm:space-x-6 sm:flex-row;
+        @apply flex md: flex-col md: space-y-4 flex-col sm: space-y-0 space-y-4 md: space-x-0 sm: space-x-6 sm: flex-row;
     }
-
     .auth-register-button {
-        @apply p-3 md:w-2/5 w-full bg-blue-500 rounded-full hover:bg-blue-600 transition text-center;
+        @apply p-3 md: w-2/5 w-full bg-blue-500 rounded-full hover: bg-blue-600 transition text-center;
     }
-
     .auth-enter-button {
-        @apply p-3 md:w-2/5 w-full rounded-full border border-blue-400 text-blue-500 bg-opacity-0 bg-blue-500 hover:bg-opacity-10 transition text-center;
+        @apply p-3 md: w-2/5 w-full rounded-full border border-blue-400 text-blue-500 bg-opacity-0 bg-blue-500 hover: bg-opacity-10 transition text-center;
     }
-
     .auth-footer {
         @apply py-3.5 text-gray-500 flex justify-center items-center text-xs text-center px-6 flex-wrap;
     }
-
-    .auth-footer > a:hover {
+    .auth-footer>a:hover {
         text-decoration: underline;
     }
-
-    .auth-footer > a,
+    .auth-footer>a,
     span {
         margin-left: 20px;
     }
-
     .register-input {
-        @apply w-full px-4 py-4 rounded-lg border border-gray-800 bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500 pl-3 block;
+        @apply w-full px-4 py-4 rounded-lg border border-gray-800 bg-transparent focus: outline-none focus: ring-2 focus: ring-blue-500 pl-3 block;
     }
-
     /* Make the label grow up when focused */
     .float-label {
         @apply absolute duration-150 top-3 pl-2 mt-1 text-gray-500;
     }
-
-    input:focus ~ label,
-    input:not(:placeholder-shown) ~ label,
-    textarea:focus ~ label,
-    textarea:not(:placeholder-shown) ~ label,
-    select:focus ~ label,
-    select:not([value=""]):valid ~ label {
+    input:focus~label,
+    input:not(:placeholder-shown)~label,
+    textarea:focus~label,
+    textarea:not(:placeholder-shown)~label,
+    select:focus~label,
+    select:not([value=""]):valid~label {
         /* @apply transform; scale-75; -translate-y-6; */
         --tw-translate-x: 0;
         --tw-translate-y: 0;
         --tw-rotate: 0;
         --tw-skew-x: 0;
         --tw-skew-y: 0;
-        transform: translateX(var(--tw-translate-x))
-            translateY(var(--tw-translate-y)) rotate(var(--tw-rotate))
-            skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
-            scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+        transform: translateX(var(--tw-translate-x)) translateY(var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
         --tw-scale-x: 0.75;
         --tw-scale-y: 0.75;
         --tw-translate-y: -1rem;
     }
-
-    input:focus ~ label,
-    select:focus ~ label {
+    input:focus~label,
+    select:focus~label {
         @apply text-blue-500;
         left: 0;
     }
     /* End of grow up label */
-
     .register-main-content {
-        @apply bg-black text-white max-w-xl mx-auto sm:rounded-xl rounded-none sm:my-28 my-0 pb-32;
+        @apply bg-black text-white max-w-xl mx-auto sm: rounded-xl rounded-none sm: my-28 my-0 pb-32;
     }
-
     .register-header-box {
-        @apply flex flex-col md:flex-row items-center md:justify-between sm:space-y-0 space-y-4;
+        @apply flex flex-col md: flex-row items-center md: justify-between sm: space-y-0 space-y-4;
     }
-
     .steps-counter {
         @apply uppercase tracking-wide text-xs font-bold mb-1 leading-tight;
     }
-
     .close-button {
-        @apply focus:outline-none font-medium rounded-full hover:bg-opacity-20 bg-opacity-0 bg-blue-500 w-8 h-8 text-xl text-blue-500;
+        @apply focus: outline-none font-medium rounded-full hover: bg-opacity-20 bg-opacity-0 bg-blue-500 w-8 h-8 text-xl text-blue-500;
     }
-
     .next-button {
-        @apply w-24 focus:outline-none border border-transparent p-1 rounded-full shadow-sm text-center text-white bg-blue-500 hover:bg-blue-600 font-bold;
+        @apply w-24 focus: outline-none border border-transparent p-1 rounded-full shadow-sm text-center text-white bg-blue-500 hover: bg-blue-600 font-bold;
     }
-
     .register-group {
         @apply relative z-0 w-full mb-5;
     }
-
     .change-button {
-        @apply focus:outline-none text-blue-500 hover:underline;
+        @apply focus: outline-none text-blue-500 hover: underline;
     }
-
     .birthdate {
         @apply mt-5;
     }
-
-    .register-input > option {
+    .register-input>option {
         @apply bg-black;
     }
-
     .register-select-group {
-        @apply flex md:flex-row flex-col md:space-x-4 space-x-0 mt-6;
+        @apply flex md: flex-row flex-col md: space-x-4 space-x-0 mt-6;
     }
-
     .register-eye {
         @apply absolute right-0 bottom-0 top-0 px-3 py-3 cursor-pointer mt-1;
     }
-
     .back-button {
-        @apply w-40 block mx-auto focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center font-medium border border-gray-700;
+        @apply w-40 block mx-auto focus: outline-none py-2 px-5 rounded-lg shadow-sm text-center font-medium border border-gray-700;
     }
-
     .analyse-icon {
         @apply mb-4 h-20 w-20 text-green-500 mx-auto;
     }
-
     .analyse-box {
         @apply rounded-lg p-10 flex items-center shadow border border-gray-700;
     }
-
     /* Progress bar register countup */
     progress {
         margin: 2em auto;
@@ -182,277 +146,211 @@
         border-radius: 12px;
         background: rgb(16, 185, 129);
     }
-
     .progress-bar {
         @apply rounded-full border border-gray-700 w-full;
     }
     /* End of progress bar */
-
     .forgot-register {
         @apply text-blue-600;
     }
-
     .status-svg {
-        @apply flex items-center text-blue-400 px-2 py-2 text-base leading-6 font-medium rounded-full hover:bg-gray-800 hover:text-blue-300;
+        @apply flex items-center text-blue-400 px-2 py-2 text-base leading-6 font-medium rounded-full hover: bg-gray-800 hover: text-blue-300;
     }
-
     .like-button {
         @apply flex items-center transition duration-300 ease-in-out;
     }
-
     .profile-card {
         width: 100%;
         max-width: 990px;
     }
-
     .home-header {
-        @apply flex justify-between items-center border-b px-4 md:py-3 py-4 sticky top-0 w-full border-l border-r border-gray-700 bg-black;
+        @apply flex justify-between items-center border-b px-4 md: py-3 py-4 sticky top-0 w-full border-l border-r border-gray-700 bg-black;
     }
-
     .img-header {
         @apply rounded-full w-6 h-6 mr-4;
     }
-
     .config-icon {
-        @apply rounded-full bg-opacity-0 hover:bg-opacity-40 bg-blue-400;
+        @apply rounded-full bg-opacity-0 hover: bg-opacity-40 bg-blue-400;
     }
-
     .notifications-options {
-        @apply sm:px-32 px-12 mt-8 flex justify-between items-center font-bold -mb-3;
+        @apply sm: px-32 px-12 mt-8 flex justify-between items-center font-bold -mb-3;
     }
-
     .option-active {
         @apply border-b-2 border-blue-600 text-blue-600;
     }
-
     .option-inactive {
-        @apply text-gray-400 hover:text-blue-600;
+        @apply text-gray-400 hover: text-blue-600;
     }
-
     .notifications-header {
         @apply border-b px-4 py-3 sticky top-0 w-full border-l border-r border-gray-700 bg-black text-white;
     }
-
     .post-tweet-home {
-        @apply md:block hidden border-b border-l border-r;
+        @apply md: block hidden border-b border-l border-r;
     }
-
     .tweet-content {
-        @apply border-t border-l border-r bg-gray-800 bg-opacity-0 hover:bg-opacity-25 cursor-pointer transition duration-300 ease-in-out pb-4;
+        @apply border-t border-l border-r bg-gray-800 bg-opacity-0 hover: bg-opacity-25 cursor-pointer transition duration-300 ease-in-out pb-4;
     }
-
     .profile-image {
         @apply w-10 h-10 rounded-full;
     }
-
     .tweet-head {
-        @apply sm:flex block items-center text-base leading-6 font-medium text-white;
+        @apply sm: flex block items-center text-base leading-6 font-medium text-white;
     }
-
     .tweet-username {
-        @apply sm:ml-1 ml-0 text-sm leading-5 font-medium text-gray-400 group-hover:text-gray-300 transition ease-in-out duration-150;
+        @apply sm: ml-1 ml-0 text-sm leading-5 font-medium text-gray-400 group-hover: text-gray-300 transition ease-in-out duration-150;
     }
-
     .tweet-body {
         @apply text-base w-auto font-medium text-white flex-shrink px-1 max-w-lg;
     }
-
     .photo-container {
         @apply flex mr-2 rounded-2xl border border-gray-600 max-w-lg;
     }
-    
     .tweet-img {
         @apply rounded-2xl object-center object-cover cursor-pointer;
     }
-
     .modal-img {
-        @apply w-11/12 md:w-4/5 p-5 bg-black rounded-md text-white;
+        @apply w-11/12 md: w-4/5 p-5 bg-black rounded-md text-white;
     }
-
     .modal-header {
         @apply flex w-full h-auto justify-start items-center;
     }
-
     .modal-content {
         @apply flex w-full h-auto py-10 px-2 justify-center items-center rounded text-center text-gray-500 cursor-default;
     }
-
     .tweet-actions {
-        @apply flex items-center md:justify-between justify-end md:pr-16 pr-4 md:space-x-0 space-x-8 text-gray-400;
+        @apply flex items-center md: justify-between justify-end md: pr-16 pr-4 md: space-x-0 space-x-8 text-gray-400;
     }
-
     .tweet-action-icons {
         @apply flex items-center text-gray-400 text-xs transition duration-300 ease-in-out;
     }
-    
     .profile-content {
-        @apply border-l border-r bg-gray-800 bg-opacity-0 hover:bg-opacity-25 transition duration-300 ease-in-out pb-4 text-white border-b;
+        @apply border-l border-r bg-gray-800 bg-opacity-0 hover: bg-opacity-25 transition duration-300 ease-in-out pb-4 text-white border-b;
     }
-
     .profile-header {
         @apply flex justify-between items-center border-b px-4 py-3 sticky top-0 w-full border-gray-700 bg-black text-white z-50;
     }
-
     .banner {
         @apply w-full bg-cover bg-no-repeat bg-center h-52 cursor-pointer;
     }
-
     .banner-modal {
-        @apply w-11/12 md:w-2/3 p-5 bg-black rounded-md text-white;
+        @apply w-11/12 md: w-2/3 p-5 bg-black rounded-md text-white;
     }
-
     .banner-modal-header {
         @apply flex border-b border-gray-800 mb-2 w-full h-auto justify-start items-center;
     }
-
     .no-banner {
         @apply w-full bg-contain bg-no-repeat bg-center h-52;
     }
-
     .avatar-content {
         @apply w-36 h-36 rounded-full relative;
     }
-
     .avatar {
         @apply rounded-full relative border-4 border-black w-36 h-36 object-cover object-center;
     }
-
     .header-modal-avatar {
         @apply flex border-b border-gray-800 mb-2 w-full h-auto justify-start items-center;
     }
-
     .edit-profile-button {
-        @apply flex justify-center whitespace-nowrap focus:outline-none focus:ring max-w-max border bg-transparent border-blue-500 text-blue-500 hover:border-blue-800 items-center hover:shadow-lg font-bold py-2 px-4 rounded-full mr-0 ml-auto;
+        @apply flex justify-center whitespace-nowrap focus: outline-none focus: ring max-w-max border bg-transparent border-blue-500 text-blue-500 hover: border-blue-800 items-center hover: shadow-lg font-bold py-2 px-4 rounded-full mr-0 ml-auto;
     }
-
     .modal-container {
-        @apply w-11/12 md:w-1/3 p-5 bg-black rounded-md text-white;
+        @apply w-11/12 md: w-1/3 p-5 bg-black rounded-md text-white;
     }
-
     .edit-modal-header {
         @apply flex w-full border-b border-gray-800 mb-4 h-auto justify-between items-center;
     }
-
     .no-profile-auth {
-        @apply flex items-center sm:space-x-2 space-x-0;
+        @apply flex items-center sm: space-x-2 space-x-0;
     }
-
     .profile-svg {
-        @apply flex justify-center whitespace-nowrap focus:outline-none border bg-transparent border-blue-500 text-blue-500 hover:border-blue-800 items-center hover:shadow-lg rounded-full mr-0 font-bold px-3;
+        @apply flex justify-center whitespace-nowrap focus: outline-none border bg-transparent border-blue-500 text-blue-500 hover: border-blue-800 items-center hover: shadow-lg rounded-full mr-0 font-bold px-3;
     }
-
     .already-following-button {
-        @apply flex justify-center whitespace-nowrap focus:outline-none items-center hover:shadow-lg font-bold py-1 px-2 rounded-full mr-0 text-white;
+        @apply flex justify-center whitespace-nowrap focus: outline-none items-center hover: shadow-lg font-bold py-1 px-2 rounded-full mr-0 text-white;
     }
-
     .profile-name {
         @apply text-xl leading-6 font-bold text-white;
     }
-
     .profile-username {
         @apply text-sm leading-5 font-medium text-gray-600;
     }
-
     .profile-info {
-        @apply text-gray-600 mt-2 sm:flex sm:space-x-3 space-x-0;
+        @apply text-gray-600 mt-2 sm: flex sm: space-x-3 space-x-0;
     }
-
     .inactive-profile-options {
-        @apply hover:text-blue-400 font-medium text-gray-300 transition-colors;
+        @apply hover: text-blue-400 font-medium text-gray-300 transition-colors;
     }
-
     .active-profile-options {
         @apply text-blue-400 border-b-4 border-blue-400 font-bold py-2;
     }
-
     .show-header {
         @apply flex justify-between items-center border-b px-4 py-3 sticky top-0 w-full border-l border-r border-gray-700 bg-black text-white;
     }
-
     .tweet-createdat {
         @apply flex items-center mt-2 text-gray-500 text-sm ml-1;
     }
-
     .tweet-interaction-content {
         @apply text-white border-t border-b mt-4;
     }
-
     .tweet-interactions {
         @apply py-3 px-2 space-x-6 flex items-center;
     }
-    
     .interact {
-        @apply font-thin text-gray-400 hover:underline;
+        @apply font-thin text-gray-400 hover: underline;
     }
-
     .modal-comment {
-        @apply w-11/12 md:w-1/3 p-5 bg-black rounded-md text-white;
+        @apply w-11/12 md: w-1/3 p-5 bg-black rounded-md text-white;
     }
-
     .tweet-actions-modal {
         @apply flex items-center justify-between px-8 text-gray-400;
     }
-
     .profile-pictures {
         @apply h-10 w-10 rounded-full object-cover;
     }
-
     .modal-comment-textarea {
-        @apply w-full mt-5 focus:outline-none border rounded-lg bg-transparent pl-2 pt-2;
+        @apply w-full mt-5 focus: outline-none border rounded-lg bg-transparent pl-2 pt-2;
     }
-
     .comments-icons {
         @apply flex items-center justify-between text-gray-400;
     }
-
     .modal-comment-content {
         @apply w-full py-10 px-2 rounded text-gray-500;
     }
-
     .answer-button {
         @apply flex items-center p-2 bg-blue-500 rounded-full font-bold float-right;
     }
-
     .tweet-button {
-        @apply bg-blue-400 mr-4 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-full focus:outline-none;
+        @apply bg-blue-400 mr-4 hover: bg-blue-500 text-white font-bold py-2 px-4 rounded-full focus: outline-none;
     }
-
     .reply-modal {
         @apply flex w-full h-auto justify-start items-center border-b;
     }
-
     .right-content {
-        @apply text-blue-400 text-sm font-normal p-3 border-b bg-gray-800 bg-opacity-0 hover:bg-opacity-25 cursor-pointer transition duration-300 ease-in-out;
+        @apply text-blue-400 text-sm font-normal p-3 border-b bg-gray-800 bg-opacity-0 hover: bg-opacity-25 cursor-pointer transition duration-300 ease-in-out;
     }
-
     .follow-button {
-        @apply text-xs font-bold text-blue-400 px-4 py-1 rounded-full border-2 border-blue-400 focus:outline-none;
+        @apply text-xs font-bold text-blue-400 px-4 py-1 rounded-full border-2 border-blue-400 focus: outline-none;
     }
-    
     .follow-button-right {
-        @apply text-xs font-bold text-blue-400 px-4 py-1 rounded-full border-2 border-blue-400 focus:outline-none;
+        @apply text-xs font-bold text-blue-400 px-4 py-1 rounded-full border-2 border-blue-400 focus: outline-none;
     }
-
     .show-more-button {
-        @apply text-blue-400 text-sm font-normal p-3 bg-gray-800 bg-opacity-0 hover:bg-opacity-25 cursor-pointer transition duration-300 ease-in-out;
+        @apply text-blue-400 text-sm font-normal p-3 bg-gray-800 bg-opacity-0 hover: bg-opacity-25 cursor-pointer transition duration-300 ease-in-out;
     }
     /* /Styles */
-
     /* Responsive */
     @media screen and (max-width: 1680px) {
-        .auth-footer > a,
+        .auth-footer>a,
         span {
             margin-top: 4px;
             margin-bottom: 4px;
         }
     }
-
     @media screen and (max-width: 768px) {
         .auth-first-box {
             height: 300px;
         }
     }
-
     @media screen and (max-width: 340px) {
         .auth-second-box {
             word-break: break-all;
@@ -461,37 +359,31 @@
             max-width: 100px;
         }
     }
-
     @media screen and (max-width: 480px) {
         .hide-mobile {
             display: none;
         }
-
         .show-mobile {
             display: block;
         }
     }
-
     @media screen and (min-width: 480px) {
         .show-mobile {
             display: none;
         }
     }
-
     @media screen and (max-width: 480px) {
         .notification-max-w {
             max-width: 280px;
             padding-left: 6px;
         }
     }
-
     @media screen and (min-width: 640px) {
         .profile-card {
             width: 100%;
         }
     }
     /* /Responsive */
-
     /* Animations */
     @keyframes fadeIn {
         from {

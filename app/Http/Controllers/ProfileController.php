@@ -13,10 +13,10 @@ class ProfileController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  string  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($username)
+    public function show(string $username)
     {
         $notification_count = Auth::user()->unreadNotifications->count();
         $name = Auth::user()->name . ' ' . '(@' . Auth::user()->username . ')';

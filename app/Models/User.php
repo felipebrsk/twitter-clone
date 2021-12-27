@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Database\Eloquent\Relations\{HasMany, MorphMany};
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
 
@@ -53,34 +54,44 @@ class User extends Model implements AuthenticatableContract
         'email_verified_at' => 'datetime',
     ];
 
-    public static function getUserByUsername($username)
+    /**
+     * Get the user by username.
+     * @param string $username
+     * @return self|null
+     */
+    public static function getUserByUsername(string $username): self|null
     {
         return User::where('username', $username)->first();
     }
 
-    public function tweets()
+    /**
+     * Get all tweets that owns the User.
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tweets(): HasMany
     {
         return $this->hasMany(Tweet::class)->orderBy('is_fixed', 'desc')->orderBy('id', 'desc');
     }
 
-    public function likes()
+    /**
+     * Get all of the likes for the Comment
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function likes(): MorphMany
     {
-        return $this->hasMany(Like::class);
+        return $this->morphMany(Like::class, 'likable');
     }
 
-    public function likesComments()
+    /**
+     * Get all of the likes for the Comment
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function comments(): MorphMany
     {
-        return $this->hasMany(LikeComment::class);
-    }
-
-    public function likesReplies()
-    {
-        return $this->hasMany(LikeReply::class);
-    }
-
-    public function comments()
-    {
-        return $this->hasMany(Comment::class)->orderBy('id', 'desc');
+        return $this->morphMany(Comment::class, 'commentable');
     }
 
     public function replies()

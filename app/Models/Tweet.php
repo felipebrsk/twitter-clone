@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\{Collection, Model};
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\{BelongsTo, BelongsToMany, HasMany, MorphMany};
 
 class Tweet extends Model
 {
@@ -20,32 +21,51 @@ class Tweet extends Model
 
     use HasFactory;
 
-    public static function getAllTweets()
+    /**
+     * Get all tweets.
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public static function getAllTweets(): Collection
     {
         return Tweet::orderBy('id', 'desc')->get();
     }
 
-    public function likes()
+    /**
+     * Get all of the likes for the Like
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function likes(): MorphMany
     {
-        return $this->hasMany(Like::class);
+        return $this->morphMany(Like::class, 'likable');
     }
-
-    public function likesComments()
-    {
-        return $this->hasMany(LikeComment::class);
-    }
-
-    public function user()
+    
+    /**
+     * Get the user that owns the Tweet
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function comments()
+    /**
+     * Get all of the likes for the Comment
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function comments(): MorphMany
     {
-        return $this->hasMany(Comment::class)->orderBy('id', 'desc');
+        return $this->morphMany(Comment::class, 'commentable');
     }
 
-    public function follows()
+    /**
+     * The follows that belong to the Tweet
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function follows(): BelongsToMany
     {
         return $this->belongsToMany(Follow::class);
     }
